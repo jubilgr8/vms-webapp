@@ -1,0 +1,27 @@
+<nav class="sidebar-nav">
+  <ul class="nav">
+    <li class="nav-item">
+      <!-- <a class="nav-link" href="index.html"><i class="icon-speedometer"></i> Dashboard </a> -->
+    </li>
+
+    <li class="nav-item nav-dropdown open">
+      <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
+      <a
+          class="nav-link nav-dropdown-toggle"
+          [routerLink]="['/vms-admin']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="OnMenuClick($event)"
+          >
+          <i class="icon-location-pin"></i>
+          User Management
+      </a>
+      <ul class="nav-dropdown-items">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/vms-admin/zone" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> User List</a>
+    </li>
+    </ul>
+    </li>
+    
+  </ul>
+</nav>

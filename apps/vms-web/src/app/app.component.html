@@ -1,0 +1,29 @@
+<div class="app header-fixed sidebar-fixed aside-menu-fixed">
+<vms-header *ngIf="isAuthenticated"></vms-header>
+<div class="app-body" *ngIf="isAuthenticated">
+    <div class="sidebar">
+        <vms-navbar></vms-navbar>
+        <button class="sidebar-minimizer brand-minimizer" type="button"><span class="small text-secondary pull-left">© 2017 CMS Computers Ltd.</span></button>
+    </div>
+    <main class="main">
+
+        <!-- Breadcrumb -->
+        <div class="breadcrumb">
+       <h5 class="mb-0">Dashboard</h5>
+  
+          <!-- Breadcrumb Menu-->
+         <!-- <li class="breadcrumb-menu d-md-down-none">
+            <div class="btn-group" role="group" aria-label="Button group">
+              <a class="btn" href="#"><i class="icon-speech"></i></a>
+              <a class="btn" href="index-2.html"><i class="icon-graph"></i> &nbsp;Dashboard</a>
+              <a class="btn" href="#"><i class="icon-settings"></i> &nbsp;Settings</a>
+            </div>
+          </li>-->
+        </div>
+        
+<router-outlet></router-outlet>
+</main>
+</div>
+<router-outlet *ngIf="!isAuthenticated"></router-outlet>
+<!-- <vms-footer></vms-footer> -->
+</div>

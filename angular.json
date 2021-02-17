@@ -1,0 +1,360 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "less",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "less",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "less"
+    }
+  },
+  "defaultProject": "vms-web",
+  "projects": {
+    "vms-web": {
+      "projectType": "application",
+      "root": "apps/vms-web",
+      "sourceRoot": "apps/vms-web/src",
+      "prefix": "vms",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/vms-web",
+            "index": "apps/vms-web/src/index.html",
+            "main": "apps/vms-web/src/main.ts",
+            "polyfills": "apps/vms-web/src/polyfills.ts",
+            "tsConfig": "apps/vms-web/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/vms-web/src/favicon.ico",
+              "apps/vms-web/src/assets"
+            ],
+            "styles": ["apps/vms-web/src/styles.less"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/vms-web/src/environments/environment.ts",
+                  "with": "apps/vms-web/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "vms-web:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "vms-web:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "vms-web:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/vms-web/src/**/*.ts",
+              "apps/vms-web/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/vms-web"],
+          "options": {
+            "jestConfig": "apps/vms-web/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "vms-web-e2e": {
+      "root": "apps/vms-web-e2e",
+      "sourceRoot": "apps/vms-web-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/vms-web-e2e/cypress.json",
+            "tsConfig": "apps/vms-web-e2e/tsconfig.e2e.json",
+            "devServerTarget": "vms-web:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "vms-web:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/vms-web-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "vms-administration": {
+      "projectType": "library",
+      "root": "libs/vms-administration",
+      "sourceRoot": "libs/vms-administration/src",
+      "prefix": "vms",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "libs/vms-administration/tsconfig.lib.json",
+            "project": "libs/vms-administration/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/vms-administration/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/vms-administration/src/**/*.ts",
+              "libs/vms-administration/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/vms-administration"],
+          "options": {
+            "jestConfig": "libs/vms-administration/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "auth": {
+      "projectType": "library",
+      "root": "libs/auth",
+      "sourceRoot": "libs/auth/src",
+      "prefix": "vms",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/auth/src/**/*.ts",
+              "libs/auth/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/auth"],
+          "options": {
+            "jestConfig": "libs/auth/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "api": {
+      "projectType": "library",
+      "root": "libs/api",
+      "sourceRoot": "libs/api/src",
+      "prefix": "vms",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "libs/api/tsconfig.lib.json",
+            "project": "libs/api/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/api/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/api/src/**/*.ts",
+              "libs/api/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/api"],
+          "options": {
+            "jestConfig": "libs/api/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ngrx-error": {
+      "projectType": "library",
+      "root": "libs/ngrx-error",
+      "sourceRoot": "libs/ngrx-error/src",
+      "prefix": "vms",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "libs/ngrx-error/tsconfig.lib.json",
+            "project": "libs/ngrx-error/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ngrx-error/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ngrx-error/src/**/*.ts",
+              "libs/ngrx-error/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ngrx-error"],
+          "options": {
+            "jestConfig": "libs/ngrx-error/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ngrx-forms": {
+      "projectType": "library",
+      "root": "libs/ngrx-forms",
+      "sourceRoot": "libs/ngrx-forms/src",
+      "prefix": "vms",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "libs/ngrx-forms/tsconfig.lib.json",
+            "project": "libs/ngrx-forms/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ngrx-forms/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ngrx-forms/src/**/*.ts",
+              "libs/ngrx-forms/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ngrx-forms"],
+          "options": {
+            "jestConfig": "libs/ngrx-forms/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ngrx-router": {
+      "projectType": "library",
+      "root": "libs/ngrx-router",
+      "sourceRoot": "libs/ngrx-router/src",
+      "prefix": "vms",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:ng-packagr-lite",
+          "options": {
+            "tsConfig": "libs/ngrx-router/tsconfig.lib.json",
+            "project": "libs/ngrx-router/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/ngrx-router/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/ngrx-router/src/**/*.ts",
+              "libs/ngrx-router/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ngrx-router"],
+          "options": {
+            "jestConfig": "libs/ngrx-router/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@vms/vms-administration": ["libs/vms-administration/src/index.ts"],
+      "@vms/auth": ["libs/auth/src/index.ts"],
+      "@vms/api": ["libs/api/src/index.ts"],
+      "@vms/ngrx-error": ["libs/ngrx-error/src/index.ts"],
+      "@vms/ngrx-forms": ["libs/ngrx-forms/src/index.ts"],
+      "@vms/ngrx-router": ["libs/ngrx-router/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}
