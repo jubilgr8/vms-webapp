@@ -1,0 +1,47 @@
+<div class="app  login2-bg header-fixed">
+<header class="app-header navbar">    
+  <a class="navbar-brand" href="#"></a>
+</header>
+
+<div class="app-body flex-row align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card-group mb-0">
+          <div class="card pl-5 p-4">
+            <div class="card-body"> <img src="assets/img/login.png" class="login-icon">
+              <h2>User Login</h2>
+              <p class="text-muted">Welcome VMS System</p>
+              <app-list-errors></app-list-errors>
+
+              <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
+              </app-dynamic-form>
+              <div class="row">
+                <div class="col-8">
+                   <button type="button" class="btn btn-link px-0 text-danger">Register </button> | <button type="button" class="btn btn-link px-0 text-dark ">Forgot password?</button>
+                </div>
+                <div class="col-4 text-right"><button type="button" class="btn btn-danger px-4" (click)="submit()" >Login</button>
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--<div class="card text-white bg-dark py-5 d-md-down-none" style="width:44%">
+            <div class="card-body text-center">
+              <div>
+                <h2>VMS</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                <button type="button" class="btn btn-dark active mt-3">Register Now!</button>
+              </div>
+            </div>
+          </div>-->
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <footer class="app-footer pt-3 bg-dark text-secondary" style=" text-align:center; display:block;">
+    <small> © 2017 CMS Computers Ltd.</small>
+    </footer>
+  </div>
