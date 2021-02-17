@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../../libs/vms-administration/src/index.ts"],"names":[],"mappings":"AAAA,cAAc,iCAAiC,CAAC","sourcesContent":["export * from './lib/vms-administration.module';\n"]}
