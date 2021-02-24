@@ -20,7 +20,8 @@
       "@vms/api": ["libs/api/src/index.ts"],
       "@vms/ngrx-error": ["libs/ngrx-error/src/index.ts"],
       "@vms/ngrx-forms": ["libs/ngrx-forms/src/index.ts"],
-      "@vms/ngrx-router": ["libs/ngrx-router/src/index.ts"]
+      "@vms/ngrx-router": ["libs/ngrx-router/src/index.ts"],
+      "@vms/dashboard": ["libs/dashboard/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

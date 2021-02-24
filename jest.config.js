@@ -8,5 +8,6 @@ module.exports = {
     '<rootDir>/libs/ngrx-error',
     '<rootDir>/libs/ngrx-forms',
     '<rootDir>/libs/ngrx-router',
+    '<rootDir>/libs/dashboard',
   ],
 };

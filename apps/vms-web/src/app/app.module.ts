@@ -26,13 +26,13 @@ import { HeaderComponent } from './layout/header/header.component';
     RouterModule.forRoot(
       [
         {
-          path: 'vms-admin',
+          path: '',
           loadChildren: () =>
-            import('@vms/vms-administration').then((m) => m.VmsAdministrationModule),
+            import('@vms/dashboard').then((m) => m.DashboardModule),
           canActivate: [AuthGuardService]
         },
         {
-          path: 'vms-admin/zone',
+          path: 'vms-admin',
           loadChildren: () =>
             import('@vms/vms-administration').then((m) => m.VmsAdministrationModule),
           canActivate: [AuthGuardService]
