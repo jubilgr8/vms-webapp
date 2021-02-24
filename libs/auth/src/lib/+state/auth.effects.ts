@@ -43,7 +43,7 @@ export class AuthEffects {
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         tap(action => {
           this.localStorageJwtService.setItem(action.user.token);
-          this.router.navigateByUrl('/');
+          this.router.navigateByUrl('/dashboard');
         }),
       ),
     { dispatch: false },
