@@ -12,16 +12,18 @@ import { LocalStorageJwtService } from '../local-storage-jwt.service';
 
 @Injectable()
 export class AuthEffects {
-  getUser$ = createEffect(() =>
+  isAuth$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.getUser),
-      switchMap(item =>
-        this.authService.user().pipe(
-          map(data => AuthActions.getUserSuccess({ user: data.user })),
-          catchError(error => of(AuthActions.getUserFail(error))),
+      ofType(AuthActions.isAuth),
+      tap(action =>
+        {
+        // this.authService.auth(token).pipe(
+        //   map(data => AuthActions.authSuccess({ : data })),
+        //   catchError(error => of(AuthActions.getUserFail(error))),
+        this.router.navigateByUrl('/dashboard');
+        }
         ),
       ),
-    ),
   );
 
   login$ = createEffect(() =>

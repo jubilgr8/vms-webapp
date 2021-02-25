@@ -25,7 +25,7 @@ export class AuthFacade {
     this.store.dispatch(AuthActions.register());
   }
 
-  user() {
-    this.store.dispatch(AuthActions.getUser());
+  auth(token) {
+    this.store.dispatch(AuthActions.isAuth());
   }
 }

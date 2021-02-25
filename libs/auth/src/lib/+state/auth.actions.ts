@@ -1,7 +1,9 @@
 import { User } from 'libs/api/src/index';
 import { createAction, props } from '@ngrx/store';
 
-export const getUser = createAction('[auth] GET_USER');
+export const isAuth = createAction('[auth] IS_AUTH');
+
+export const authSuccess= createAction('[auth] AUTH_SUCCESS', props<{ isAuthenticated: boolean }>());
 
 export const getUserSuccess = createAction('[auth] GET_USER_SUCCESS', props<{ user: User }>());
 

@@ -32,6 +32,6 @@ export class AppComponent implements OnInit {
         take(1),
         filter(token => !!token),
       )
-      .subscribe(token => this.authFacade.user());
+      .subscribe(token => this.authFacade.auth(token));
   }
 }
