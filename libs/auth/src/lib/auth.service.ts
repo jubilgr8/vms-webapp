@@ -7,8 +7,8 @@ import { Login, LoginUserRequest, NewUserRequest, NewUser } from './auth.interfa
 export class AuthService {
   constructor(private apiService: ApiService) {}
 
-  user(): Observable<UserResponse> {
-    return this.apiService.get<UserResponse>('User/GetUsers');
+  auth(token: string): Observable<UserResponse> {
+    return this.apiService.post<UserResponse, string>('User/Authenticate', token);
   }
 
   login(credentials: Login): Observable<User> {

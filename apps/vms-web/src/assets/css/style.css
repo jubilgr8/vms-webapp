@@ -11940,7 +11940,7 @@ app-root {
 
 .sidebar-fixed .main,
 .sidebar-fixed .app-footer {
-  margin-left: 0px;
+  margin-left: 200px;
 }
 
 .sidebar-fixed.sidebar-hidden .main,
