@@ -20,7 +20,7 @@ export class AuthEffects {
         // this.authService.auth(token).pipe(
         //   map(data => AuthActions.authSuccess({ : data })),
         //   catchError(error => of(AuthActions.getUserFail(error))),
-        this.router.navigateByUrl('/dashboard');
+        this.router.navigateByUrl('/register');
         }
         ),
       ),
@@ -45,7 +45,7 @@ export class AuthEffects {
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         tap(action => {
           this.localStorageJwtService.setItem(action.user.token);
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/register');
         }),
       ),
     { dispatch: false },
