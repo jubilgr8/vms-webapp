@@ -6,6 +6,7 @@ export const authFeatureKey = 'auth';
 
 export interface Auth {
   loggedIn: boolean;
+  isTokenValid: boolean;
   user: User;
   status: Status;
 }
@@ -21,6 +22,7 @@ export enum Status {
 
 export const authInitialState: Auth = {
   loggedIn: false,
+  isTokenValid: false,
   status: Status.INIT,
   user: {
     token: '',
@@ -33,7 +35,7 @@ const reducer = createReducer(
   on(AuthActions.getUserSuccess, (state, action) => ({
     ...state,
     loggedIn: true,
-    user: action.user,
+    isTokenValid: action.isValid,
   })),
   on(AuthActions.getUserFail, (state, action) => ({
     ...authInitialState,
@@ -42,19 +44,23 @@ const reducer = createReducer(
     ...state,
     status: Status.IN_PROGRESS,
   })),
-  on(AuthActions.registerSuccess, AuthActions.loginSuccess, (state, action) => ({
-    ...state,
-    loggedIn: true,
-    status: Status.INIT,
-    user: action.user,
-  })),
+  on(
+    AuthActions.registerSuccess,
+    AuthActions.loginSuccess,
+    (state, action) => ({
+      ...state,
+      loggedIn: true,
+      status: Status.INIT,
+      user: action.user,
+    })
+  ),
   on(AuthActions.registerFail, AuthActions.loginFail, (state, _) => ({
     ...state,
     status: Status.INIT,
   })),
   on(AuthActions.logout, (state, action) => ({
     ...authInitialState,
-  })),
+  }))
 );
 
 export function authReducer(state: Auth | undefined, action: Action): Auth {
