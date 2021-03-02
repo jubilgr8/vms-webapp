@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgrxFormsModule } from 'libs/ngrx-forms/src';
-
 import { AuthEffects } from './+state/auth.effects';
 import { AuthFacade } from './+state/auth.facade';
 import { authInitialState, authReducer, authFeatureKey } from './+state/auth.reducer';

@@ -20,7 +20,7 @@ export class AuthEffects {
         // this.authService.auth(token).pipe(
         //   map(data => AuthActions.authSuccess({ : data })),
         //   catchError(error => of(AuthActions.getUserFail(error))),
-        this.router.navigateByUrl('/register');
+        this.router.navigate(["/register"]);
         }
         ),
       ),
