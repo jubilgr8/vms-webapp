@@ -2,7 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ZoneComponent } from './zone/zone.component';
 import { RouterModule } from '@angular/router';
-import { ZoneAccessComponent } from './zoneaccess/zoneaccess.component'
+import { ZoneAccessComponent } from './zoneaccess/zoneaccess.component';
+import { AuthGuardService } from '@vms/auth';
 @NgModule({
   imports: [
     CommonModule,
@@ -11,6 +12,7 @@ import { ZoneAccessComponent } from './zoneaccess/zoneaccess.component'
         path: '/zone',
         pathMatch: 'full',
         component: ZoneComponent,
+        // canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
       {

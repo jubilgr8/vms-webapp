@@ -20,7 +20,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
         path: '',
         pathMatch: 'full',
         component: DashboardComponent,
-        resolve: { DashboardService },
+        // resolve: { DashboardService },
       }
     ]),
     StoreModule.forFeature(dashboardFeatureKey, dashboardReducer, {

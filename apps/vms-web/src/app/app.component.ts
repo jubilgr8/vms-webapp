@@ -16,22 +16,27 @@ export class AppComponent implements OnInit {
   isLoggedIn$: Observable<boolean>;
   isAuthenticated: boolean;
   unsubscribe$: Subject<void> = new Subject();
-  constructor(private authFacade: AuthFacade, private localStorageJwtService: LocalStorageJwtService) {}
+  constructor(
+    private authFacade: AuthFacade,
+    private localStorageJwtService: LocalStorageJwtService
+  ) {}
 
   ngOnInit() {
     debugger;
     this.user$ = this.authFacade.user$;
     this.isLoggedIn$ = this.authFacade.isLoggedIn$;
 
-    this.authFacade.isLoggedIn$.pipe(takeUntil(this.unsubscribe$)).subscribe(isLoggedIn => {
-      this.isAuthenticated = isLoggedIn;
-    });
+    this.authFacade.isLoggedIn$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((isLoggedIn) => {
+        this.isAuthenticated = isLoggedIn;
+      });
     this.localStorageJwtService
       .getItem()
       .pipe(
         take(1),
-        filter(token => !!token),
+        filter((token) => !!token)
       )
-      .subscribe(token => this.authFacade.auth(token));
+      .subscribe((token) => this.authFacade.auth(token));
   }
 }

@@ -2,7 +2,7 @@ import { ApiModule } from '@vms/api';
 import { AuthGuardService, AuthModule } from '@vms/auth';
 import { NgrxErrorModule } from '@vms/ngrx-error';
 import { NgrxRouterModule } from '@vms/ngrx-router';
-import { NgrxFormsModule } from '@vms/ngrx-forms'
+import { NgrxFormsModule } from '@vms/ngrx-forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -26,16 +26,24 @@ import { HeaderComponent } from './layout/header/header.component';
     RouterModule.forRoot(
       [
         {
+          path: '',
+          loadChildren: () =>
+            import('@vms/dashboard').then((m) => m.DashboardModule),
+          canActivate: [AuthGuardService],
+        },
+        {
           path: 'dashboard',
           loadChildren: () =>
             import('@vms/dashboard').then((m) => m.DashboardModule),
-          canActivate: [AuthGuardService]
+          canActivate: [AuthGuardService],
         },
         {
-          path: 'vms-admin/:slug',
+          path: 'vms-admin',
           loadChildren: () =>
-            import('@vms/vms-administration').then((m) => m.VmsAdministrationModule),
-          canActivate: [AuthGuardService]
+            import('@vms/vms-administration').then(
+              (m) => m.VmsAdministrationModule
+            ),
+          canActivate: [AuthGuardService],
         },
         // {
         //   path: 'article/:slug',
@@ -68,16 +76,21 @@ import { HeaderComponent } from './layout/header/header.component';
         initialNavigation: 'enabled',
         useHash: true,
         relativeLinkResolution: 'legacy',
-      },
+      }
     ),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     NgrxRouterModule,
     NgrxErrorModule,
-    NgrxFormsModule
+    NgrxFormsModule,
   ],
-  declarations: [AppComponent, HeaderComponent, FooterComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    NavbarComponent,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
