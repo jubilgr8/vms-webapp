@@ -7,18 +7,21 @@ import { LocalStorageJwtService } from './local-storage-jwt.service';
 
 @Injectable()
 export class AuthGuardService implements CanActivate {
-  constructor(private storage: LocalStorageJwtService, private router: Router) {}
+  constructor(
+    private storage: LocalStorageJwtService,
+    private router: Router
+  ) {}
 
   canActivate(): Observable<boolean> {
     return this.storage.getItem().pipe(
-      map(token => {
+      map((token) => {
         if (!token) {
           this.router.navigate(['/login']);
           return false;
         }
         return true;
       }),
-      take(1),
+      take(1)
     );
   }
 }

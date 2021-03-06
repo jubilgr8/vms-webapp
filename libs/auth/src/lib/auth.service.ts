@@ -17,7 +17,7 @@ export class AuthService {
   constructor(private apiService: ApiService) {}
 
   user(authToken: string): Observable<boolean> {
-    return this.apiService.post<boolean, Token>('Login/Auth', {
+    return this.apiService.post<boolean, Token>('Base/ValidateToken', {
       authToken: authToken,
     });
   }

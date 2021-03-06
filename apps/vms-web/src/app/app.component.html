@@ -1,6 +1,6 @@
 <div class="app header-fixed sidebar-fixed aside-menu-fixed">
-<vms-header *ngIf="isAuthenticated"></vms-header>
-<div class="app-body" *ngIf="isAuthenticated">
+<vms-header *ngIf="showHead"></vms-header>
+<div class="app-body" *ngIf="showHead">
     <div class="sidebar">
         <vms-navbar></vms-navbar>
         <button class="sidebar-minimizer brand-minimizer" type="button"><span class="small text-secondary pull-left">© 2017 CMS Computers Ltd.</span></button>
@@ -24,6 +24,6 @@
 <router-outlet></router-outlet>
 </main>
 </div>
-<router-outlet *ngIf="!isAuthenticated"></router-outlet>
+<router-outlet *ngIf="!showHead"></router-outlet>
 <!-- <vms-footer></vms-footer> -->
 </div>

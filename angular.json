@@ -392,6 +392,43 @@
           }
         }
       }
+    },
+    "user-management": {
+      "projectType": "library",
+      "root": "libs/user-management",
+      "sourceRoot": "libs/user-management/src",
+      "prefix": "vms",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/user-management/tsconfig.lib.json",
+            "project": "libs/user-management/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/user-management/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/user-management/src/**/*.ts",
+              "libs/user-management/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/user-management"],
+          "options": {
+            "jestConfig": "libs/user-management/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

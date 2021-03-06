@@ -31,17 +31,17 @@ export class AuthEffects {
     )
   );
 
-  getUserFail$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(AuthActions.getUserFail),
-        tap((action) => {
-          // this.localStorageJwtService.setItem(action.user.token);
-          this.router.navigateByUrl('/login');
-        })
-      ),
-    { dispatch: false }
-  );
+  // getUserFail$ = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(AuthActions.getUserFail),
+  //       tap((action) => {
+  //         // this.localStorageJwtService.setItem(action.user.token);
+  //         this.router.navigateByUrl('/login');
+  //       })
+  //     ),
+  //   { dispatch: false }
+  // );
 
   login$ = createEffect(() =>
     this.actions$.pipe(
@@ -49,7 +49,10 @@ export class AuthEffects {
       withLatestFrom(this.ngrxFormsFacade.data$),
       exhaustMap(([action, data]) =>
         this.authService.login(data).pipe(
-          map((response) => AuthActions.loginSuccess({ user: response })),
+          map((response) => {
+            debugger;
+            return AuthActions.loginSuccess({ user: response });
+          }),
           catchError((result) =>
             of(fromNgrxForms.setErrors({ errors: result.error.errors }))
           )
@@ -63,6 +66,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         tap((action) => {
+          debugger;
           this.localStorageJwtService.setItem(action.user.token);
           this.router.navigateByUrl('/dashboard');
         })

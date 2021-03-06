@@ -15,9 +15,15 @@ export interface Field {
   placeholder?: string;
   validator?: ValidatorFn[];
   attrs?: any;
+  ddlList?: KeyValue[];
 }
 
-export type FieldType = 'INPUT' | 'TEXTAREA';
+export interface KeyValue {
+  name: string;
+  value: number;
+}
+
+export type FieldType = 'INPUT' | 'TEXTAREA' | 'DROPDOWN';
 
 export interface Errors {
   [key: string]: string;
