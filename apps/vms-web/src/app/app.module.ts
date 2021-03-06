@@ -31,18 +31,18 @@ import { HeaderComponent } from './layout/header/header.component';
             import('@vms/dashboard').then((m) => m.DashboardModule),
           canActivate: [AuthGuardService],
         },
+        // {
+        //   path: 'vms-admin',
+        //   loadChildren: () =>
+        //     import('@vms/vms-administration').then(
+        //       (m) => m.VmsAdministrationModule
+        //     ),
+        //   // canActivate: [AuthGuardService],
+        // },
         {
-          path: 'dashboard',
+          path: 'user-management',
           loadChildren: () =>
-            import('@vms/dashboard').then((m) => m.DashboardModule),
-          canActivate: [AuthGuardService],
-        },
-        {
-          path: 'vms-admin',
-          loadChildren: () =>
-            import('@vms/vms-administration').then(
-              (m) => m.VmsAdministrationModule
-            ),
+            import('@vms/user-management').then((m) => m.UserManagementModule),
           canActivate: [AuthGuardService],
         },
         // {

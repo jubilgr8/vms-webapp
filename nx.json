@@ -24,6 +24,7 @@
     "ngrx-error": { "tags": ["ngrx-error"] },
     "ngrx-forms": { "tags": ["ngrx-forms"] },
     "ngrx-router": { "tags": ["ngrx-router"] },
-    "dashboard": { "tags": ["dashboard"] }
+    "dashboard": { "tags": ["dashboard"] },
+    "user-management": { "tags": [] }
   }
 }
