@@ -9,6 +9,7 @@ export const getData = createSelector(getNgrxForms, (state: NgrxForms) => state.
 export const isValid = createSelector(getNgrxForms, (state: NgrxForms) => state.valid);
 export const getErrors = createSelector(getNgrxForms, (state: NgrxForms) => state.errors);
 export const getTouchedForm = createSelector(getNgrxForms, (state: NgrxForms) => state.touched);
+export const getCheckbox = createSelector(getNgrxForms, (state: NgrxForms) => state.checkbox);
 
 export const ngrxFormsQuery = {
   getStructure,
@@ -16,4 +17,5 @@ export const ngrxFormsQuery = {
   isValid,
   getErrors,
   getTouchedForm,
+  getCheckbox,
 };

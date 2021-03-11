@@ -10,11 +10,16 @@ export class NgrxFormsFacade {
   structure$ = this.store.select(ngrxFormsQuery.getStructure);
   errors$ = this.store.select(ngrxFormsQuery.getErrors);
   touched$ = this.store.select(ngrxFormsQuery.getTouchedForm);
-
+  checkbox$ = this.store.select(ngrxFormsQuery.getCheckbox);
+  
   constructor(private store: Store<NgrxFormsState>) {}
 
   setStructure(structure: any) {
     this.store.dispatch(NgrxFormsActions.setStructure({ structure }));
+  }
+
+  setCheckbox(checkbox: any) {
+    this.store.dispatch(NgrxFormsActions.setCheckbox({ checkbox }));
   }
 
   setData(data: any) {

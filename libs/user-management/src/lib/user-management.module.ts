@@ -30,6 +30,8 @@ import { UserFacade } from './+state/user.facade';
 import { UserService } from './user.service';
 import { AddNewUserComponent } from './add-new-user/add-new-user.component';
 import { RoleListComponent } from './role-list/role-list.component';
+import { AddNewRoleComponent } from './role-list/add-new-role/add-new-role.component';
+import { CheckboxComponent } from 'libs/ngrx-forms/src/lib/fields/checkbox/checkbox.component';
 
 @NgModule({
   imports: [
@@ -56,6 +58,17 @@ import { RoleListComponent } from './role-list/role-list.component';
         component: RoleListComponent,
         // resolve: { DashboardService },
       },
+      {
+        path: 'AddNewRole',
+        pathMatch: 'full',
+        component: AddNewRoleComponent,
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'RoleMenuAccess',
+        pathMatch: 'full',
+        // resolve: { DashboardService },
+      },
     ]),
     StoreModule.forFeature(userFeatureKey, userReducer, {
       initialState: userInitialState,
@@ -78,6 +91,7 @@ import { RoleListComponent } from './role-list/role-list.component';
     UserManagementComponent,
     AddNewUserComponent,
     RoleListComponent,
+    AddNewRoleComponent,
   ],
 })
 export class UserManagementModule {}

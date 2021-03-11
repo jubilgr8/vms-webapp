@@ -23,7 +23,7 @@ export class AuthService {
   }
 
   login(credentials: Login): Observable<User> {
-    return this.apiService.post<User, Login>('User/LoginRequest', credentials);
+    return this.apiService.post<User, Login>('User_API/api/User/LoginRequest', credentials);
   }
 
   register(credentials: NewUser): Observable<UserResponse> {

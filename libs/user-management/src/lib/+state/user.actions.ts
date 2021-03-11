@@ -1,4 +1,4 @@
-import { Errors, RoleMaster, UserMaster } from './user.interfaces';
+import { Errors, MenuMaster, RoleMaster, UserMaster } from './user.interfaces';
 import { props, createAction } from '@ngrx/store';
 
 export const getUserList = createAction('[User] GET_USER_LIST');
@@ -23,6 +23,17 @@ export const getRolesFail = createAction(
   '[Role] Roles_FAIL',
   props<{ error: Error }>()
 );
+export const getMenuList = createAction('[Menu] GET_Menu_LIST');
+
+export const getMenuSuccess = createAction(
+  '[Menu] Menu_LIST_LOADED',
+  props<{ menus: MenuMaster[] }>()
+);
+
+export const getMenuFail = createAction(
+  '[Menu] Menus_FAIL',
+  props<{ error: Error }>()
+);
 
 export const submitUser = createAction('[User] GET_User_LIST');
 
@@ -33,5 +44,17 @@ export const submitUserSuccess = createAction(
 
 export const submitUserFail = createAction(
   '[User] New User Submitted Fail',
+  props<{ error: Error }>()
+);
+
+export const submitRole = createAction('[Role] GET_User_LIST');
+
+export const submitRoleSuccess = createAction(
+  '[Role] New Role Submitted',
+  props<{ paylod: any }>()
+);
+
+export const submitRoleFail = createAction(
+  '[Role] New Role Submitted Fail',
   props<{ error: Error }>()
 );

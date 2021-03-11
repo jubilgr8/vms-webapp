@@ -3,6 +3,7 @@ import { ValidatorFn } from '@angular/forms';
 export interface UserManagement {
   users: UserMaster[];
   roles: RoleMaster[];
+  menus: MenuMaster[];
   errors: Errors;
 }
 
@@ -33,6 +34,37 @@ export interface RoleMaster {
   isDeleted: boolean;
   deletedBy: string;
   deletedDate: number;
+}
+
+export interface MenuMaster {
+  id: number;
+  menuId: string;
+  menuName: string;
+  menuItemDesc: string;
+  menuUrl: string;
+  createdBy: string;
+  createdDate: number;
+  isDeleted: boolean;
+  deletedBy: string;
+  deletedDate: number;
+}
+
+export interface RoleMenuRelation
+{
+id:number;
+roleMasterId:number;
+menuMasterId:number;
+accessAdd:boolean;
+accessView:boolean;
+accessUpd:boolean;
+accessDel : boolean;
+createdBy: string;
+createdDate:number;
+isDeleted:boolean;
+deletedBy:string;
+deletedDate:number;
+menuMaster:MenuMaster;
+roleMaster:RoleMaster;
 }
 
 export type FieldType = 'INPUT' | 'TEXTAREA';

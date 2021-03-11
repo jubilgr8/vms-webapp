@@ -19,6 +19,12 @@ const ddlList: KeyValue[] = [
 const structure: Field[] = [
   {
     type: 'INPUT',
+    name: 'usrId',
+    placeholder: 'User ID',
+    validator: [Validators.required],
+  },
+  {
+    type: 'INPUT',
     name: 'usrName',
     placeholder: 'Username',
     validator: [Validators.required],
@@ -56,6 +62,21 @@ const structure: Field[] = [
     attrs: {
       type: 'password',
     },
+  },
+  {
+    type: 'INPUT',
+    name: 'cnfrmPass',
+    placeholder: 'Confirm Password',
+    validator: [Validators.required],
+    attrs: {
+      type: 'password',
+    },
+  },
+  {
+    type: 'CHECKBOX',
+    name: 'isActive',
+    placeholder: 'Is Active',
+    validator: [Validators.required],
   },
 ];
 
