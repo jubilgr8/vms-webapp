@@ -13,6 +13,7 @@ export const adminInitialState: AdminManagement = {
   zonecoords: null,
   menus: null,
   errors: {},
+  vmss:null,
 };
 
 const reducer = createReducer(
@@ -23,6 +24,13 @@ const reducer = createReducer(
   on(adminAction.getZoneSuccess, (state, action) => ({
     ...state,
     zones: action.zones,
+  })),
+  on(adminAction.getVmsList, (state, action) => ({
+    ...state,
+  })),
+  on(adminAction.getVmsSuccess, (state, action) => ({
+    ...state,
+    vmss: action.vmss,
   })),
   // on(adminAction.getRoleList, (state, action) => ({
   //   ...state,

@@ -4,6 +4,7 @@ export interface AdminManagement {
   zones: ZoneMaster[];
   zonecoords: ZoneCoords[];
   menus: MenuMaster[];
+  vmss:VMSMaster[];
   errors: Errors;
 }
 
@@ -33,6 +34,26 @@ export interface ZoneMaster{
   deletedBy : string;
   zoneCoords:ZoneCoords[];
 }
+
+export interface VMSMaster{
+  id:number;
+  vmsId:string;
+  vmsSrNo:string;
+  vmsDescription:string;
+  isActive:boolean;
+  isDeleted:boolean;
+  deletedDate:number;
+  zoneMasterId:number;
+  latitude:number;
+  longitude:number;
+  contrastCtrl:number;
+  width:number;
+  brightnessCtrl:number;
+  dimmingCtrl:number;
+  staticIp:string;
+  zoneMaster:ZoneMaster[];
+}
+
 export interface ZoneCoords{
   id:number;
   zoneMasterId:number;
@@ -73,14 +94,14 @@ menuMasterId:number;
 accessAdd:boolean;
 accessView:boolean;
 accessUpd:boolean;
-accessDel : boolean;
+accessDel:boolean;
 createdBy: string;
 createdDate:number;
 isDeleted:boolean;
 deletedBy:string;
 deletedDate:number;
-menuMaster:MenuMaster;
-roleMaster:RoleMaster;
+menuMaster:MenuMaster[];
+roleMaster:RoleMaster[];
 }
 
 export type FieldType = 'INPUT' | 'TEXTAREA';

@@ -25,12 +25,15 @@ import { VmsMasterComponent } from './vms-master/vms-master.component';
 import { AddNewZoneComponent } from './add-new-zone/add-new-zone.component';
 import { AddVmsComponent } from './add-vms/add-vms.component';
 import { VmsComponent } from './vms/vms.component';
+import { AddNewVmsComponent } from './add-new-vms/add-new-vms.component';
+import { NgxSliderModule} from "@angular-slider/ngx-slider";
 
 
 @NgModule({
   imports: [
     AuthModule,
     CommonModule,
+    NgxSliderModule,
     NgrxFormsModule,
     RouterModule.forChild([
       {
@@ -68,6 +71,13 @@ import { VmsComponent } from './vms/vms.component';
         // canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
+      {
+        path: 'add-new-vms',
+        pathMatch: 'full',
+        component: AddNewVmsComponent,
+        // canActivate: [AuthGuardService],
+        // resolve: { HomeResolverService },
+      },
     ]),
     StoreModule.forFeature(adminFeatureKey, adminReducer, {
       initialState: adminInitialState,
@@ -87,6 +97,7 @@ import { VmsComponent } from './vms/vms.component';
       multi: true,
     },
   ],
-  declarations: [ZoneComponent, ZoneAccessComponent, VmsMasterComponent, AddNewZoneComponent, AddVmsComponent, VmsComponent],
+  declarations: [ZoneComponent, ZoneAccessComponent, VmsMasterComponent, AddNewZoneComponent, 
+    AddVmsComponent, VmsComponent, AddNewVmsComponent],
 })
 export class VmsAdministrationModule {}

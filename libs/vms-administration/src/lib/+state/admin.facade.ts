@@ -10,8 +10,13 @@ export class AdminFacade {
   zones$ = this.store.select(usersQuery.getZones);
   zonecoords$ = this.store.select(usersQuery.getZoneCoords);
   menus$ = this.store.select(usersQuery.getMenus);
+  vmss$ = this.store.select(usersQuery.getVms);
   getZoneList() {
     this.store.dispatch(adminActions.getZoneList());
+  }
+
+  getVmsList() {
+    this.store.dispatch(adminActions.getVmsList());
   }
   // getRoleList() {
   //   this.store.dispatch(adminActions.getRoleList());

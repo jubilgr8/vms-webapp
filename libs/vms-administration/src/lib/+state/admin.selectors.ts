@@ -6,6 +6,7 @@ import { adminFeatureKey } from './admin.reducer';
 export const getAdminManagement = createFeatureSelector<AdminManagement>(
   adminFeatureKey
 );
+// Zone Details ------------------
 export const getZones = createSelector(
   getAdminManagement,
   (adminMngmnt: AdminManagement) => adminMngmnt.zones
@@ -19,9 +20,16 @@ export const getMenus = createSelector(
   (userManagement: AdminManagement) => userManagement.menus
 );
 
+// VMS Details -----------------
+export const getVms = createSelector(
+  getAdminManagement,
+  (adminMngmnt: AdminManagement) => adminMngmnt.vmss
+);
+
 export const usersQuery = {
   getAdminManagement,
   getZones,
   getZoneCoords,
   getMenus,
+  getVms,
 };
