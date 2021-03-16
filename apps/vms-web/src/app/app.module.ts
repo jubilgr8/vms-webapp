@@ -16,12 +16,16 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+
 
 @NgModule({
   imports: [
     ApiModule,
     AuthModule,
     BrowserModule,
+    NgxSliderModule,
     NxModule.forRoot(),
     RouterModule.forRoot(
       [
@@ -31,20 +35,21 @@ import { HeaderComponent } from './layout/header/header.component';
             import('@vms/dashboard').then((m) => m.DashboardModule),
           canActivate: [AuthGuardService],
         },
-        // {
-        //   path: 'vms-admin',
-        //   loadChildren: () =>
-        //     import('@vms/vms-administration').then(
-        //       (m) => m.VmsAdministrationModule
-        //     ),
-        //   // canActivate: [AuthGuardService],
-        // },
+        {
+          path: 'vms-admin',
+          loadChildren: () =>
+            import('@vms/vms-administration').then(
+              (m) => m.VmsAdministrationModule
+            ),
+         canActivate: [AuthGuardService],
+        },
         {
           path: 'user-management',
           loadChildren: () =>
             import('@vms/user-management').then((m) => m.UserManagementModule),
           canActivate: [AuthGuardService],
         },
+        
         // {
         //   path: 'article/:slug',
         //   loadChildren: () =>
@@ -84,6 +89,7 @@ import { HeaderComponent } from './layout/header/header.component';
     NgrxRouterModule,
     NgrxErrorModule,
     NgrxFormsModule,
+    NgbModule,
   ],
   declarations: [
     AppComponent,
@@ -91,6 +97,8 @@ import { HeaderComponent } from './layout/header/header.component';
     FooterComponent,
     NavbarComponent,
   ],
+  // exports: [NavbarComponent],
+  // bootstrap: [AppComponent,NavbarComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

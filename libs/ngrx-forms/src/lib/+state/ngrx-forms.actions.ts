@@ -8,3 +8,4 @@ export const setErrors = createAction('[ngrxForms] SET_ERRORS', props<{ errors: 
 export const initializeErrors = createAction('[ngrxForms] INITIALIZE_ERRORS');
 export const initializeForm = createAction('[ngrxForms] INITIALIZE_FORM');
 export const resetForm = createAction('[ngrxForms] RESET_FORM');
+export const setCheckbox=createAction('[ngrxForms] SET_CHECKBOX',props<{checkbox:any}>());

@@ -1,0 +1,71 @@
+
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"> <i class="icon-check"></i> <strong>Add New Role</strong>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tickets" aria-expanded="true">
+                                <app-list-errors></app-list-errors>
+                                <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
+                                </app-dynamic-form>
+                                <div class="row">
+                                    <div class="col-12 text-right"><button type="button" class="btn btn-danger px-4"
+                                       (click)="CheckData()" >Next</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+    <div class="tab-pane active  col-md-12" id="tickets" aria-expanded="true" *ngIf="isMenu">
+        <div class="card">
+        <table class="table table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Menu Id</th>
+                    <th>Menu Name</th>
+                    <th>Menu Discription</th>
+                    <th>Access View &nbsp;
+                        <app-checkbox [field$]="checkbox$" [id]="'accessAdd'" #all (change)="toggleAll(all.checked)"></app-checkbox>
+                    </th>
+                    <th>Access Add &nbsp;
+                        <app-checkbox [field$]="checkbox$" [id]="'accessView'"></app-checkbox>
+                    <th>Access Update &nbsp;
+                        <app-checkbox [field$]="checkbox$" [id]="'accessUpd'"></app-checkbox>
+                    <th>Access Delete &nbsp;
+                        <app-checkbox [field$]="checkbox$" [id]="'accessDel'"></app-checkbox>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let menu of menus">
+                    <td>{{menu.menuId}}</td>
+                    <td>{{menu.menuName}}</td>
+                    <td>{{menu.menuItemDesc}}</td>
+                    <!-- <td><input class="form-check-input" type="checkbox" id="delete|{{menu.id}}" ></td> -->
+                    <td><app-checkbox [field$]="checkbox$" [id]="'add|'+menu.id"></app-checkbox></td>
+                    <td><app-checkbox [field$]="checkbox$" [id]="'view|'+menu.id"></app-checkbox></td>
+                    <td><app-checkbox [field$]="checkbox$" [id]="'update|'+menu.id"></app-checkbox></td>
+                    <td><app-checkbox [field$]="checkbox$" [id]="'delete|'+menu.id"></app-checkbox></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {{ngrxFormsFacade.data$.value | json}}
+    <div class="row" *ngIf="isMenu">
+        <div class="col-12 text-right"><button type="button" class="btn btn-success px-4"
+           (click)="submit()" >Save</button>
+        </div>
+    </div>
+</div>
+</div>
+</div>

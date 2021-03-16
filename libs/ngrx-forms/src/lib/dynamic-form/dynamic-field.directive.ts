@@ -14,11 +14,13 @@ import { Field } from '../+state/ngrx-forms.interfaces';
 import { DropdownComponent } from '../fields/dropdown/dropdown.component';
 import { InputComponent } from '../fields/input/input.component';
 import { TextareaComponent } from '../fields/textarea/textarea.component';
+import {CheckboxComponent} from '../fields/checkbox/checkbox.component';
 
 const componentsMapper: { [key: string]: Type<any> } = {
   INPUT: InputComponent,
   TEXTAREA: TextareaComponent,
   DROPDOWN: DropdownComponent,
+  CHECKBOX:CheckboxComponent
 };
 
 @Directive({

@@ -13,6 +13,7 @@ import { InputComponent } from './fields/input/input.component';
 import { TextareaComponent } from './fields/textarea/textarea.component';
 import { ListErrorsComponent } from './list-errors/list-errors.component';
 import { DropdownComponent } from './fields/dropdown/dropdown.component';
+import {CheckboxComponent} from './fields/checkbox/checkbox.component';
 
 @NgModule({
   imports: [
@@ -24,8 +25,8 @@ import { DropdownComponent } from './fields/dropdown/dropdown.component';
     EffectsModule.forFeature([NgrxFormsEffects]),
   ],
   providers: [NgrxFormsEffects, NgrxFormsFacade],
-  declarations: [DynamicFormComponent, DynamicFieldDirective, InputComponent, TextareaComponent, ListErrorsComponent, DropdownComponent],
-  entryComponents: [InputComponent, TextareaComponent],
-  exports: [DynamicFormComponent, ListErrorsComponent],
+  declarations: [DynamicFormComponent, DynamicFieldDirective, InputComponent, TextareaComponent, ListErrorsComponent, DropdownComponent,CheckboxComponent],
+  entryComponents: [InputComponent, TextareaComponent,CheckboxComponent],
+  exports: [DynamicFormComponent, ListErrorsComponent,CheckboxComponent],
 })
 export class NgrxFormsModule {}

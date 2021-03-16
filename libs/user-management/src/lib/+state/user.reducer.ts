@@ -11,6 +11,7 @@ export interface UserState {
 export const userInitialState: UserManagement = {
   users: null,
   roles: null,
+  menus: null,
   errors: {},
 };
 
@@ -29,7 +30,14 @@ const reducer = createReducer(
   on(userActions.getRolesSuccess, (state, action) => ({
     ...state,
     roles: action.roles,
-  }))
+  })),
+  on(userActions.getMenuList, (state,action)=>({
+    ...state,
+  })),
+  on(userActions.getMenuSuccess, (state, action) => ({
+    ...state,
+    menus: action.menus,
+  })),
 );
 
 export function userReducer(

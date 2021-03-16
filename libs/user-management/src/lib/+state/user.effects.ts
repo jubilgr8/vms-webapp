@@ -42,6 +42,17 @@ export class UserEffects {
     )
   );
 
+  getMenuList$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(userActions.getMenuList),
+    switchMap((item) => {
+      return this.userService
+        .getMenuMaster()
+        .pipe(map((data) => userActions.getMenuSuccess({ menus: data })));
+    })
+  )
+);
+
   submitNewUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.submitUser),
@@ -58,4 +69,38 @@ export class UserEffects {
       )
     )
   );
+
+  submitNewRole$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.submitRole),
+      withLatestFrom(this.ngrxFormsFacade.data$),
+      exhaustMap(([action, data]) =>
+        this.userService.submitRole(data).pipe(
+          map((response) => {
+            debugger
+            return userActions.submitRoleSuccess({ paylod: response });
+          }),
+          catchError((result) =>
+            of(fromNgrxForms.setErrors({ errors: result.error.errors }))
+          )
+        )
+      )
+    )
+  );
+  // submitNewRole$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(userActions.submitUser),
+  //     withLatestFrom(this.ngrxFormsFacade.data$),
+  //     exhaustMap(([action, data]) =>
+  //       this.userService.submitUser(data).pipe(
+  //         map((response) => {
+  //           return userActions.submitUserSuccess({ paylod: response });
+  //         }),
+  //         catchError((result) =>
+  //           of(fromNgrxForms.setErrors({ errors: result.error.errors }))
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
 }

@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { UserFacade } from '../+state/user.facade';
 import { RoleMaster, UserMaster } from '../+state/user.interfaces';
 // import { DashboardFacade } from './+state/dashboard.facade';
-
+//import {} from '../role-list/add-new-role/add-new-role.component'
 @Component({
   selector: 'role-list',
   templateUrl: './role-list.component.html',
