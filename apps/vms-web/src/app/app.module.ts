@@ -49,7 +49,12 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
             import('@vms/user-management').then((m) => m.UserManagementModule),
           canActivate: [AuthGuardService],
         },
-        
+        {
+          path: 'media-management',
+          loadChildren: () =>
+            import('@vms/media-management').then((m) => m.MediaManagementModule),
+          canActivate: [AuthGuardService],
+        },
         // {
         //   path: 'article/:slug',
         //   loadChildren: () =>
