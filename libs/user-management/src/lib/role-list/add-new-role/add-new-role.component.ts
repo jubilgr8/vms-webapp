@@ -44,7 +44,7 @@ checkbox.type = "CHECKBOX";
 
 
 export class AddNewRoleComponent implements OnInit {
-
+  value: boolean[];
   structure$: Observable<Field[]>;
   checkbox$: Observable<Field>;
   data$: Observable<any>;

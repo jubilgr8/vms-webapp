@@ -47,8 +47,10 @@
     "@nrwl/angular": "11.2.10",
     "@nrwl/nx": "^7.8.7",
     "bootstrap": "^4.5.0",
+    "lodash": "^4.17.21",
     "popper.js": "^1.16.1",
     "rxjs": "~6.6.3",
+    "rxjs-compat": "^6.6.6",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"
   },

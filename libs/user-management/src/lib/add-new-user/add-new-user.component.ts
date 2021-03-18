@@ -8,12 +8,7 @@ import { UserFacade } from '../+state/user.facade';
 import {ZoneMaster} from '../../../../vms-administration/src/lib/+state/admin.interfaces';
 import {AdminFacade} from '../../../../vms-administration/src/lib/+state/admin.facade';
 
-var ddlList: KeyValue[] = [
-  {
-    name: '--Select--',
-    value: 0,
-  }
-];
+var ddlList: any;
 
 const structure: Field[] = [
   {
@@ -115,15 +110,15 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
           }];
         }
         debugger;
-        ddlList = ddlList.concat(this.ddlData);
-       
+        ddlList =this.ddlData;// ddlList.concat(this.ddlData);
+        
       } else {
         this.adminFacade.getZoneList();
       }
     });
   }
-
   updateForm(changes: any) {
+    debugger;
     this.ngrxFormsFacade.updateData(changes);
   }
 
