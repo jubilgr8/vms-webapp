@@ -53,12 +53,7 @@
               "apps/vms-web/src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "dist/apps/vms-web/assets/css/bootstrap-slider.css",
               "apps/vms-web/src/styles.less"
-            ],
-            "scripts": [
-              "dist/apps/vms-web/assets/bootstrap-slider.min.js"
             ]
           },
           "configurations": {

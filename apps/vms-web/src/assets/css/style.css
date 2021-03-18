@@ -1744,7 +1744,7 @@ select.form-control-lg:not([size]):not([multiple]),
 .input-group-lg > select.form-control:not([size]):not([multiple]),
 .input-group-lg > select.input-group-addon:not([size]):not([multiple]),
 .input-group-lg > .input-group-btn > select.btn:not([size]):not([multiple]) {
-  height: calc(2.3125rem + 2px);
+  height: calc(2.3125rem + 10px);
 }
 
 .form-group {
@@ -11938,8 +11938,7 @@ app-root {
   height: calc(100vh - 55px);
 }
 
-.sidebar-fixed .main,
-.sidebar-fixed .app-footer {
+.sidebar-fixed .main {
   margin-left: 200px;
 }
 
