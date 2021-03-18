@@ -36,6 +36,12 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
           canActivate: [AuthGuardService],
         },
         {
+          path: 'dashboard',
+          loadChildren: () =>
+            import('@vms/dashboard').then((m) => m.DashboardModule),
+          canActivate: [AuthGuardService],
+        },
+        {
           path: 'vms-admin',
           loadChildren: () =>
             import('@vms/vms-administration').then(

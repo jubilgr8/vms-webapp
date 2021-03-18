@@ -1,5 +1,5 @@
-<div class="app header-fixed sidebar-fixed aside-menu-fixed">
-<vms-header *ngIf="showHead"></vms-header>
+<div class="app header-fixed sidebar-fixed aside-menu-fixed" [ngClass] = "isCollapsed ? '' : 'sidebar-hidden'">
+<vms-header *ngIf="showHead" (toggleSidebar)= "toggleSidebar()" ></vms-header>
 <div class="app-body" *ngIf="showHead">
     <div class="sidebar">
         <vms-navbar></vms-navbar>
