@@ -54,12 +54,7 @@
             ],
             "styles": [
               "apps/vms-web/src/styles.less"
-<<<<<<< HEAD
-            ],
-            "scripts": ["dist/apps/vms-web/assets/bootstrap-slider.min.js"]
-=======
             ]
->>>>>>> e1bc7aec36b443f90d830b2d2ad38080b56fcfa7
           },
           "configurations": {
             "production": {
