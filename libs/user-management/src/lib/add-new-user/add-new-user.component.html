@@ -1,0 +1,26 @@
+<div class="container-fluid">
+    <div class="animated fadeIn">
+        <div class="row col-md-9">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"> <i class="icon-check"></i> <strong>Add New User</strong>
+                    </div>
+                    <div class="card-body p-0 ">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tickets" aria-expanded="true">
+                                <app-list-errors></app-list-errors>
+                                <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$" >
+                                </app-dynamic-form>
+                                <!-- <div class="col-md-3"><app-checkbox [field$]="checkbox$" [id]="'isActive'"></app-checkbox>Is Active</div> -->
+                                <div class="row">
+                                    <div class="col-12 text-right"><button type="button" class="btn btn-danger px-4" (click)="submit()">Add User</button>
+                                
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

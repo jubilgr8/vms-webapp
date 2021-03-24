@@ -21,7 +21,7 @@ export class DashboardComponent implements OnInit {
 
     this.authFacade.isLoggedIn$.pipe(takeUntil(this.unsubscribe$)).subscribe(isLoggedIn => {
       this.isAuthenticated = isLoggedIn;
-      this.dashboardFacade.getFilters();
+      // this.dashboardFacade.getFilters();
     });
   }
 

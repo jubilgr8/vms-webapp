@@ -1,4 +1,4 @@
-<nav class="sidebar-nav">
+<nav class="sidebar-nav" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapse">
   <ul class="nav">
     <li class="nav-item">
       <a 
@@ -14,23 +14,83 @@
       <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
       <a
           class="nav-link nav-dropdown-toggle"
-          [routerLink]="['/vms-admin']"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="OnMenuClick($event)"
+          (click)="collapseMenu.toggle()" [attr.aria-expanded]="!isCollapsed"
           >
           <i class="icon-location-pin"></i>
-          VMS Management
+          User Management
       </a>
-      <ul class="nav-dropdown-items">
+      <ul class="nav-dropdown-items" #collapseMenu ="ngbCollapse" [(ngbCollapse)]="isCollapsed">
     <li class="nav-item">
-      <a class="nav-link" routerLink="/vms-admin/zone" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Zone</a>
+      <a class="nav-link" [routerLink]="['/user-management/users']" routerLinkActive="active"     
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="OnMenuClick($event)"><i class="icon-arrow-right-circle"></i> User List</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/vms-admin/set-zone-access" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Set Zone Access</a>
+      <a class="nav-link" routerLink="/user-management/roles" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Role List</a>
     </li>
     </ul>
     </li>
-    
+
+    <li class="nav-item nav-dropdown open">
+      <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
+      <a
+          class="nav-link nav-dropdown-toggle"
+          (click)="collapseV.toggle()" [attr.aria-expanded]="!isCollapsedv"
+          >
+          <i class="icon-location-pin"></i>
+          VMS Administration
+      </a>
+      <ul class="nav-dropdown-items" #collapseV ="ngbCollapse" [(ngbCollapse)]="isCollapsedv">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/vms-admin/zone']" routerLinkActive="active"     
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="OnMenuClick($event)"><i class="icon-arrow-right-circle"></i> Zone List</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/vms-admin/vms" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> VMS List</a>
+    </li>
+    </ul>
+    </li>
+
+
+    <li class="nav-item nav-dropdown open">
+      <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
+      <a
+          class="nav-link nav-dropdown-toggle"
+          [routerLink]="['/media-management']"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          >
+          <i class="icon-location-pin"></i>
+          Media Management
+      </a>
+      <ul class="nav-dropdown-items">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/media-management/']" routerLinkActive="active"     
+          [routerLinkActiveOptions]="{ exact: true }"
+          (click)="OnMenuClick($event)"><i class="icon-arrow-right-circle"></i> Media Upload</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/media-management/" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Media Audit</a>
+    </li>
+    </ul>
+    </li>
   </ul>
 </nav>
+<!-- <ul class="nav">
+  <li class="nav-item nav-dropdown open">
+<div class="row">
+  <div class="col">
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Toggle dropdown</button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button ngbDropdownItem>Action - 1</button>
+        <button ngbDropdownItem>Another Action</button>
+        <button ngbDropdownItem>Something else is here</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</li>
+</ul> -->

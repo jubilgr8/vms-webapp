@@ -6,6 +6,7 @@ export interface NgrxForms {
   valid: boolean;
   errors: Errors;
   touched: boolean;
+  checkbox: Field[];
 }
 
 export interface Field {
@@ -15,9 +16,20 @@ export interface Field {
   placeholder?: string;
   validator?: ValidatorFn[];
   attrs?: any;
+  ddlList?: KeyValue[];
 }
 
-export type FieldType = 'INPUT' | 'TEXTAREA';
+export interface Checkbox{
+  name:string;
+  id:string;
+}
+
+export interface KeyValue {
+  name: string;
+  value: number;
+}
+
+export type FieldType = 'INPUT' | 'TEXTAREA' | 'DROPDOWN' | 'CHECKBOX';
 
 export interface Errors {
   [key: string]: string;

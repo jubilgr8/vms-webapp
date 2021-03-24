@@ -1,7 +1,8 @@
 {
   "version": 1,
   "cli": {
-    "defaultCollection": "@nrwl/angular"
+    "defaultCollection": "@nrwl/angular",
+    "analytics": "78219094-9ca0-447e-9780-103302fe5d3f"
   },
   "schematics": {
     "@nrwl/angular": {
@@ -16,18 +17,18 @@
       }
     },
     "@nrwl/angular:application": {
-      "style": "less",
+      "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest",
       "e2eTestRunner": "cypress"
     },
     "@nrwl/angular:library": {
-      "style": "less",
+      "style": "css",
       "linter": "eslint",
       "unitTestRunner": "jest"
     },
     "@nrwl/angular:component": {
-      "style": "less"
+      "style": "css"
     }
   },
   "defaultProject": "vms-web",
@@ -51,8 +52,9 @@
               "apps/vms-web/src/favicon.ico",
               "apps/vms-web/src/assets"
             ],
-            "styles": ["apps/vms-web/src/styles.less"],
-            "scripts": []
+            "styles": [
+              "apps/vms-web/src/styles.less"
+            ]
           },
           "configurations": {
             "production": {
@@ -388,6 +390,68 @@
           "outputs": ["coverage/libs/dashboard"],
           "options": {
             "jestConfig": "libs/dashboard/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "user-management": {
+      "projectType": "library",
+      "root": "libs/user-management",
+      "sourceRoot": "libs/user-management/src",
+      "prefix": "vms",
+      "architect": {
+        "build": {
+          "builder": "@nrwl/angular:package",
+          "options": {
+            "tsConfig": "libs/user-management/tsconfig.lib.json",
+            "project": "libs/user-management/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "libs/user-management/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/user-management/src/**/*.ts",
+              "libs/user-management/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/user-management"],
+          "options": {
+            "jestConfig": "libs/user-management/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "media-management": {
+      "projectType": "library",
+      "root": "libs/media-management",
+      "sourceRoot": "libs/media-management/src",
+      "prefix": "vms",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/media-management/src/**/*.ts",
+              "libs/media-management/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/media-management"],
+          "options": {
+            "jestConfig": "libs/media-management/jest.config.js",
             "passWithNoTests": true
           }
         }

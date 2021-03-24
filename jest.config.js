@@ -9,5 +9,7 @@ module.exports = {
     '<rootDir>/libs/ngrx-forms',
     '<rootDir>/libs/ngrx-router',
     '<rootDir>/libs/dashboard',
+    '<rootDir>/libs/user-management',
+    '<rootDir>/libs/media-management',
   ],
 };

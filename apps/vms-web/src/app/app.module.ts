@@ -2,7 +2,7 @@ import { ApiModule } from '@vms/api';
 import { AuthGuardService, AuthModule } from '@vms/auth';
 import { NgrxErrorModule } from '@vms/ngrx-error';
 import { NgrxRouterModule } from '@vms/ngrx-router';
-import { NgrxFormsModule } from '@vms/ngrx-forms'
+import { NgrxFormsModule } from '@vms/ngrx-forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
@@ -16,26 +16,50 @@ import { AppComponent } from './app.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+
 
 @NgModule({
   imports: [
     ApiModule,
     AuthModule,
     BrowserModule,
+    NgxSliderModule,
     NxModule.forRoot(),
     RouterModule.forRoot(
       [
         {
+          path: '',
+          loadChildren: () =>
+            import('@vms/dashboard').then((m) => m.DashboardModule),
+          canActivate: [AuthGuardService],
+        },
+        {
           path: 'dashboard',
           loadChildren: () =>
             import('@vms/dashboard').then((m) => m.DashboardModule),
-          canActivate: [AuthGuardService]
+          canActivate: [AuthGuardService],
         },
         {
-          path: 'vms-admin/:slug',
+          path: 'vms-admin',
           loadChildren: () =>
-            import('@vms/vms-administration').then((m) => m.VmsAdministrationModule),
-          canActivate: [AuthGuardService]
+            import('@vms/vms-administration').then(
+              (m) => m.VmsAdministrationModule
+            ),
+         canActivate: [AuthGuardService],
+        },
+        {
+          path: 'user-management',
+          loadChildren: () =>
+            import('@vms/user-management').then((m) => m.UserManagementModule),
+          canActivate: [AuthGuardService],
+        },
+        {
+          path: 'media-management',
+          loadChildren: () =>
+            import('@vms/media-management').then((m) => m.MediaManagementModule),
+          canActivate: [AuthGuardService],
         },
         // {
         //   path: 'article/:slug',
@@ -68,16 +92,24 @@ import { HeaderComponent } from './layout/header/header.component';
         initialNavigation: 'enabled',
         useHash: true,
         relativeLinkResolution: 'legacy',
-      },
+      }
     ),
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     NgrxRouterModule,
     NgrxErrorModule,
-    NgrxFormsModule
+    NgrxFormsModule,
+    NgbModule,
   ],
-  declarations: [AppComponent, HeaderComponent, FooterComponent, NavbarComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    NavbarComponent,
+  ],
+  // exports: [NavbarComponent],
+  // bootstrap: [AppComponent,NavbarComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

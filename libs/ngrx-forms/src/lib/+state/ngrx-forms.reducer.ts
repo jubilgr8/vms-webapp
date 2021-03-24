@@ -14,6 +14,7 @@ export const ngrxFormsInitialState: NgrxForms = {
   valid: true,
   errors: {},
   touched: false,
+  checkbox: [],
 };
 
 const reducer = createReducer(

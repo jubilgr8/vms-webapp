@@ -1,0 +1,7 @@
+<fieldset [formGroup]="group" class="col form-group">
+    <select class="col form-control form-control-lg ddlLength"
+     [formControlName]="field?.name">
+        <option [value]="" selected>--Select--</option>
+        <option *ngFor="let option of field?.ddlList" [value]="option.value">{{option.name}}</option>
+    </select>
+</fieldset>

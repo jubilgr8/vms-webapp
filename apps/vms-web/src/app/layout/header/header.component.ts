@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
 import { User } from '@vms/api';
+import { EmitOutput } from 'typescript';
 
 @Component({
   selector: 'vms-header',
@@ -10,4 +11,10 @@ import { User } from '@vms/api';
 export class HeaderComponent {
   @Input() user: User;
   @Input() isLoggedIn: boolean;
+  @Output() toggleSidebar = new EventEmitter<boolean>();
+
+  sidebarClicked() {
+    debugger;
+    this.toggleSidebar.emit(true);
+  }
 }
