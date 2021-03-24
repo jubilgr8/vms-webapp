@@ -10,7 +10,7 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="tickets" aria-expanded="true">
                                 <app-list-errors></app-list-errors>
-                                <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
+                                <app-dynamic-form  (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
                                 </app-dynamic-form>
                                 <div class="row">
                                     <div class="col-12 text-right"><button type="button" class="btn btn-danger px-4"
@@ -28,6 +28,32 @@
 <div class="container-fluid">
     <div class="row">
     <div class="tab-pane active  col-md-12" id="tickets" aria-expanded="true" *ngIf="isMenu">
+        <div style="text-align:center">
+            <h1>
+            </h1>
+          </div>
+          <div class="container">
+            <div class="text-center mt-5">
+              <div class="row">
+                  <div class="col-md-6">
+                      <ul class="list-group">
+                          <li class="list-group-item">
+                            <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/> <strong>Select/ Unselect All</strong>
+                          </li>
+                        </ul>
+                        <ul class="list-group">
+                          <li class="list-group-item" *ngFor="let item of checklist">
+                            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}" (change)="isAllSelected()"/>
+                            {{item.value}}
+                          </li>
+                        </ul>
+                  </div>
+                  <div class="col-md-6">
+                      <code>{{checkedList}}</code>
+                  </div>
+              </div>
+            </div>
+          </div>
         <div class="card">
         <table class="table table-hover mb-0">
             <thead>
@@ -36,14 +62,14 @@
                     <th>Menu Name</th>
                     <th>Menu Discription</th>
                     <th>Access View &nbsp;
-                        <app-checkbox [field$]="checkbox$" [id]="'accessAdd'" #all (change)="toggleAll(all.checked)"></app-checkbox>
+                        <input type="checkbox" [field$]="checkbox$"  [id]="'accessAdd'" #all (change)="updateItem($event, 'accessAdd')">
                     </th>
                     <th>Access Add &nbsp;
-                        <app-checkbox [field$]="checkbox$" [id]="'accessView'"></app-checkbox>
+                        <input type="checkbox" [field$]="checkbox$" [id]="'accessView'" #all (change)="updateItem($event, 'accessView')">
                     <th>Access Update &nbsp;
-                        <app-checkbox [field$]="checkbox$" [id]="'accessUpd'"></app-checkbox>
+                        <input type="checkbox" [field$]="checkbox$" [id]="'accessUpd'" #all (change)="updateItem($event, 'accessUpd')" >
                     <th>Access Delete &nbsp;
-                        <app-checkbox [field$]="checkbox$" [id]="'accessDel'"></app-checkbox>
+                        <input type="checkbox" [field$]="checkbox$" [id]="'accessDel'" #all (change)="updateItem($event, 'accessDel')">
                 </tr>
             </thead>
             <tbody>
@@ -51,19 +77,17 @@
                     <td>{{menu.menuId}}</td>
                     <td>{{menu.menuName}}</td>
                     <td>{{menu.menuItemDesc}}</td>
-                    <!-- <td><input class="form-check-input" type="checkbox" id="delete|{{menu.id}}" ></td> -->
-                    <td><app-checkbox [field$]="checkbox$" [id]="'add|'+menu.id"></app-checkbox></td>
-                    <td><app-checkbox [field$]="checkbox$" [id]="'view|'+menu.id"></app-checkbox></td>
-                    <td><app-checkbox [field$]="checkbox$" [id]="'update|'+menu.id"></app-checkbox></td>
-                    <td><app-checkbox [field$]="checkbox$" [id]="'delete|'+menu.id"></app-checkbox></td>
+                    <td><input type="checkbox" [field$]="checkbox$" [id]="'add|'+menu.id" (change)="updateItem($event, 'add|'+menu.id)"></td>
+                    <td><input type="checkbox" [field$]="checkbox$" [id]="'view|'+menu.id"  (change)="updateItem($event, 'view|'+menu.id)"></td>
+                    <td><input type="checkbox" [field$]="checkbox$" [id]="'update|'+menu.id" (change)="updateItem($event, 'update|'+menu.id)"></td>
+                    <td><input type="checkbox" [field$]="checkbox$" [id]="'delete|'+menu.id" (change)="updateItem($event, 'delete|'+menu.id)"></td>
                 </tr>
             </tbody>
         </table>
     </div>
-    {{ngrxFormsFacade.data$.value | json}}
     <div class="row" *ngIf="isMenu">
         <div class="col-12 text-right"><button type="button" class="btn btn-success px-4"
-           (click)="submit()" >Save</button>
+           (click)="onSubmit()" >Save</button>
         </div>
     </div>
 </div>

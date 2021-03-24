@@ -13,9 +13,9 @@
                                 [routerLinkActiveOptions]="{ exact: true }">Add New User</button>
                         </div>
                     </div>
-                    <div class="card-body p-0">
+                    <div class="card-body p-0 ">
                         <div class="tab-content">
-                            <div class="tab-pane active" id="tickets" aria-expanded="true">
+                            <div class="tab-pane active col-md-12" id="tickets" aria-expanded="true">
                                 <table class="table table-hover mb-0">
                                     <thead>
                                         <tr>
@@ -24,6 +24,7 @@
                                             <th>Email Id</th>
                                             <th>Is User Active?</th>
                                             <th>Is Dap User?</th>
+                                            <th>Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -33,6 +34,11 @@
                                             <td>{{user.usrEmailId}}</td>
                                             <td>{{user.usrIsActive}}</td>
                                             <td>{{user.usrIsDapuser}}</td>
+                                            <td>
+                                                <div class="col-md-6"><button type="button" id="add|{{user.id}}" class="btn btn-primary" (click)="ViewAction(user.id,0)">View</button>&nbsp;
+                                                <button type="button" class="btn btn-success" id="edit|{{user.id}}"  (click)="ViewAction(user.id,1)">Edit</button>&nbsp;
+                                                <button type="button" class="btn btn-danger" id="delete|{{user.id}}" (click)="ViewAction(user.id,2)">Delete</button></div>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>

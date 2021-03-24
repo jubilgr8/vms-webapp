@@ -1,6 +1,6 @@
 import { ApiService, User, UserResponse } from 'libs/api/src';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable,Subject } from 'rxjs';
 import { MenuMaster, RoleMaster, UserMaster,RoleMenuRelation } from './+state/user.interfaces';
 
 export interface UserMasterModel {
@@ -9,6 +9,7 @@ export interface UserMasterModel {
 
 @Injectable()
 export class UserService {
+ 
   constructor(private apiService: ApiService) {}
 
   getUsers(): Observable<UserMaster[]> {
@@ -38,5 +39,11 @@ export class UserService {
       'User_API/api/MenuMaster/PostMenuMaster',
       mstRole
     );
+  }
+}
+export class  SharedData {
+  data : Subject<string> = new Subject();
+  constructor() {
+    
   }
 }
