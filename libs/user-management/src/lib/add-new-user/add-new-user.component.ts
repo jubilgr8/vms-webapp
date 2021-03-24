@@ -1,22 +1,22 @@
-import { Component, OnDestroy, OnInit,ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { AuthFacade } from '@vms/auth';
 import { Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UserFacade } from '../+state/user.facade';
-import {ZoneMaster} from '../../../../vms-administration/src/lib/+state/admin.interfaces';
-import {AdminFacade} from '../../../../vms-administration/src/lib/+state/admin.facade';
-import {SharedData} from '../user.service';
-import {UserMaster} from '../+state/user.interfaces';
+import { ZoneMaster } from '../../../../vms-administration/src/lib/+state/admin.interfaces';
+import { AdminFacade } from '../../../../vms-administration/src/lib/+state/admin.facade';
+import { SharedData } from '../user.service';
+import { UserMaster } from '../+state/user.interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 var defDdlList: KeyValue[] = [
   {
     name: '--Select--',
     value: 0,
-  }
+  },
 ];
-
 
 @Component({
   selector: 'vms-add-new-user',
@@ -28,123 +28,153 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   checkbox$: Observable<Field>;
   data$: Observable<any>;
   users: UserMaster;
-  ddlData:any;
-  id:any;
-  zones: ZoneMaster[]; unsubscribe$: Subject<void> = new Subject();
+  ddlData: any;
+  id: any;
+  zones: ZoneMaster[];
+  unsubscribe$: Subject<void> = new Subject();
+  userId: any;
+  type: any;
 
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: UserFacade,
-    private adminFacade:AdminFacade,private ref: ChangeDetectorRef,
-    private sharedData: SharedData
+    private adminFacade: AdminFacade,
+    private ref: ChangeDetectorRef,
+    private sharedData: SharedData,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-      debugger;
-        this.sharedData.data.subscribe(result => {
-          this.id = result;
-          if(this.id != undefined)
-          {
-            this.facade.users$
-            .pipe(takeUntil(this.unsubscribe$))
-            .subscribe((response) => {
-              if (response) {
-                debugger;
-                response.forEach(element => {
-                  if(element.id == this.id)
-                  {
-                    this.users = element;
-                  }
-                });
-                this.ref.detectChanges();
-              } else {
-                this.facade.getUserList();
-              }
-            });
+    debugger;
+
+    this.route.queryParams.subscribe((params) => {
+      this.userId = params['userId'];
+      this.type = params['type'];
+    });
+
+    if (this.type) {
+      this.facade.users$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((response) => {
+          if (response) {
+            this.users = response.filter((x) => x.id == this.userId)[0];
+            this.ref.detectChanges();
+          } else {
+            this.facade.getUserList();
           }
         });
-    this.data$ = this.ngrxFormsFacade.data$;
-    this.structure$ = this.ngrxFormsFacade.structure$;
+    }
     this.adminFacade.zones$
-    .pipe(takeUntil(this.unsubscribe$))
-    .subscribe((response) => {
-      if (response) {
-        var ddlList = response.map(x => ({
-          name: x.description,
-          value: x.id
-        }))
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
+        if (response) {
+          var ddlList = response.map((x) => ({
+            name: x.description,
+            value: x.id,
+          }));
 
-        var structure: Field[] = [
-        {
-          type: 'INPUT',
-          name: 'usrId',
-          placeholder: 'User ID',
-          validator: [Validators.required],
-        },
-        {
-          type: 'INPUT',
-          name: 'usrName',
-          placeholder: 'Username',
-          validator: [Validators.required],
-        },
-        {
-          type: 'DROPDOWN',
-          name: 'roleMasterId',
-          ddlList: ddlList,
-          placeholder: 'Role Master',
-          validator: [Validators.required],
-        },
-        {
-          type: 'INPUT',
-          name: 'usrDisplayname',
-          placeholder: 'Display Name',
-          validator: [Validators.required],
-        },
-        {
-          type: 'INPUT',
-          name: 'usrMobileNo',
-          placeholder: 'Mobile No',
-          validator: [Validators.required],
-        },
-        {
-          type: 'INPUT',
-          name: 'usrEmailId',
-          placeholder: 'Email Id',
-          validator: [Validators.required],
-        },
-        {
-          type: 'INPUT',
-          name: 'usrPassword',
-          placeholder: 'Password',
-          validator: [Validators.required],
-          attrs: {
-            type: 'password',
-          },
-        },
-        {
-          type: 'INPUT',
-          name: 'cnfrmPass',
-          placeholder: 'Confirm Password',
-          validator: [Validators.required],
-          attrs: {
-            type: 'password',
-          },
-          
-        },
-      ];
-      const checkbox: Field = {
-        type: "CHECKBOX",
-        name: 'isActive',
-      }
-      checkbox.type = "CHECKBOX";
-      this.ngrxFormsFacade.setStructure(structure);
-      } else {
-        this.adminFacade.getZoneList();
-      }
-    });
+          var structure: Field[] = [
+            {
+              type: 'INPUT',
+              name: 'usrId',
+              placeholder: 'User ID',
+              validator: [Validators.required],
+              value: this.users ? this.users.usrId : '',
+              attrs: {
+                disabled: this.type == 1 ? true : null,
+              },
+            },
+            {
+              type: 'INPUT',
+              name: 'usrName',
+              placeholder: 'Username',
+              validator: [Validators.required],
+              value: this.users ? this.users.usrName : '',
+              attrs: {
+                disabled: this.type == 1 ? true : null,
+              },
+            },
+            {
+              type: 'DROPDOWN',
+              name: 'roleMasterId',
+              ddlList: ddlList,
+              placeholder: 'Role Master',
+              validator: [Validators.required],
+              selected: this.users
+                ? ddlList.filter((x) => x.value == this.users.roleMasterId)[0]
+                : null,
+              attrs: {
+                disabled: this.type == 1 ? true : null,
+              },
+            },
+            {
+              type: 'INPUT',
+              name: 'usrDisplayname',
+              placeholder: 'Display Name',
+              validator: [Validators.required],
+              value: this.users ? this.users.usrDisplayname : '',
+              attrs: {
+                disabled: this.type == 1 ? true : null,
+              },
+            },
+            {
+              type: 'INPUT',
+              name: 'usrMobileNo',
+              placeholder: 'Mobile No',
+              validator: [Validators.required],
+              value: this.users ? this.users.usrMobileNo : '',
+              attrs: {
+                disabled: this.type == 1 ? true : null,
+              },
+            },
+            {
+              type: 'INPUT',
+              name: 'usrEmailId',
+              placeholder: 'Email Id',
+              validator: [Validators.required],
+              value: this.users ? this.users.usrEmailId : '',
+              attrs: {
+                disabled: this.type == 1 ? true : null,
+              },
+            },
+            {
+              type: 'INPUT',
+              name: 'usrPassword',
+              placeholder: 'Password',
+              validator: [Validators.required],
+              value: this.users ? this.users.usrPassword : '',
+              attrs: {
+                type: 'password',
+                disabled: this.type == 1 ? true : null,
+              },
+            },
+            {
+              type: 'INPUT',
+              name: 'cnfrmPass',
+              placeholder: 'Confirm Password',
+              validator: [Validators.required],
+              value: this.users ? this.users.usrPassword : '',
+              attrs: {
+                type: 'password',
+                disabled: this.type == 1 ? true : null,
+              },
+            },
+          ];
+          const checkbox: Field = {
+            type: 'CHECKBOX',
+            name: 'isActive',
+          };
+          checkbox.type = 'CHECKBOX';
+          this.ngrxFormsFacade.setStructure(structure);
+          this.data$ = this.ngrxFormsFacade.data$;
+          this.structure$ = this.ngrxFormsFacade.structure$;
+          this.ref.detectChanges();
+        } else {
+          this.adminFacade.getZoneList();
+        }
+      });
   }
   updateForm(changes: any) {
-    debugger;
     this.ngrxFormsFacade.updateData(changes);
   }
 

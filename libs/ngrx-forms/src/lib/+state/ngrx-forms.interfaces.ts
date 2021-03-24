@@ -17,11 +17,13 @@ export interface Field {
   validator?: ValidatorFn[];
   attrs?: any;
   ddlList?: KeyValue[];
+  selected?: KeyValue;
+  value?: any;
 }
 
-export interface Checkbox{
-  name:string;
-  id:string;
+export interface Checkbox {
+  name: string;
+  id: string;
 }
 
 export interface KeyValue {

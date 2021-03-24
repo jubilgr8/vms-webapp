@@ -3,11 +3,11 @@ import { Validators } from '@angular/forms';
 import { AuthFacade } from '@vms/auth';
 import { Field, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
-import { Router,NavigationStart} from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { UserFacade } from './+state/user.facade';
 import { UserMaster } from './+state/user.interfaces';
-import {SharedData} from './user.service';
+import { SharedData } from './user.service';
 // import { DashboardFacade } from './+state/dashboard.facade';
 @Component({
   selector: 'user-management',
@@ -20,11 +20,12 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   users: UserMaster[];
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private authFacade: AuthFacade,
     private userFacade: UserFacade,
     private ref: ChangeDetectorRef,
-    private sharedData : SharedData,
+    private sharedData: SharedData
   ) {}
 
   ngOnInit(): void {
@@ -46,15 +47,11 @@ export class UserManagementComponent implements OnInit, OnDestroy {
       });
   }
 
-  ViewAction(id,type)
-  {
+  ViewAction(id, type) {
     this.sharedData.data.next(id);
-    if(type == 0)
-    this.router.navigate(['/user-management/add-new-user']);
-    else if(type == 1)
-    this.router.navigate(['/user-management/add-new-user']);
-    else if(type ==2)
-    alert('Delete' + id);
+    if (type == 0) this.router.navigate(['/user-management/add-new-user']);
+    else if (type == 1) this.router.navigate(['/user-management/add-new-user']);
+    else if (type == 2) alert('Delete' + id);
   }
 
   ngOnDestroy() {
