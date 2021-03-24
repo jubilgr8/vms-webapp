@@ -114,9 +114,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/apps/vms-web"
-          ],
+          "outputs": ["coverage/apps/vms-web"],
           "options": {
             "jestConfig": "apps/vms-web/jest.config.js",
             "passWithNoTests": true
@@ -145,9 +143,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/vms-web-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/vms-web-e2e/**/*.{js,ts}"]
           }
         }
       }
@@ -181,9 +177,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/vms-administration"
-          ],
+          "outputs": ["coverage/libs/vms-administration"],
           "options": {
             "jestConfig": "libs/vms-administration/jest.config.js",
             "passWithNoTests": true
@@ -208,9 +202,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/auth"
-          ],
+          "outputs": ["coverage/libs/auth"],
           "options": {
             "jestConfig": "libs/auth/jest.config.js",
             "passWithNoTests": true
@@ -247,9 +239,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/api"
-          ],
+          "outputs": ["coverage/libs/api"],
           "options": {
             "jestConfig": "libs/api/jest.config.js",
             "passWithNoTests": true
@@ -286,9 +276,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ngrx-error"
-          ],
+          "outputs": ["coverage/libs/ngrx-error"],
           "options": {
             "jestConfig": "libs/ngrx-error/jest.config.js",
             "passWithNoTests": true
@@ -325,9 +313,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ngrx-forms"
-          ],
+          "outputs": ["coverage/libs/ngrx-forms"],
           "options": {
             "jestConfig": "libs/ngrx-forms/jest.config.js",
             "passWithNoTests": true
@@ -364,9 +350,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/ngrx-router"
-          ],
+          "outputs": ["coverage/libs/ngrx-router"],
           "options": {
             "jestConfig": "libs/ngrx-router/jest.config.js",
             "passWithNoTests": true
@@ -403,9 +387,7 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/dashboard"
-          ],
+          "outputs": ["coverage/libs/dashboard"],
           "options": {
             "jestConfig": "libs/dashboard/jest.config.js",
             "passWithNoTests": true
@@ -442,11 +424,34 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": [
-            "coverage/libs/user-management"
-          ],
+          "outputs": ["coverage/libs/user-management"],
           "options": {
             "jestConfig": "libs/user-management/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "media-management": {
+      "projectType": "library",
+      "root": "libs/media-management",
+      "sourceRoot": "libs/media-management/src",
+      "prefix": "vms",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/media-management/src/**/*.ts",
+              "libs/media-management/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/media-management"],
+          "options": {
+            "jestConfig": "libs/media-management/jest.config.js",
             "passWithNoTests": true
           }
         }

@@ -25,6 +25,7 @@
     "ngrx-forms": { "tags": ["ngrx-forms"] },
     "ngrx-router": { "tags": ["ngrx-router"] },
     "dashboard": { "tags": ["dashboard"] },
-    "user-management": { "tags": [] }
+    "user-management": { "tags": [] },
+    "media-management": { "tags": [] }
   }
 }

@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 // import { DashboardEffects } from './+state/dashboard.effects';
 // import { DashboardService } from './dashboard.service';
 // import { DashboardFacade } from './+state/dashboard.facade';
+import { FormsModule } from '@angular/forms';
 import { TokenInterceptorService } from 'libs/auth/src/lib/token-interceptor.service';
 import {
   AuthGuardService,
@@ -33,13 +34,19 @@ import { RoleListComponent } from './role-list/role-list.component';
 import { AddNewRoleComponent } from './role-list/add-new-role/add-new-role.component';
 import { CheckboxComponent } from 'libs/ngrx-forms/src/lib/fields/checkbox/checkbox.component';
 import {VmsAdministrationModule} from '../../../vms-administration/src/lib/vms-administration.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import {SharedData} from './user.service';
+
 
 @NgModule({
   imports: [
     AuthModule,
+    FormsModule,
     NgrxFormsModule,
     CommonModule,
+    
     VmsAdministrationModule,
+    ReactiveFormsModule,
     RouterModule.forChild([
       {
         path: 'users',
@@ -81,6 +88,7 @@ import {VmsAdministrationModule} from '../../../vms-administration/src/lib/vms-a
     UserEffects,
     UserService,
     UserFacade,
+    SharedData,
     TokenInterceptorService,
     LocalStorageJwtService,
     {

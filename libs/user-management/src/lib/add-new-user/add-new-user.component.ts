@@ -7,6 +7,8 @@ import { takeUntil } from 'rxjs/operators';
 import { UserFacade } from '../+state/user.facade';
 import {ZoneMaster} from '../../../../vms-administration/src/lib/+state/admin.interfaces';
 import {AdminFacade} from '../../../../vms-administration/src/lib/+state/admin.facade';
+import {SharedData} from '../user.service';
+import {UserMaster} from '../+state/user.interfaces';
 
 var defDdlList: KeyValue[] = [
   {
@@ -16,7 +18,6 @@ var defDdlList: KeyValue[] = [
 ];
 
 
-
 @Component({
   selector: 'vms-add-new-user',
   templateUrl: './add-new-user.component.html',
@@ -24,18 +25,44 @@ var defDdlList: KeyValue[] = [
 })
 export class AddNewUserComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
+  checkbox$: Observable<Field>;
   data$: Observable<any>;
+  users: UserMaster;
   ddlData:any;
+  id:any;
   zones: ZoneMaster[]; unsubscribe$: Subject<void> = new Subject();
 
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: UserFacade,
-    private adminFacade:AdminFacade,private ref: ChangeDetectorRef
+    private adminFacade:AdminFacade,private ref: ChangeDetectorRef,
+    private sharedData: SharedData
   ) {}
 
   ngOnInit() {
-        
+      debugger;
+        this.sharedData.data.subscribe(result => {
+          this.id = result;
+          if(this.id != undefined)
+          {
+            this.facade.users$
+            .pipe(takeUntil(this.unsubscribe$))
+            .subscribe((response) => {
+              if (response) {
+                debugger;
+                response.forEach(element => {
+                  if(element.id == this.id)
+                  {
+                    this.users = element;
+                  }
+                });
+                this.ref.detectChanges();
+              } else {
+                this.facade.getUserList();
+              }
+            });
+          }
+        });
     this.data$ = this.ngrxFormsFacade.data$;
     this.structure$ = this.ngrxFormsFacade.structure$;
     this.adminFacade.zones$
@@ -102,22 +129,22 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
           attrs: {
             type: 'password',
           },
-        },
-        {
-          type: 'CHECKBOX',
-          name: 'isActive',
-          placeholder: 'Is Active',
-          validator: [Validators.required],
+          
         },
       ];
+      const checkbox: Field = {
+        type: "CHECKBOX",
+        name: 'isActive',
+      }
+      checkbox.type = "CHECKBOX";
       this.ngrxFormsFacade.setStructure(structure);
       } else {
         this.adminFacade.getZoneList();
       }
     });
   }
-
   updateForm(changes: any) {
+    debugger;
     this.ngrxFormsFacade.updateData(changes);
   }
 
