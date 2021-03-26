@@ -20,6 +20,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   users: UserMaster[];
+  isLoading: boolean;
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
@@ -29,6 +30,11 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.userFacade.isLoading$.subscribe((r) => {
+      this.isLoading = r;
+      this.ref.detectChanges();
+    });
+
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isLoggedIn) => {

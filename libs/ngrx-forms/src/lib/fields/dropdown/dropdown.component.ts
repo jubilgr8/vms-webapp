@@ -14,7 +14,6 @@ export class DropdownComponent implements OnInit {
   @Input() field: Field;
   @Input() group: FormGroup;
   ngOnInit(): void {
-    debugger;
     if (!this.field.selected) {
       this.defOption = {
         name: '--Select--',

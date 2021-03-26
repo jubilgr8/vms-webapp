@@ -6,6 +6,10 @@ import { userFeatureKey } from './user.reducer';
 export const getUserManagement = createFeatureSelector<UserManagement>(
   userFeatureKey
 );
+export const isLoading = createSelector(
+  getUserManagement,
+  (userManagement: UserManagement) => userManagement.isLoading
+);
 export const getUsers = createSelector(
   getUserManagement,
   (userManagement: UserManagement) => userManagement.users
@@ -24,4 +28,5 @@ export const usersQuery = {
   getUsers,
   getRoles,
   getMenus,
+  isLoading,
 };

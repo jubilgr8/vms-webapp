@@ -1,136 +1,137 @@
+<vms-spinner *ngIf="isLoading"></vms-spinner>
 <div class="container-fluid">
-
-    <div class="animated fadeIn">
-
-
-        <div class="row">
-
-            <div class="col-6 col-lg-3">
-                <div class="card">
-                    <div class="card-body p-0 clearfix">
-                        <i class="fa fa-cogs bg-danger p-4 font-2xl mr-3 float-left"></i>
-                        <div class="h5 text-dark mb-0 pt-3">1500</div>
-                        <div class="text-muted text-uppercase font-weight-bold font-xs">Sample Text</div>
-                    </div>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="row" style="margin-bottom: 15px">
+              <div class="col-md-2">
+                <i class="icon-check"></i>
+                <strong>VMS at a glance</strong>
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-4">
+                    <strong>
+                      Online
+                      <span class="btn btn-success mt-0" id="OnlineValue">{{
+                        filters?.vmsCount?.offline
+                      }}</span>
+                    </strong>
+                  </div>
+                  <div class="col-md-4">
+                    <strong>
+                      Offline
+                      <span class="btn btn-danger mt-0" id="OfflineValue">{{
+                        filters?.vmsCount?.online
+                      }}</span></strong
+                    >
+                  </div>
+                  <div class="col-md-4">
+                    <strong>
+                      Total
+                      <span class="btn btn-warning mt-0" id="TotalValue">{{
+                        filters?.vmsCount?.total
+                      }}</span></strong
+                    >
+                  </div>
                 </div>
-            </div>
-            <!--/.col-->
+              </div>
 
-            <div class="col-6 col-lg-3">
-                <div class="card">
-                    <div class="card-body p-0 clearfix">
-                        <i class="fa fa-laptop bg-warning p-4 font-2xl mr-3 float-left"></i>
-                        <div class="h5 text-dark mb-0 pt-3">2010</div>
-                        <div class="text-muted text-uppercase font-weight-bold font-xs">Sample Text</div>
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
+              <div class="col-md-2">
+                <ul class="nav nav-tabs float-right">
+                  <li class="nav-item"><label class="mt-3">Status</label></li>
+                  <li class="nav-item mr-1"></li>
+                  <li class="nav-item">
+                    <select
+                      id="networkstatus"
+                      name="networkstatus"
+                      class="mt-2 form-control bg-white dashboardstatus"
+                      data-size="5"
+                    >
+                      <option value="all">--- All ---</option>
+                      <option value="active">Active</option>
+                      <option value="inactive">InActive</option>
+                    </select>
+                  </li>
+                </ul>
+              </div>
 
-            <div class="col-6 col-lg-3">
-                <div class="card">
-                    <div class="card-body p-0 clearfix">
-                        <i class="fa fa-camera bg-success p-4 font-2xl mr-3 float-left"></i>
-                        <div class="h5 text-dark mb-0 pt-3">1999</div>
-                        <div class="text-muted text-uppercase font-weight-bold font-xs">Sample Text</div>
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
+              <div class="col-md-4">
+                <ul class="nav nav-tabs float-right" role="tablist">
+                  <li class="nav-item">
+                    <label class="mt-3">Select Zone &nbsp;</label>
+                  </li>
+                  <li class="nav-item mr-1">
+                    <select
+                      id="selectedZone"
+                      class="mt-2 form-control bg-white dashboardstatus"
+                      data-size="5"
+                    >
+                      <option value="0" id="NoneZone">--- All ---</option>
 
-            <div class="col-6 col-lg-3">
-                <div class="card">
-                    <div class="card-body p-0 clearfix">
-                        <i class="fa fa-bell bg-secondary p-4 font-2xl mr-3 float-left text-white"></i>
-                        <div class="h5 text-dark mb-0 pt-3">1950</div>
-                        <div class="text-muted text-uppercase font-weight-bold font-xs">Sample Text</div>
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
+                      <option value="1532675427140">ppppp</option>
 
+                      <option value="1532680662390">solapur</option>
+
+                      <option value="1532681316196">Race</option>
+
+                      <option value="1533036182234">test45321</option>
+
+                      <option value="1534835735782">test 1</option>
+
+                      <option value="1526885379711">123qpras</option>
+
+                      <option value="1532527020672">mumbaii</option>
+
+                      <option value="1547187724042">cms mumbai</option>
+
+                      <option value="1532674817163">bhandup</option>
+
+                      <option value="1565325777451">new_vmsMumbai</option>
+                    </select>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <ul class="nav nav-tabs float-right" role="tablist">
+              <li class="nav-item" *ngIf="!isMapView">
+                <a class="nav-link" (click)="onTabClick('map')"
+                  ><i class="icon-map"></i>Map View
+                </a>
+              </li>
+              <li class="nav-item" *ngIf="isMapView">
+                <a class="nav-link" (click)="onTabClick('list')"
+                  ><i class="icon-list"></i> List View &nbsp;
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="card-body p-0">
+            <div class="tab-content">
+              <div
+                class="tab-pane"
+                [ngClass]="isMapView ? 'active' : ''"
+                id="tasks"
+                aria-expanded="true"
+                *ngIf="isMapView"
+              >
+                <vms-google-map></vms-google-map>
+              </div>
+              <div
+                class="tab-pane"
+                [ngClass]="!isMapView ? 'active' : ''"
+                id="tickets"
+                aria-expanded="false"
+                *ngIf="!isMapView"
+              >
+                <vms-list-view></vms-list-view>
+              </div>
+            </div>
+          </div>
         </div>
-        <!--/.row-->
-
-
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"> <i class="icon-check"></i> <strong>VMS's in the city</strong>
-                        <ul class="nav nav-tabs float-right" role="tablist">
-                            <li class="nav-item"> <a tab="" class="nav-link active" data-toggle="tab" href="#tasks"
-                                    role="tab" aria-expanded="false"><i class="icon-map"></i> Map View</a> </li>
-                            <li class="nav-item"> <a tab="" class="nav-link" data-toggle="tab" href="#tickets"
-                                    role="tab" aria-expanded="true"><i class="icon-list"></i> List View &nbsp;</a> </li>
-                        </ul>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tasks" aria-expanded="true">
-                                <div id="map"
-                                    class="leaflet-container leaflet-touch leaflet-fade-anim leaflet-grab leaflet-touch-drag leaflet-touch-zoom"
-                                    tabindex="0" style="position: relative;">
-                                </div>
-                            </div>
-                            <div class="tab-pane " id="tickets" aria-expanded="false">
-                                <table class="table table-hover mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th>Status</th>
-                                            <th>Date</th>
-                                            <th>Description</th>
-                                            <th>User</th>
-                                            <th>Number</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><span class="badge badge-success">Complete</span> </td>
-                                            <td>Jul 25, 2012 11:09</td>
-                                            <td>Server problem</td>
-                                            <td>Akshay Jain</td>
-                                            <td><b>[#199278]</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="badge badge-info">In progress</span> </td>
-                                            <td>Jul 25, 2012 11:09</td>
-                                            <td>Server problem</td>
-                                            <td>Vinod Joshi</td>
-                                            <td><b>[#199276]</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="badge badge-danger">Rejected</span> </td>
-                                            <td>Jul 25, 2012 11:09</td>
-                                            <td>Server problem</td>
-                                            <td>Nihar Vaidya</td>
-                                            <td><b>[#199275]</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="badge badge-warning">Suspended</span> </td>
-                                            <td>Jul 25, 2012 11:09</td>
-                                            <td>Server problem</td>
-                                            <td>Rajesh Gupta</td>
-                                            <td><b>[#199273]</b></td>
-                                        </tr>
-                                        <tr>
-                                            <td><span class="badge badge-info">In progress</span> </td>
-                                            <td>Jul 25, 2012 11:09</td>
-                                            <td>Server problem</td>
-                                            <td>Manish Dhuri</td>
-                                            <td><b>[#199272]</b></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
+      </div>
     </div>
-
+  </div>
 </div>

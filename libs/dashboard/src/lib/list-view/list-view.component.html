@@ -1,0 +1,30 @@
+<table class="table table-hover mb-0">
+  <thead>
+    <tr>
+      <th>Sr. No.</th>
+      <th>VMS Id</th>
+      <th>VMS Name</th>
+      <th>Zone</th>
+      <th>User Name</th>
+      <th>Playlist Playing</th>
+      <th>Installation Date</th>
+      <th>Network Status</th>
+      <th>Display Status</th>
+      <th>Is Display On</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let v of vmsList; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ v.vms.vmsId }}</td>
+      <td>{{ v.vms.vmsDescription }}</td>
+      <td>{{ v.vms.zone }}</td>
+      <td>{{ v.user.usrName }}</td>
+      <td>{{ v.playlist.playlistName }}</td>
+      <td>{{ v.playlist.createdDate }}</td>
+      <td>{{ v.networkStatus }}</td>
+      <td>{{ v.displayStatus }}</td>
+      <td>{{ v.isDisplayOn }}</td>
+    </tr>
+  </tbody>
+</table>

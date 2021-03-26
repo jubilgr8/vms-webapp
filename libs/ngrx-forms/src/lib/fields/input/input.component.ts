@@ -19,7 +19,6 @@ export class InputComponent implements OnInit {
   value: any;
 
   ngOnInit(): void {
-    debugger;
     if (this.field?.value)
       this.value = JSON.parse(JSON.stringify(this.field.value));
   }

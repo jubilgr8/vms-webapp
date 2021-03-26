@@ -18,7 +18,7 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-
+import { SpinnerComponent } from './layout/spinner/spinner.component';
 
 @NgModule({
   imports: [
@@ -47,7 +47,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
             import('@vms/vms-administration').then(
               (m) => m.VmsAdministrationModule
             ),
-         canActivate: [AuthGuardService],
+          canActivate: [AuthGuardService],
         },
         {
           path: 'user-management',
@@ -58,7 +58,9 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
         {
           path: 'media-management',
           loadChildren: () =>
-            import('@vms/media-management').then((m) => m.MediaManagementModule),
+            import('@vms/media-management').then(
+              (m) => m.MediaManagementModule
+            ),
           canActivate: [AuthGuardService],
         },
         // {
@@ -107,6 +109,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
     HeaderComponent,
     FooterComponent,
     NavbarComponent,
+    SpinnerComponent,
   ],
   // exports: [NavbarComponent],
   // bootstrap: [AppComponent,NavbarComponent],

@@ -1,7 +1,12 @@
 import { ApiService, User, UserResponse } from 'libs/api/src';
 import { Injectable } from '@angular/core';
-import { Observable,Subject } from 'rxjs';
-import { MenuMaster, RoleMaster, UserMaster,RoleMenuRelation } from './+state/user.interfaces';
+import { Observable, Subject } from 'rxjs';
+import {
+  MenuMaster,
+  RoleMaster,
+  UserMaster,
+  RoleMenuRelation,
+} from './+state/user.interfaces';
 
 export interface UserMasterModel {
   mstUser: UserMaster;
@@ -9,7 +14,6 @@ export interface UserMasterModel {
 
 @Injectable()
 export class UserService {
- 
   constructor(private apiService: ApiService) {}
 
   getUsers(): Observable<UserMaster[]> {
@@ -19,7 +23,9 @@ export class UserService {
     return this.apiService.get<RoleMaster[]>('User_API/api/Role/GetRoles');
   }
   getMenuMaster(): Observable<MenuMaster[]> {
-    return this.apiService.get<MenuMaster[]>('User_API/api/MenuMaster/getMenuMaster');
+    return this.apiService.get<MenuMaster[]>(
+      'User_API/api/MenuMaster/getMenuMaster'
+    );
   }
   submitUser(mstUser: UserMaster): Observable<any> {
     return this.apiService.post<any, UserMaster>(
@@ -28,7 +34,6 @@ export class UserService {
     );
   }
   submitRole(mstRoleMenu: RoleMenuRelation): Observable<any> {
-    debugger;
     return this.apiService.post<any, RoleMenuRelation>(
       'User_API/api/RoleMenu/PostRoleMenuRelation',
       mstRoleMenu
@@ -41,9 +46,7 @@ export class UserService {
     );
   }
 }
-export class  SharedData {
-  data : Subject<string> = new Subject();
-  constructor() {
-    
-  }
+export class SharedData {
+  data: Subject<string> = new Subject();
+  constructor() {}
 }

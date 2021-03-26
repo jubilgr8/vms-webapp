@@ -50,7 +50,6 @@ export class AuthEffects {
       exhaustMap(([action, data]) =>
         this.authService.login(data).pipe(
           map((response) => {
-            debugger;
             return AuthActions.loginSuccess({ user: response });
           }),
           catchError((result) =>
@@ -66,7 +65,6 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         tap((action) => {
-          debugger;
           this.localStorageJwtService.setItem(action.user.token);
           this.router.navigateByUrl('/dashboard');
         })

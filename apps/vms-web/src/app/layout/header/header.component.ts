@@ -1,4 +1,11 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { User } from '@vms/api';
 import { EmitOutput } from 'typescript';
 
@@ -14,7 +21,6 @@ export class HeaderComponent {
   @Output() toggleSidebar = new EventEmitter<boolean>();
 
   sidebarClicked() {
-    debugger;
     this.toggleSidebar.emit(true);
   }
 }
