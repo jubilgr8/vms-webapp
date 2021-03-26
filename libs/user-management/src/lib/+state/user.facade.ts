@@ -22,6 +22,10 @@ export class UserFacade {
   submitNewUser() {
     this.store.dispatch(userActions.submitUser());
   }
+  updateUser() {
+    debugger;
+    this.store.dispatch(userActions.updateUser());
+  }
   submitNewRole() {
     this.store.dispatch(userActions.submitRole());
   }

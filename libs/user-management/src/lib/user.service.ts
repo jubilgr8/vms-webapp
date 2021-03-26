@@ -27,6 +27,15 @@ export class UserService {
       mstUser
     );
   }
+
+ updateUser(mstUser: UserMaster): Observable<any> {
+   
+    return this.apiService.post<any, UserMaster>(
+      'User_API/api/User/PutUserMaster',
+      mstUser
+    );
+  }
+
   submitRole(mstRoleMenu: RoleMenuRelation): Observable<any> {
     debugger;
     return this.apiService.post<any, RoleMenuRelation>(
