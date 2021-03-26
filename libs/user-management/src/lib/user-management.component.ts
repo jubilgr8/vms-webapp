@@ -20,11 +20,8 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   users: UserMaster[];
-<<<<<<< HEAD
   singleUser : UserMaster;
-=======
   isLoading: boolean;
->>>>>>> ed4ebf4582ed9e4606064d5a40239418dfa570a2
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
@@ -35,10 +32,10 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.userFacade.isLoading$.subscribe((r) => {
-      this.isLoading = r;
-      this.ref.detectChanges();
-    });
+    // this.userFacade.isLoading$.subscribe((r) => {
+    //   this.isLoading = r;
+    //   this.ref.detectChanges();
+    // });
 
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
@@ -67,6 +64,10 @@ export class UserManagementComponent implements OnInit, OnDestroy {
           if (response) {
             debugger;
             this.singleUser = response.find((X)=>X.id == id);
+            var strData =JSON.stringify(this.singleUser);
+            var _jsonData = JSON.parse(strData);
+            _jsonData.usrIsDeleted = true;
+            this.singleUser = _jsonData;
             this.ref.detectChanges();
            // this.userFacade.updateUser();
             this.userService.updateUser(this.singleUser).subscribe((data: any)=>{
