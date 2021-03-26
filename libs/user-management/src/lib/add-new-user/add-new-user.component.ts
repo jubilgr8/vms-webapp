@@ -45,8 +45,6 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    debugger;
-
     this.route.queryParams.subscribe((params) => {
       this.userId = params['userId'];
       this.type = params['type'];

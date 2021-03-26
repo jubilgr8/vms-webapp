@@ -1,95 +1,162 @@
-
 <div class="container-fluid">
-    <div class="animated fadeIn">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"> <i class="icon-check"></i> <strong>Add New Role</strong>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tickets" aria-expanded="true">
-                                <app-list-errors></app-list-errors>
-                                <app-dynamic-form  (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
-                                </app-dynamic-form>
-                                <div class="row">
-                                    <div class="col-12 text-right"><button type="button" class="btn btn-danger px-4"
-                                       (click)="CheckData()" >Next</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="container-fluid">
+  <div class="animated fadeIn">
     <div class="row">
-    <div class="tab-pane active  col-md-12" id="tickets" aria-expanded="true" *ngIf="isMenu">
-        <div style="text-align:center">
-            <h1>
-            </h1>
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="icon-check"></i> <strong>Add New Role</strong>
           </div>
-          <div class="container">
-            <div class="text-center mt-5">
-              <div class="row">
-                  <div class="col-md-6">
-                      <ul class="list-group">
-                          <li class="list-group-item">
-                            <input type="checkbox" [(ngModel)]="masterSelected" name="list_name" value="m1" (change)="checkUncheckAll()"/> <strong>Select/ Unselect All</strong>
-                          </li>
-                        </ul>
-                        <ul class="list-group">
-                          <li class="list-group-item" *ngFor="let item of checklist">
-                            <input type="checkbox" [(ngModel)]="item.isSelected" name="list_name" value="{{item.id}}" (change)="isAllSelected()"/>
-                            {{item.value}}
-                          </li>
-                        </ul>
+          <div class="card-body p-0">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tickets" aria-expanded="true">
+                <app-list-errors></app-list-errors>
+                <app-dynamic-form
+                  (updateForm)="updateForm($event)"
+                  [data$]="data$"
+                  [structure$]="structure$"
+                >
+                </app-dynamic-form>
+                <div class="row">
+                  <div class="col-12 text-right">
+                    <button
+                      type="button"
+                      class="btn btn-danger px-4"
+                      (click)="CheckData()"
+                    >
+                      Next
+                    </button>
                   </div>
-                  <div class="col-md-6">
-                      <code>{{checkedList}}</code>
-                  </div>
+                </div>
               </div>
             </div>
           </div>
-        <div class="card">
-        <table class="table table-hover mb-0">
-            <thead>
-                <tr>
-                    <th>Menu Id</th>
-                    <th>Menu Name</th>
-                    <th>Menu Discription</th>
-                    <th>Access View &nbsp;
-                        <input type="checkbox" [field$]="checkbox$"  [id]="'accessAdd'" #all (change)="updateItem($event, 'accessAdd')">
-                    </th>
-                    <th>Access Add &nbsp;
-                        <input type="checkbox" [field$]="checkbox$" [id]="'accessView'" #all (change)="updateItem($event, 'accessView')">
-                    <th>Access Update &nbsp;
-                        <input type="checkbox" [field$]="checkbox$" [id]="'accessUpd'" #all (change)="updateItem($event, 'accessUpd')" >
-                    <th>Access Delete &nbsp;
-                        <input type="checkbox" [field$]="checkbox$" [id]="'accessDel'" #all (change)="updateItem($event, 'accessDel')">
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let menu of menus">
-                    <td>{{menu.menuId}}</td>
-                    <td>{{menu.menuName}}</td>
-                    <td>{{menu.menuItemDesc}}</td>
-                    <td><input type="checkbox" [field$]="checkbox$" [id]="'add|'+menu.id" (change)="updateItem($event, 'add|'+menu.id)"></td>
-                    <td><input type="checkbox" [field$]="checkbox$" [id]="'view|'+menu.id"  (change)="updateItem($event, 'view|'+menu.id)"></td>
-                    <td><input type="checkbox" [field$]="checkbox$" [id]="'update|'+menu.id" (change)="updateItem($event, 'update|'+menu.id)"></td>
-                    <td><input type="checkbox" [field$]="checkbox$" [id]="'delete|'+menu.id" (change)="updateItem($event, 'delete|'+menu.id)"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="row" *ngIf="isMenu">
-        <div class="col-12 text-right"><button type="button" class="btn btn-success px-4"
-           (click)="onSubmit()" >Save</button>
         </div>
+      </div>
     </div>
+  </div>
 </div>
-</div>
+<div class="container-fluid">
+  <div class="row">
+    <div
+      class="tab-pane active col-md-12"
+      id="tickets"
+      aria-expanded="true"
+      *ngIf="isMenu"
+    >
+      <div style="text-align: center">
+        <h1></h1>
+      </div>
+      <div class="card">
+        <table class="table table-hover mb-0">
+          <thead>
+            <tr>
+              <th>Menu Id</th>
+              <th>Menu Name</th>
+              <th>Menu Discription</th>
+              <th>
+                Access View &nbsp;
+                <input
+                  type="checkbox"
+                  [field$]="checkbox$"
+                  [id]="'accessAdd'"
+                  [(ngModel)]="accessAdd"
+                  #all
+                  (change)="checkUncheckAll($event, 'accessAdd')"
+                />
+              </th>
+              <th>
+                Access Add &nbsp;
+                <input
+                  type="checkbox"
+                  [field$]="checkbox$"
+                  [id]="'accessView'"
+                  [(ngModel)]="accessView"
+                  #all
+                  (change)="checkUncheckAll($event, 'accessView')"
+                />
+              </th>
+
+              <th>
+                Access Update &nbsp;
+                <input
+                  type="checkbox"
+                  [field$]="checkbox$"
+                  [id]="'accessUpd'"
+                  [(ngModel)]="accessUpd"
+                  #all
+                  (change)="checkUncheckAll($event, 'accessUpd')"
+                />
+              </th>
+
+              <th>
+                Access Delete &nbsp;
+                <input
+                  type="checkbox"
+                  [field$]="checkbox$"
+                  [id]="'accessDel'"
+                  [(ngModel)]="accessDel"
+                  #all
+                  (change)="checkUncheckAll($event, 'accessDel')"
+                />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let menu of menus">
+              <td>{{ menu.menuId }}</td>
+              <td>{{ menu.menuName }}</td>
+              <td>{{ menu.menuItemDesc }}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  [field$]="checkbox$"
+                  [id]="'add|' + menu.id"
+                  [(ngModel)]="menu.accessAdd"
+                  (change)="getCheckedItemList('accessAdd')"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  [field$]="checkbox$"
+                  [id]="'view|' + menu.id"
+                  [(ngModel)]="menu.accessView"
+                  (change)="getCheckedItemList('accessView')"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  [field$]="checkbox$"
+                  [id]="'update|' + menu.id"
+                  [(ngModel)]="menu.accessUpd"
+                  (change)="getCheckedItemList('accessUpd')"
+                />
+              </td>
+              <td>
+                <input
+                  type="checkbox"
+                  [field$]="checkbox$"
+                  [id]="'delete|' + menu.id"
+                  [(ngModel)]="menu.accessDel"
+                  (change)="getCheckedItemList('accessDel')"
+                />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="row" *ngIf="isMenu">
+        <div class="col-12 text-right">
+          <button
+            type="button"
+            class="btn btn-success px-4"
+            (click)="onSubmit()"
+          >
+            Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

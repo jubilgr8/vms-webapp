@@ -10,7 +10,7 @@ import { AdminMaster, VMSMaster } from '../+state/admin.interfaces';
 @Component({
   selector: 'vms-vms',
   templateUrl: './vms.component.html',
-  styleUrls: ['./vms.component.css']
+  styleUrls: ['./vms.component.css'],
 })
 export class VmsComponent implements OnInit, OnDestroy {
   isAuthenticated: boolean;
@@ -28,16 +28,13 @@ export class VmsComponent implements OnInit, OnDestroy {
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isLoggedIn) => {
-        debugger;
         this.isAuthenticated = isLoggedIn;
       });
 
     this.adminFacade.vmss$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        debugger;
         if (response) {
-          debugger;
           this.vmss = response;
           this.ref.detectChanges();
         } else {

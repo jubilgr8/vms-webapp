@@ -1,6 +1,7 @@
 import { ValidatorFn } from '@angular/forms';
 
 export interface UserManagement {
+  isLoading: boolean;
   users: UserMaster[];
   roles: RoleMaster[];
   menus: MenuMaster[];
@@ -47,24 +48,28 @@ export interface MenuMaster {
   isDeleted: boolean;
   deletedBy: string;
   deletedDate: number;
+  relations: RoleMenuRelation;
+  accessAdd: boolean;
+  accessView: boolean;
+  accessUpd: boolean;
+  accessDel: boolean;
 }
 
-export interface RoleMenuRelation
-{
-id:number;
-roleMasterId:number;
-menuMasterId:number;
-accessAdd:boolean;
-accessView:boolean;
-accessUpd:boolean;
-accessDel : boolean;
-createdBy: string;
-createdDate:number;
-isDeleted:boolean;
-deletedBy:string;
-deletedDate:number;
-menuMaster:MenuMaster;
-roleMaster:RoleMaster;
+export interface RoleMenuRelation {
+  id: number;
+  roleMasterId: number;
+  menuMasterId: number;
+  accessAdd: boolean;
+  accessView: boolean;
+  accessUpd: boolean;
+  accessDel: boolean;
+  createdBy: string;
+  createdDate: number;
+  isDeleted: boolean;
+  deletedBy: string;
+  deletedDate: number;
+  menuMaster: MenuMaster;
+  roleMaster: RoleMaster;
 }
 
 export type FieldType = 'INPUT' | 'TEXTAREA';

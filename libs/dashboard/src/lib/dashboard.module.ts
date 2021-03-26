@@ -15,6 +15,10 @@ import { DashboardFacade } from './+state/dashboard.facade';
 import { TokenInterceptorService } from 'libs/auth/src/lib/token-interceptor.service';
 import { AuthModule, LocalStorageJwtService } from '@vms/auth';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { GoogleMapComponent } from './google-map/google-map.component';
+import { AgmCoreModule } from '@agm/core';
+import { ListViewComponent } from './list-view/list-view.component';
+import { from } from 'rxjs';
 
 @NgModule({
   imports: [
@@ -32,6 +36,11 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       initialState: dashboardInitialState,
     }),
     EffectsModule.forFeature([DashboardEffects]),
+    AgmCoreModule.forRoot({
+      // please get your own API key here:
+      // https://developers.google.com/maps/documentation/javascript/get-api-key?hl=en
+      apiKey: 'AIzaSyCu14V2upQfY6LTGiHVHhV0EifFi3pgvGY',
+    }),
   ],
   providers: [
     DashboardEffects,
@@ -45,6 +54,6 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
       multi: true,
     },
   ],
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, GoogleMapComponent, ListViewComponent],
 })
 export class DashboardModule {}

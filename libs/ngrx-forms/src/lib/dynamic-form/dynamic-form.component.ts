@@ -55,7 +55,6 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   }
 
   private formBuilder = (structure: Field[]): FormGroup => {
-    debugger;
     const group = this.fb.group({});
     structure.forEach((field) =>
       group.addControl(field.name, this.control(field))
