@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { UserFacade } from '../+state/user.facade';
 import { RoleMaster, UserMaster } from '../+state/user.interfaces';
+import {UserService } from '../user.service';
 // import { DashboardFacade } from './+state/dashboard.facade';
 //import {} from '../role-list/add-new-role/add-new-role.component'
 @Component({
@@ -21,7 +22,8 @@ export class RoleListComponent implements OnInit {
   constructor(
     private ref: ChangeDetectorRef,
     private authFacade: AuthFacade,
-    private userFacade: UserFacade
+    private userFacade: UserFacade,
+    private service : UserService,
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +45,30 @@ export class RoleListComponent implements OnInit {
           this.ref.detectChanges();
         } else {
           this.userFacade.getRoleList();
+        }
+      });
+  }
+
+  ViewAction(id, type) {
+    debugger;
+    console.log(this.roles.find((x) => x.id == id));
+    this.userFacade.roles$
+      .pipe()
+      .subscribe((response) => {
+        if (response) {
+          debugger;
+          var singlerole = response.find((X) => X.id == id);
+          var strData = JSON.stringify(singlerole);
+          var _jsonData = JSON.parse(strData);
+          _jsonData.isDeleted = true;
+          singlerole = _jsonData;
+          this.ref.detectChanges();
+          // this.userFacade.updateUser();
+          this.service
+            .updateRole(singlerole)
+            .subscribe((data: any) => {
+              this.userFacade.getRoleList();
+            });
         }
       });
   }
