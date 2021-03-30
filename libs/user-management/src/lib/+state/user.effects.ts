@@ -12,13 +12,17 @@ import { UserService } from '../user.service';
 import { NgrxFormsFacade } from '@vms/ngrx-forms';
 import { of } from 'rxjs';
 import * as fromNgrxForms from 'libs/ngrx-forms/src';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserEffects {
   constructor(
     private actions$: Actions,
     private userService: UserService,
-    private ngrxFormsFacade: NgrxFormsFacade
+    private ngrxFormsFacade: NgrxFormsFacade,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   getUserList$ = createEffect(() =>
@@ -43,15 +47,15 @@ export class UserEffects {
   );
 
   getMenuList$ = createEffect(() =>
-  this.actions$.pipe(
-    ofType(userActions.getMenuList),
-    switchMap((item) => {
-      return this.userService
-        .getMenuMaster()
-        .pipe(map((data) => userActions.getMenuSuccess({ menus: data })));
-    })
-  )
-);
+    this.actions$.pipe(
+      ofType(userActions.getMenuList),
+      switchMap((item) => {
+        return this.userService
+          .getMenuMaster()
+          .pipe(map((data) => userActions.getMenuSuccess({ menus: data })));
+      })
+    )
+  );
 
   submitNewUser$ = createEffect(() =>
     this.actions$.pipe(
@@ -60,11 +64,14 @@ export class UserEffects {
       exhaustMap(([action, data]) =>
         this.userService.submitUser(data).pipe(
           map((response) => {
+            this.toastr.success('User Created Successfully!');
+            this.router.navigateByUrl('/user-management/users');
             return userActions.submitUserSuccess({ paylod: response });
           }),
-          catchError((result) =>
-            of(fromNgrxForms.setErrors({ errors: result.error.errors }))
-          )
+          catchError((result) => {
+            this.toastr.error('Something went wrong. Please try again!');
+            return of(fromNgrxForms.setErrors({ errors: result.error.errors }));
+          })
         )
       )
     )
@@ -77,14 +84,18 @@ export class UserEffects {
       exhaustMap(([action, data]) =>
         this.userService.updateUser(data).pipe(
           map((response) => {
-          console.log(response);
-            debugger;
+            this.toastr.success('User Updated Successfully!');
+            this.router.navigateByUrl('/user-management/users');
             return userActions.updateUserSuccess({ paylod: response });
           }),
-          catchError((result) =>
-            of(fromNgrxForms.setErrors({
-               errors: result.error.errors }))
-          )
+          catchError((result) => {
+            this.toastr.error('Something went wrong. Please try again!');
+            return of(
+              fromNgrxForms.setErrors({
+                errors: result.error.errors,
+              })
+            );
+          })
         )
       )
     )
@@ -97,12 +108,15 @@ export class UserEffects {
       exhaustMap(([action, data]) =>
         this.userService.submitRole(data).pipe(
           map((response) => {
-            debugger
+            this.toastr.success('Role Created Successfully!');
+            this.router.navigateByUrl('/user-management/roles');
             return userActions.submitRoleSuccess({ paylod: response });
           }),
-          catchError((result) =>
-            of(fromNgrxForms.setErrors({ errors: result.error.errors }))
-          )
+          catchError((result) => {
+            this.toastr.error('Something went wrong. Please try again!');
+
+            return of(fromNgrxForms.setErrors({ errors: result.error.errors }));
+          })
         )
       )
     )

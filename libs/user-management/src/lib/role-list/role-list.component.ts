@@ -17,6 +17,7 @@ export class RoleListComponent implements OnInit {
   isAuthenticated: boolean;
   unsubscribe$: Subject<void> = new Subject();
   roles: RoleMaster[];
+  isLoading: boolean;
   constructor(
     private ref: ChangeDetectorRef,
     private authFacade: AuthFacade,
@@ -24,6 +25,10 @@ export class RoleListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userFacade.isLoading$.subscribe((r) => {
+      this.isLoading = r;
+    });
+
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isLoggedIn) => {

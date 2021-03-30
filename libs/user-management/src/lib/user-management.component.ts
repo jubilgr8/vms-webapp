@@ -20,7 +20,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   users: UserMaster[];
-  singleUser : UserMaster;
+  singleUser: UserMaster;
   isLoading: boolean;
   constructor(
     private router: Router,
@@ -28,14 +28,16 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     private userFacade: UserFacade,
     private ref: ChangeDetectorRef,
     private sharedData: SharedData,
-    private userService:UserService
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
-    // this.userFacade.isLoading$.subscribe((r) => {
-    //   this.isLoading = r;
-    //   this.ref.detectChanges();
-    // });
+    this.userFacade.getUserList();
+    this.userFacade.isLoading$.subscribe((r) => {
+      debugger;
+      this.isLoading = r;
+      this.ref.detectChanges();
+    });
 
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
@@ -46,6 +48,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.userFacade.users$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
+        debugger;
         if (response) {
           this.users = response;
           this.ref.detectChanges();
@@ -57,24 +60,26 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
   ViewAction(id, type) {
     debugger;
-    console.log(this.users.find(x=>x.id == id));
+    console.log(this.users.find((x) => x.id == id));
     this.userFacade.users$
-        .pipe(takeUntil(this.unsubscribe$))
-        .subscribe((response) => {
-          if (response) {
-            debugger;
-            this.singleUser = response.find((X)=>X.id == id);
-            var strData =JSON.stringify(this.singleUser);
-            var _jsonData = JSON.parse(strData);
-            _jsonData.usrIsDeleted = true;
-            this.singleUser = _jsonData;
-            this.ref.detectChanges();
-           // this.userFacade.updateUser();
-            this.userService.updateUser(this.singleUser).subscribe((data: any)=>{
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
+        if (response) {
+          debugger;
+          this.singleUser = response.find((X) => X.id == id);
+          var strData = JSON.stringify(this.singleUser);
+          var _jsonData = JSON.parse(strData);
+          _jsonData.usrIsDeleted = true;
+          this.singleUser = _jsonData;
+          this.ref.detectChanges();
+          // this.userFacade.updateUser();
+          this.userService
+            .updateUser(this.singleUser)
+            .subscribe((data: any) => {
               this.userFacade.getUserList();
-            })
-          }
-        });
+            });
+        }
+      });
   }
 
   ngOnDestroy() {

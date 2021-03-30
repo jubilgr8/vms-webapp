@@ -36,6 +36,7 @@ import { CheckboxComponent } from 'libs/ngrx-forms/src/lib/fields/checkbox/check
 import { VmsAdministrationModule } from '../../../vms-administration/src/lib/vms-administration.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedData } from './user.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -43,7 +44,7 @@ import { SharedData } from './user.service';
     FormsModule,
     NgrxFormsModule,
     CommonModule,
-
+    ToastrModule.forRoot(),
     VmsAdministrationModule,
     ReactiveFormsModule,
     RouterModule.forChild([

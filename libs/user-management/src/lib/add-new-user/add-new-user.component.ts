@@ -3,7 +3,7 @@ import { Validators } from '@angular/forms';
 import { AuthFacade } from '@vms/auth';
 import { Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { elementAt, takeUntil } from 'rxjs/operators';
 import { UserFacade } from '../+state/user.facade';
 import { ZoneMaster } from '../../../../vms-administration/src/lib/+state/admin.interfaces';
 import { AdminFacade } from '../../../../vms-administration/src/lib/+state/admin.facade';
@@ -34,7 +34,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   unsubscribe$: Subject<void> = new Subject();
   userId: any;
   type: any;
-
+  isLoading: boolean = true;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: UserFacade,
@@ -167,6 +167,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
           this.ngrxFormsFacade.setStructure(structure);
           this.data$ = this.ngrxFormsFacade.data$;
           this.structure$ = this.ngrxFormsFacade.structure$;
+          this.isLoading = false;
           this.ref.detectChanges();
         } else {
           this.adminFacade.getZoneList();
@@ -178,12 +179,14 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    debugger;
-    this.facade.submitNewUser();
+    if (this.userId) {
+      this.facade.updateUser();
+    } else {
+      this.facade.submitNewUser();
+    }
   }
 
   ngOnDestroy() {
-
     this.ngrxFormsFacade.initializeForm();
   }
 }

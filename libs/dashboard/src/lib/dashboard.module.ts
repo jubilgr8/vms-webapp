@@ -19,11 +19,13 @@ import { GoogleMapComponent } from './google-map/google-map.component';
 import { AgmCoreModule } from '@agm/core';
 import { ListViewComponent } from './list-view/list-view.component';
 import { from } from 'rxjs';
+import { NgrxFormsModule } from '@vms/ngrx-forms';
 
 @NgModule({
   imports: [
     AuthModule,
     CommonModule,
+    NgrxFormsModule,
     RouterModule.forChild([
       {
         path: '',

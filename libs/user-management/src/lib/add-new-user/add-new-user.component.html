@@ -1,4 +1,5 @@
-<div class="container-fluid">
+<vms-spinner *ngIf="isLoading"></vms-spinner>
+<div class="container-fluid" *ngIf="!isLoading">
   <div class="animated fadeIn">
     <div class="row col-md-9">
       <div class="col-md-12">

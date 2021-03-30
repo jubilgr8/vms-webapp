@@ -18,11 +18,14 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-import { SpinnerComponent } from './layout/spinner/spinner.component';
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   imports: [
     ApiModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
     AuthModule,
     BrowserModule,
     NgxSliderModule,
@@ -109,7 +112,6 @@ import { SpinnerComponent } from './layout/spinner/spinner.component';
     HeaderComponent,
     FooterComponent,
     NavbarComponent,
-    SpinnerComponent,
   ],
   // exports: [NavbarComponent],
   // bootstrap: [AppComponent,NavbarComponent],

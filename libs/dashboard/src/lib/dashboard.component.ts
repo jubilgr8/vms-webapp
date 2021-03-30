@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   unsubscribe$: Subject<void> = new Subject();
   filters: Filter;
   isMapView: boolean = true;
-  isLoading: boolean;
+  isLoading: boolean = true;
   constructor(
     private authFacade: AuthFacade,
     private dashboardFacade: DashboardFacade,

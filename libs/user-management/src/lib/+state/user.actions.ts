@@ -37,7 +37,7 @@ export const getMenuFail = createAction(
 
 export const submitUser = createAction('[User] GET_User_LIST');
 
-export const updateUser = createAction('[User] GET_User_LIST');
+export const updateUser = createAction('[User] UPDATE_User_LIST');
 
 export const submitUserSuccess = createAction(
   '[User] New User Submitted',
