@@ -71,8 +71,8 @@ export class UserManagementComponent implements OnInit, OnDestroy {
             this.ref.detectChanges();
            // this.userFacade.updateUser();
             this.userService.updateUser(this.singleUser).subscribe((data: any)=>{
-              console.log(data);
-            })  
+              this.userFacade.getUserList();
+            })
           }
         });
   }

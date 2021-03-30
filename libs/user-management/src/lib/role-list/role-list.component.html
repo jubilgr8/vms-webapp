@@ -28,8 +28,13 @@
                                             <td>{{role.roleName}}</td>
                                             <td>{{role.roleDesc}}</td>
                                             <td>
-                                                <div class="col-md-6"><button type="button" id="add|{{role.id}}" class="btn btn-primary">View</button>&nbsp;
-                                                <button type="button" class="btn btn-success" id="edit|{{role.id}}">Edit</button>&nbsp;
+                                                <div class="col-md-6"><button type="button" id="add|{{role.id}}" class="btn btn-primary"
+                                                [routerLink]="['/user-management/AddNewRole']"
+                                                [queryParams]="{ roleId: role.id, type: 1 }"
+                                                    >View</button>&nbsp;
+                                                <button type="button" class="btn btn-success" id="edit|{{role.id}}"
+                                                [routerLink]="['/user-management/AddNewRole']"
+                                                [queryParams]="{ roleId: role.id, type: 2 }">Edit</button>&nbsp;
                                                 <button type="button" class="btn btn-danger" id="delete|{{role.id}}">Delete</button></div>
                                             </td>
                                         </tr>
