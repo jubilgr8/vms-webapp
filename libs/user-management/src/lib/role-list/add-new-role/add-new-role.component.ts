@@ -5,30 +5,12 @@ import { Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
 import { UserFacade } from '../../+state/user.facade';
 import { takeUntil } from 'rxjs/operators';
-import { RoleMaster, MenuMaster } from '../../+state/user.interfaces';
+import { RoleMaster, MenuMaster,RoleMenuRelation, UserMaster } from '../../+state/user.interfaces';
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
+import {UserService} from '../../user.service';
+import { ActivatedRoute } from '@angular/router';
 
-const structure: Field[] = [
-  {
-    type: 'INPUT',
-    name: 'roleId',
-    placeholder: 'Role ID',
-    validator: [Validators.required],
-  },
-  {
-    type: 'INPUT',
-    name: 'roleName',
-    placeholder: 'Role Name',
-    validator: [Validators.required],
-  },
-  {
-    type: 'INPUT',
-    name: 'roleDesc',
-    placeholder: 'Discription',
-    validator: [Validators.required],
-    attrs: 'col-md-3',
-  },
-];
+
 const checkbox: Field = {
   type: 'CHECKBOX',
   name: 'accessAdd',
@@ -49,8 +31,14 @@ export class AddNewRoleComponent implements OnInit {
   checkbox$: Observable<Field>;
   data$: Observable<any>;
   menus: MenuMaster[];
+  roleForControl : RoleMaster;
+  role : RoleMaster;
+  users: UserMaster;
+  roleMenuRel : RoleMenuRelation;
+  arrRoleMenuRel : any;
   unsubscribe$: Subject<void> = new Subject();
   isMenu: boolean = false;
+  isType: boolean = false;
   checkboxes = [];
 
   masterSelected: boolean;
@@ -58,15 +46,20 @@ export class AddNewRoleComponent implements OnInit {
   accessView: boolean;
   accessUpd: boolean;
   accessDel: boolean;
+   data : any;
   checklist: any;
   checkedList: any;
+  roleId: any;
+  type: any;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private ngrxFormsFacadeC: NgrxFormsFacade,
     private userFacade: UserFacade,
     private authFacade: AuthFacade,
     private ref: ChangeDetectorRef,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private service : UserService,
+    private route: ActivatedRoute
   ) {
     (this.masterSelected = false),
       (this.checklist = [
@@ -82,26 +75,74 @@ export class AddNewRoleComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.form = this.fb.group({
-      //appForm:['',Validators.required],
-      accessArrays: new FormArray([]),
-    });
-    this.ngrxFormsFacade.setStructure(structure);
-    this.data$ = this.ngrxFormsFacade.data$;
-    this.structure$ = this.ngrxFormsFacade.structure$;
-    // this.checkbox$ =this.ngrxFormsFacade.checkbox$;
-    this.userFacade.menus$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        if (response) {
-          this.menus = JSON.parse(JSON.stringify(response));
-          this.ref.detectChanges();
-        } else {
-          this.userFacade.getMenuList();
-        }
-      });
-  }
 
+    this.route.queryParams.subscribe((params) => {
+      this.roleId = params['roleId'];
+      this.type = params['type'];
+      
+  this.fillData();
+    });
+    this.userFacade.menus$
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe((response) => {
+      if (response) {
+        this.menus = JSON.parse(JSON.stringify(response));
+        this.ref.detectChanges();
+      } else {
+        this.userFacade.getMenuList();
+      }
+    });
+    if (this.type) {
+      if(this.type == 1)
+      {
+        this.isType =true;
+      }
+      this.userFacade.roles$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((response) => {
+          if (response) {
+            this.roleForControl = response.filter((x) => x.id == this.roleId)[0];
+            this.fillData();
+            this.ref.detectChanges();
+            debugger;
+          } else {
+            this.userFacade.getRoleList();
+            this.fillData();
+          }
+        });
+        this.service.getRoleMenus().subscribe((response)=>{
+          debugger;
+          response.forEach(element => {
+            if(element.roleMasterId == this.roleId)
+            {
+              if(element.accessView == true)
+              {
+                this.menus.find(x=>x.id == element.menuMasterId).accessView = true;
+                this.getCheckedItemList('accessView');
+              }
+              if(element.accessAdd == true)
+              {
+                this.menus.find(x=>x.id == element.menuMasterId).accessAdd = true;
+                this.getCheckedItemList('accessAdd');
+              }
+              if(element.accessUpd == true)
+              {
+                this.menus.find(x=>x.id == element.menuMasterId).accessUpd = true;
+                this.getCheckedItemList('accessUpd');
+              }
+              if(element.accessDel == true)
+              {
+                this.menus.find(x=>x.id == element.menuMasterId).accessDel = true;
+                this.getCheckedItemList('accessDel');
+              }
+              this.CheckData();
+            }
+          });
+        });
+    }
+    // this.checkbox$ =this.ngrxFormsFacade.checkbox$;
+    
+  }
   get f() {
     return this.form.controls;
   }
@@ -122,6 +163,49 @@ export class AddNewRoleComponent implements OnInit {
     this.checkedList = JSON.stringify(this.menus);
   }
 
+  fillData(){
+    var structure: Field[] = [
+      {
+        type: 'INPUT',
+        name: 'roleId',
+        placeholder: 'Role ID',
+        validator: [Validators.required],
+        value: this.roleForControl ? this.roleForControl.roleId : '',
+        attrs: {
+          disabled: this.type == 1 ? true : null,
+        },
+      },
+      {
+        type: 'INPUT',
+        name: 'roleName',
+        placeholder: 'Role Name',
+        validator: [Validators.required],
+        value: this.roleForControl ? this.roleForControl.roleName : '',
+        attrs: {
+          disabled: this.type == 1 ? true : null,
+        },
+      },
+      {
+        type: 'INPUT',
+        name: 'roleDesc',
+        placeholder: 'Discription',
+        validator: [Validators.required],
+        value: this.roleForControl ? this.roleForControl.roleDesc : '',
+        attrs: {
+          disabled: this.type == 1 ? true : null,
+        },
+      },
+    ];
+    console.log(structure);
+    this.form = this.fb.group({
+      //appForm:['',Validators.required],
+      accessArrays: new FormArray([]),
+    });
+    this.ngrxFormsFacade.setStructure(structure);
+    this.data$ = this.ngrxFormsFacade.data$;
+    this.structure$ = this.ngrxFormsFacade.structure$;
+  }
+
   isAllSelected(type: string) {
     this.masterSelected = this.menus.every(function (item: any) {
       return item[type] == true;
@@ -138,7 +222,30 @@ export class AddNewRoleComponent implements OnInit {
     this.getCheckedItemList(type, true);
   }
   onSubmit() {
-    alert(JSON.stringify(this.menus));
+    debugger;
+    
+    for (var i = 0; i < this.menus.length; i++) {
+      var accVw = this.menus[i].accessView == undefined ? false:true;
+      var accAd = this.menus[i].accessAdd == undefined ? false: true;
+      var accUp = this.menus[i].accessUpd == undefined ? false: true;
+      var accDl = this.menus[i].accessDel == undefined ? false: true;
+        var a = JSON.stringify('{"roleMasterId":"'+this.role.id+'","menuMasterId":"'+this.menus[i].id+'","accessAdd":"'+accAd+'","accessView":"'+accVw+'","accessUpd":"'+accUp+'","accessDel":"'+accDl+'"}')
+        this.data= JSON.parse(JSON.parse(a));
+        this.roleMenuRel = this.data;
+        if(this.type == 2)
+        {
+          this.service.updateRoleMenu(this.roleMenuRel).subscribe((response)=>{
+            console.log(response);
+          });
+        }
+        else
+        {
+          this.service.submitRoleMenu(this.roleMenuRel).subscribe((response)=>{
+            console.log(response);
+          });
+        }
+        
+    }
   }
 
   updateItem(e, type) {
@@ -169,10 +276,30 @@ export class AddNewRoleComponent implements OnInit {
   }
 
   submit() {
-    this.userFacade.submitNewRole();
+    debugger;
+    //this.userFacade.submitNewRole();
   }
 
   CheckData() {
+    if (!this.type)
+    {
+      this.userFacade.submitNewRole();
+      debugger;
+    this.userFacade.roles$
+    .pipe(takeUntil(this.unsubscribe$))
+    .subscribe((response) => {
+      if (response) {
+        this.role = response[response.length-1];
+        this.ref.detectChanges();
+      } else {
+        this.userFacade.getRoleList();
+      }
+    });
+    }
+    else{
+      this.role = this.roleForControl;
+    }
+    this.userFacade.getRoleList();
     this.isMenu = true;
     this.t.push(
       this.fb.group({

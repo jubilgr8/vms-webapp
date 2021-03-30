@@ -70,6 +70,26 @@ export class UserEffects {
     )
   );
 
+  updateUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.updateUser),
+      withLatestFrom(this.ngrxFormsFacade.data$),
+      exhaustMap(([action, data]) =>
+        this.userService.updateUser(data).pipe(
+          map((response) => {
+          console.log(response);
+            debugger;
+            return userActions.updateUserSuccess({ paylod: response });
+          }),
+          catchError((result) =>
+            of(fromNgrxForms.setErrors({
+               errors: result.error.errors }))
+          )
+        )
+      )
+    )
+  );
+
   submitNewRole$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.submitRole),

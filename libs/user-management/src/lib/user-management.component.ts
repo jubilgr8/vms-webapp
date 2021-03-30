@@ -7,7 +7,7 @@ import { Router, NavigationStart } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { UserFacade } from './+state/user.facade';
 import { UserMaster } from './+state/user.interfaces';
-import { SharedData } from './user.service';
+import { SharedData, UserService } from './user.service';
 // import { DashboardFacade } from './+state/dashboard.facade';
 @Component({
   selector: 'user-management',
@@ -20,20 +20,22 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   users: UserMaster[];
+  singleUser : UserMaster;
   isLoading: boolean;
   constructor(
     private router: Router,
     private authFacade: AuthFacade,
     private userFacade: UserFacade,
     private ref: ChangeDetectorRef,
-    private sharedData: SharedData
+    private sharedData: SharedData,
+    private userService:UserService
   ) {}
 
   ngOnInit(): void {
-    this.userFacade.isLoading$.subscribe((r) => {
-      this.isLoading = r;
-      this.ref.detectChanges();
-    });
+    // this.userFacade.isLoading$.subscribe((r) => {
+    //   this.isLoading = r;
+    //   this.ref.detectChanges();
+    // });
 
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
@@ -54,10 +56,25 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
   ViewAction(id, type) {
-    this.sharedData.data.next(id);
-    if (type == 0) this.router.navigate(['/user-management/add-new-user']);
-    else if (type == 1) this.router.navigate(['/user-management/add-new-user']);
-    else if (type == 2) alert('Delete' + id);
+    debugger;
+    console.log(this.users.find(x=>x.id == id));
+    this.userFacade.users$
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe((response) => {
+          if (response) {
+            debugger;
+            this.singleUser = response.find((X)=>X.id == id);
+            var strData =JSON.stringify(this.singleUser);
+            var _jsonData = JSON.parse(strData);
+            _jsonData.usrIsDeleted = true;
+            this.singleUser = _jsonData;
+            this.ref.detectChanges();
+           // this.userFacade.updateUser();
+            this.userService.updateUser(this.singleUser).subscribe((data: any)=>{
+              this.userFacade.getUserList();
+            })
+          }
+        });
   }
 
   ngOnDestroy() {

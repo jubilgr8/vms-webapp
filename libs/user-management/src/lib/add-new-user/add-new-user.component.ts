@@ -57,6 +57,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
           if (response) {
             this.users = response.filter((x) => x.id == this.userId)[0];
             this.ref.detectChanges();
+            debugger;
           } else {
             this.facade.getUserList();
           }
@@ -177,10 +178,12 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    debugger;
     this.facade.submitNewUser();
   }
 
   ngOnDestroy() {
+
     this.ngrxFormsFacade.initializeForm();
   }
 }

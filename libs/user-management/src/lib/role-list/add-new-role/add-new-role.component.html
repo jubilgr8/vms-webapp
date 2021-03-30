@@ -58,10 +58,10 @@
                 <input
                   type="checkbox"
                   [field$]="checkbox$"
-                  [id]="'accessAdd'"
-                  [(ngModel)]="accessAdd"
+                  [id]="'accessView'"
+                  [(ngModel)]="accessView"
                   #all
-                  (change)="checkUncheckAll($event, 'accessAdd')"
+                  (change)="checkUncheckAll($event, 'accessView')" [disabled]="isType"
                 />
               </th>
               <th>
@@ -69,10 +69,10 @@
                 <input
                   type="checkbox"
                   [field$]="checkbox$"
-                  [id]="'accessView'"
-                  [(ngModel)]="accessView"
+                  [id]="'accessAdd'"
+                  [(ngModel)]="accessAdd"
                   #all
-                  (change)="checkUncheckAll($event, 'accessView')"
+                  (change)="checkUncheckAll($event, 'accessAdd')" [disabled]="isType"
                 />
               </th>
 
@@ -84,7 +84,7 @@
                   [id]="'accessUpd'"
                   [(ngModel)]="accessUpd"
                   #all
-                  (change)="checkUncheckAll($event, 'accessUpd')"
+                  (change)="checkUncheckAll($event, 'accessUpd')" [disabled]="isType"
                 />
               </th>
 
@@ -96,7 +96,7 @@
                   [id]="'accessDel'"
                   [(ngModel)]="accessDel"
                   #all
-                  (change)="checkUncheckAll($event, 'accessDel')"
+                  (change)="checkUncheckAll($event, 'accessDel')" [disabled]="isType"
                 />
               </th>
             </tr>
@@ -111,8 +111,8 @@
                   type="checkbox"
                   [field$]="checkbox$"
                   [id]="'add|' + menu.id"
-                  [(ngModel)]="menu.accessAdd"
-                  (change)="getCheckedItemList('accessAdd')"
+                  [(ngModel)]="menu.accessView"
+                  (change)="getCheckedItemList('accessView')" [disabled]="isType"
                 />
               </td>
               <td>
@@ -120,8 +120,8 @@
                   type="checkbox"
                   [field$]="checkbox$"
                   [id]="'view|' + menu.id"
-                  [(ngModel)]="menu.accessView"
-                  (change)="getCheckedItemList('accessView')"
+                  [(ngModel)]="menu.accessAdd"
+                  (change)="getCheckedItemList('accessAdd')" [disabled]="isType"
                 />
               </td>
               <td>
@@ -130,7 +130,7 @@
                   [field$]="checkbox$"
                   [id]="'update|' + menu.id"
                   [(ngModel)]="menu.accessUpd"
-                  (change)="getCheckedItemList('accessUpd')"
+                  (change)="getCheckedItemList('accessUpd')" [disabled]="isType"
                 />
               </td>
               <td>
@@ -139,7 +139,7 @@
                   [field$]="checkbox$"
                   [id]="'delete|' + menu.id"
                   [(ngModel)]="menu.accessDel"
-                  (change)="getCheckedItemList('accessDel')"
+                  (change)="getCheckedItemList('accessDel')" [disabled]="isType"
                 />
               </td>
             </tr>

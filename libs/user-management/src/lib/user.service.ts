@@ -27,18 +27,47 @@ export class UserService {
       'User_API/api/MenuMaster/getMenuMaster'
     );
   }
+
+  getRoleMenus(): Observable<RoleMenuRelation[]> {
+    return this.apiService.get<RoleMenuRelation[]>('User_API/api/RoleMenu/GetRoleMenuRelations');
+  }
+
   submitUser(mstUser: UserMaster): Observable<any> {
     return this.apiService.post<any, UserMaster>(
       'User_API/api/User/PostUserMaster',
       mstUser
     );
   }
-  submitRole(mstRoleMenu: RoleMenuRelation): Observable<any> {
+
+ updateUser(mstUser: UserMaster): Observable<any> {
+   
+    return this.apiService.post<any, UserMaster>(
+      'User_API/api/User/PutUserMaster',
+      mstUser
+    );
+  }
+
+  submitRole(mstRole: RoleMaster): Observable<any> {
+    return this.apiService.post<any, RoleMaster>(
+      'User_API/api/Role/PostRoleMaster',
+      mstRole
+    );
+  }
+
+  submitRoleMenu(mstRoleMenu: RoleMenuRelation): Observable<any> {
     return this.apiService.post<any, RoleMenuRelation>(
       'User_API/api/RoleMenu/PostRoleMenuRelation',
       mstRoleMenu
     );
   }
+
+  updateRoleMenu(mstRoleMenu: RoleMenuRelation): Observable<any> {
+    return this.apiService.post<any, RoleMenuRelation>(
+      'User_API/api/RoleMenu/PutRoleMenuRelation',
+      mstRoleMenu
+    );
+  }
+
   submitMenu(mstRole: MenuMaster): Observable<any> {
     return this.apiService.post<any, MenuMaster>(
       'User_API/api/MenuMaster/PostMenuMaster',
