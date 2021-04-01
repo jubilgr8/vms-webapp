@@ -40,7 +40,7 @@ export class UserService {
   }
 
  updateUser(mstUser: UserMaster): Observable<any> {
-   
+   debugger;
     return this.apiService.post<any, UserMaster>(
       'User_API/api/User/PutUserMaster',
       mstUser

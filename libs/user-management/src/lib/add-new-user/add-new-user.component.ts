@@ -179,6 +179,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   }
 
   submit() {
+    debugger;
     if (this.userId) {
       this.facade.updateUser();
     } else {
