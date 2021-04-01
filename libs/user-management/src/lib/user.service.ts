@@ -74,6 +74,13 @@ export class UserService {
       mstRole
     );
   }
+  
+  updateRole(mstRole: RoleMaster): Observable<any> {
+    return this.apiService.post<any, RoleMaster>(
+      'User_API/api/Role/PutRoleMaster',
+      mstRole
+    );
+  }
 }
 export class SharedData {
   data: Subject<string> = new Subject();
