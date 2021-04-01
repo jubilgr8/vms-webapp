@@ -1,9 +1,10 @@
 <fieldset [formGroup]="group" class="col form-group">
-  
   <input
     [formControlName]="field?.name"
     [attr.placeholder]="field?.placeholder"
     class="form-control form-control-lg"
     [attr.type]="field?.attrs?.type || 'text'"
+    [(ngModel)]="value"
+    [attr.disabled]="field?.attrs?.disabled || null"
   />
 </fieldset>

@@ -1,0 +1,72 @@
+<agm-map
+  [latitude]="lat"
+  [longitude]="lng"
+  [zoom]="zoom"
+  [disableDefaultUI]="false"
+  (mapClick)="mapClicked($event)"
+>
+  <agm-marker
+    *ngFor="let m of markers; let i = index"
+    (markerClick)="clickedMarker(m.vmsId, i)"
+    [latitude]="m.lat"
+    [longitude]="m.lng"
+    [label]="m.label"
+    [markerDraggable]="m.draggable"
+    (dragEnd)="markerDragEnd(m, $event)"
+    [iconAnchorX]="10"
+    [iconAnchorY]="10"
+    [iconHeight]="20"
+    [iconWidth]="20"
+    [iconUrl]="iconUrl"
+  >
+    <agm-info-window>
+      <div id="popup" class="ol-popup">
+        <div id="popup-content">
+          <table class="table table-striped table-bordered" *ngIf="vmsData">
+            <tbody>
+              <tr>
+                <td colspan="2" align="center">
+                  <img
+                    class="ss"
+                    src="assets/img/VMS008.jpg"
+                    alt="IMG DESC"
+                    style="margin: 0 auto; max-height: 100px; width: auto"
+                  />
+                </td>
+              </tr>
+              <tr>
+                <td><label>VMSId :</label></td>
+                <td>{{ vmsData[0].vmsId }}</td>
+              </tr>
+              <tr>
+                <td><strong> Name :</strong></td>
+                <td>{{ vmsData[0].vmsDescription }}</td>
+              </tr>
+              <tr>
+                <td><label> ZoneName : </label></td>
+                <td>{{ vmsData[0].zone?.description }}</td>
+              </tr>
+              <tr>
+                <td><label> Lat :</label></td>
+                <td>{{ vmsData[0].latitude }}</td>
+              </tr>
+              <tr>
+                <td><label>Long :</label></td>
+                <td>{{ vmsData[0].longitude }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </agm-info-window>
+  </agm-marker>
+
+  <agm-polygon
+    #polygon
+    [paths]="paths"
+    [strokeColor]="strokecolor"
+    [visible]="true"
+    (polyClick)="onPolyClick($event, polygon)"
+  >
+  </agm-polygon>
+</agm-map>

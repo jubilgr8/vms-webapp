@@ -1,6 +1,12 @@
 import { User } from 'libs/api/src';
 import { AuthFacade } from 'libs/auth/src';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { filter, take, takeUntil } from 'rxjs/operators';
 import { LocalStorageJwtService } from 'libs/auth/src';
@@ -23,7 +29,7 @@ export class AppComponent implements OnInit {
   constructor(
     private authFacade: AuthFacade,
     private localStorageJwtService: LocalStorageJwtService,
-    private router: Router,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -55,7 +61,6 @@ export class AppComponent implements OnInit {
   }
 
   toggleSidebar() {
-    debugger;
     this.isCollapsed = !this.isCollapsed;
   }
 }

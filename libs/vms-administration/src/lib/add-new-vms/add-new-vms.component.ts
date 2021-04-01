@@ -120,7 +120,7 @@ export class AddNewVmsComponent implements OnInit {
     this.ngrxFormsFacade.initializeForm();
   }
   openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true,size:"xl" });
+    this.modalService.open(content, { centered: true,size:"lg" });
   }
   
 }

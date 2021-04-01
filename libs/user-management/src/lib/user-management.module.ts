@@ -33,10 +33,10 @@ import { AddNewUserComponent } from './add-new-user/add-new-user.component';
 import { RoleListComponent } from './role-list/role-list.component';
 import { AddNewRoleComponent } from './role-list/add-new-role/add-new-role.component';
 import { CheckboxComponent } from 'libs/ngrx-forms/src/lib/fields/checkbox/checkbox.component';
-import {VmsAdministrationModule} from '../../../vms-administration/src/lib/vms-administration.module';
+import { VmsAdministrationModule } from '../../../vms-administration/src/lib/vms-administration.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import {SharedData} from './user.service';
-
+import { SharedData } from './user.service';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
@@ -44,7 +44,7 @@ import {SharedData} from './user.service';
     FormsModule,
     NgrxFormsModule,
     CommonModule,
-    
+    ToastrModule.forRoot(),
     VmsAdministrationModule,
     ReactiveFormsModule,
     RouterModule.forChild([
@@ -101,7 +101,7 @@ import {SharedData} from './user.service';
     UserManagementComponent,
     AddNewUserComponent,
     RoleListComponent,
-    AddNewRoleComponent
+    AddNewRoleComponent,
   ],
 })
 export class UserManagementModule {}

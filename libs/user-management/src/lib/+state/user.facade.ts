@@ -7,6 +7,8 @@ import * as userActions from './user.actions';
 @Injectable()
 export class UserFacade {
   constructor(private store: Store<UserState>) {}
+  isLoading$ = this.store.select(usersQuery.isLoading);
+
   users$ = this.store.select(usersQuery.getUsers);
   roles$ = this.store.select(usersQuery.getRoles);
   menus$ = this.store.select(usersQuery.getMenus);
@@ -21,6 +23,10 @@ export class UserFacade {
   }
   submitNewUser() {
     this.store.dispatch(userActions.submitUser());
+  }
+  updateUser() {
+    debugger;
+    this.store.dispatch(userActions.updateUser());
   }
   submitNewRole() {
     this.store.dispatch(userActions.submitRole());

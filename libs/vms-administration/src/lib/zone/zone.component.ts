@@ -28,16 +28,13 @@ export class ZoneComponent implements OnInit, OnDestroy {
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isLoggedIn) => {
-        debugger;
         this.isAuthenticated = isLoggedIn;
       });
 
     this.adminFacade.zones$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        debugger;
         if (response) {
-          debugger;
           this.zones = response;
           this.ref.detectChanges();
         } else {
