@@ -11,6 +11,7 @@ export class AdminFacade {
   zonecoords$ = this.store.select(usersQuery.getZoneCoords);
   menus$ = this.store.select(usersQuery.getMenus);
   vmss$ = this.store.select(usersQuery.getVms);
+  isLoading$ = this.store.select(usersQuery.isLoading);
   getZoneList() {
     this.store.dispatch(adminActions.getZoneList());
   }

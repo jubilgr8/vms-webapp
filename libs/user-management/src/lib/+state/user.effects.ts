@@ -57,6 +57,28 @@ export class UserEffects {
     )
   );
 
+
+  deleteUser$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(userActions.deleteUser),
+    exhaustMap((action) =>
+      this.userService.updateUser(action.user).pipe(
+        map((response) => {
+          debugger;
+          this.toastr.success('User deleted Successfully!');
+          // this.router.navigateByUrl('/user-management/users');
+          return userActions.deleteUserSuccess({ paylod: response });
+        }),
+        catchError((result) => {
+          this.toastr.error('Something went wrong. Please try again!');
+          //return userActions.deleteUserFail({ errors: result.error.errors  });
+          return of(userActions.deleteUserFail({ error: result.error }));
+        })
+      )
+    )
+  )
+);
+
   submitNewUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(userActions.submitUser),
@@ -64,8 +86,16 @@ export class UserEffects {
       exhaustMap(([action, data]) =>
         this.userService.submitUser(data).pipe(
           map((response) => {
-            this.toastr.success('User Created Successfully!');
-            this.router.navigateByUrl('/user-management/users');
+            debugger;
+            if(response == 4)
+            {
+              this.toastr.error('EMail Id or Mobile Number has been already in use.!');
+            }
+            else
+            {
+              this.toastr.success('User Updated Successfully!');
+              this.router.navigateByUrl('/user-management/users');
+            }
             return userActions.submitUserSuccess({ paylod: response });
           }),
           catchError((result) => {
@@ -84,8 +114,16 @@ export class UserEffects {
       exhaustMap(([action, data]) =>
         this.userService.updateUser(data).pipe(
           map((response) => {
-            this.toastr.success('User Updated Successfully!');
-            this.router.navigateByUrl('/user-management/users');
+            debugger;
+            if(response == 4)
+            {
+              this.toastr.error('EMail Id or Mobile Number has been already in use.!');
+            }
+            else
+            {
+              this.toastr.success('User Updated Successfully!');
+              this.router.navigateByUrl('/user-management/users');
+            }
             return userActions.updateUserSuccess({ paylod: response });
           }),
           catchError((result) => {
@@ -108,11 +146,13 @@ export class UserEffects {
       exhaustMap(([action, data]) =>
         this.userService.submitRole(data).pipe(
           map((response) => {
-            this.toastr.success('Role Created Successfully!');
-            this.router.navigateByUrl('/user-management/roles');
+            debugger;
+            this.toastr.success('Role has been created successfully! Please select menus from the below list.');
+            //this.router.navigateByUrl('/user-management/roles');
             return userActions.submitRoleSuccess({ paylod: response });
           }),
           catchError((result) => {
+            debugger;
             this.toastr.error('Something went wrong. Please try again!');
 
             return of(fromNgrxForms.setErrors({ errors: result.error.errors }));
