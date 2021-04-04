@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { UserState } from './user.reducer';
 import { usersQuery } from './user.selectors';
 import * as userActions from './user.actions';
+import { UserMaster } from './user.interfaces';
 
 @Injectable()
 export class UserFacade {
@@ -30,5 +31,8 @@ export class UserFacade {
   }
   submitNewRole() {
     this.store.dispatch(userActions.submitRole());
+  }
+  deleteUser(user: UserMaster) {
+    this.store.dispatch(userActions.deleteUser({user}));
   }
 }

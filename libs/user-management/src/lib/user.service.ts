@@ -40,7 +40,7 @@ export class UserService {
   }
 
  updateUser(mstUser: UserMaster): Observable<any> {
-   debugger;
+   
     return this.apiService.post<any, UserMaster>(
       'User_API/api/User/PutUserMaster',
       mstUser
@@ -48,10 +48,20 @@ export class UserService {
   }
 
   submitRole(mstRole: RoleMaster): Observable<any> {
-    return this.apiService.post<any, RoleMaster>(
-      'User_API/api/Role/PostRoleMaster',
-      mstRole
-    );
+    debugger;
+    if(mstRole.roleId != "" && mstRole.roleId != undefined && mstRole.roleName != "" && mstRole.roleName != undefined && mstRole.roleDesc != "" && mstRole.roleDesc != undefined){
+      return this.apiService.post<any, RoleMaster>(
+        'User_API/api/Role/PostRoleMaster',
+        mstRole
+      );
+    }
+    else
+    {
+      return this.apiService.post<any, RoleMaster>(
+        '',
+        mstRole);
+    }
+    
   }
 
   submitRoleMenu(mstRoleMenu: RoleMenuRelation): Observable<any> {

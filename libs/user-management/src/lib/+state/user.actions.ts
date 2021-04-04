@@ -70,3 +70,18 @@ export const submitRoleFail = createAction(
   '[Role] New Role Submitted Fail',
   props<{ error: Error }>()
 );
+export const deleteUser = createAction(
+  '[USER] Delete User',
+  props<{ user: UserMaster }>()
+);
+
+export const deleteUserSuccess = createAction(
+  '[USER] Delete User Submitted',
+  props<{ paylod: any }>()
+);
+
+export const deleteUserFail = createAction(
+  '[USER] Delete User Submitted Fail',
+  props<{ error: any }>()
+);
+
