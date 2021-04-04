@@ -14,7 +14,6 @@ export const adminInitialState: AdminManagement = {
   menus: null,
   errors: {},
   vmss:null,
-  isLoading :null
 };
 
 const reducer = createReducer(

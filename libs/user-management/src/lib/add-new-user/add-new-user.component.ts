@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { AuthFacade } from '@vms/auth';
-import { Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
+import { Errors, Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
 import { elementAt, takeUntil } from 'rxjs/operators';
 import { UserFacade } from '../+state/user.facade';
@@ -10,6 +10,7 @@ import { AdminFacade } from '../../../../vms-administration/src/lib/+state/admin
 import { SharedData } from '../user.service';
 import { UserMaster } from '../+state/user.interfaces';
 import { ActivatedRoute } from '@angular/router';
+import { FormValidatorsService } from 'libs/ngrx-forms/src/lib/services/form-validators.service';
 
 var defDdlList: KeyValue[] = [
   {
@@ -34,17 +35,19 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   unsubscribe$: Subject<void> = new Subject();
   userId: any;
   type: any;
-  view:boolean;
-  edit:boolean;
-  add:boolean;
   isLoading: boolean = true;
+  errors: Errors;
+  isSubmitted$: Observable<boolean>;
+  form: any;
+  isFormValid: any;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: UserFacade,
     private adminFacade: AdminFacade,
     private ref: ChangeDetectorRef,
     private sharedData: SharedData,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formValidatorsService: FormValidatorsService
   ) {}
 
   ngOnInit() {
@@ -54,14 +57,6 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
     });
 
     if (this.type) {
-      if(this.type ==1)
-      {
-        this.view =true;
-      }
-      else if(this.type == 2)
-      {
-        this.edit = true;
-      }
       this.facade.users$
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((response) => {
@@ -74,30 +69,16 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
           }
         });
     }
-    else{
-        this.add = true;
-    }
     this.adminFacade.zones$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
         if (response) {
-          debugger;
           var ddlList = response.map((x) => ({
             name: x.description,
             value: x.id,
           }));
-            console.log(this.users);
+
           var structure: Field[] = [
-            {
-              type: 'INPUT',
-              name: 'id',
-              placeholder: '',
-              validator: [Validators.required],
-              value: this.users ? this.users.id : '',
-              attrs: {
-                type:'hidden'
-              },
-            },
             {
               type: 'INPUT',
               name: 'usrId',
@@ -124,7 +105,9 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
               ddlList: ddlList,
               placeholder: 'Role Master',
               validator: [Validators.required],
-              selected: ddlList[0],
+              selected: this.users
+                ? ddlList.filter((x) => x.value == this.users.roleMasterId)[0]
+                : null,
               attrs: {
                 disabled: this.type == 1 ? true : null,
               },
@@ -201,12 +184,24 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
     this.ngrxFormsFacade.updateData(changes);
   }
 
-  submit() {
+  getForm(form: any) {
     debugger;
-    if (this.userId) {
-      this.facade.updateUser();
+    this.form = form;
+    if (this.form.status === 'INVALID') {
+      this.isFormValid = true;
     } else {
-      this.facade.submitNewUser();
+      this.isFormValid = null;
+    }
+    this.ref.detectChanges();
+  }
+  submit() {
+    this.formValidatorsService.validateAllFormFields(this.form);
+    if (this.form.valid) {
+      if (this.userId) {
+        this.facade.updateUser();
+      } else {
+        this.facade.submitNewUser();
+      }
     }
   }
 

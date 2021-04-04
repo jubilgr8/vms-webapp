@@ -44,10 +44,6 @@ const reducer = createReducer(
     ...state,
     menus: action.menus,
     isLoading: false,
-  })),
-  on(userActions.deleteUser, (state, action) => ({
-    ...state,
-    isLoading: true,
   }))
 );
 

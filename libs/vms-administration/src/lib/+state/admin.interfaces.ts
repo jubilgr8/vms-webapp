@@ -1,7 +1,6 @@
 import { ValidatorFn } from '@angular/forms';
 
 export interface AdminManagement {
-  isLoading: any;
   zones: ZoneMaster[];
   zonecoords: ZoneCoords[];
   menus: MenuMaster[];
