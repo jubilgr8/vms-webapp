@@ -335,6 +335,7 @@ export class AddNewRoleComponent implements OnInit {
     this.isMenu = true;
     this.t.push(
       this.fb.group({
+        
         accessArray: ['', Validators.required],
         accessAdd: [false, Validators.required],
         accessDel: [false, Validators.required],
