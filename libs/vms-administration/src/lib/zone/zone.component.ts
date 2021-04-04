@@ -18,6 +18,7 @@ export class ZoneComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   zones: ZoneMaster[];
+  isLoading: boolean;
   constructor(
     private authFacade: AuthFacade,
     private adminFacade: AdminFacade,
@@ -25,6 +26,9 @@ export class ZoneComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.adminFacade.isLoading$.subscribe((r) => {
+      this.isLoading = r;
+    });
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isLoggedIn) => {

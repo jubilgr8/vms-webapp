@@ -14,6 +14,8 @@ import {
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { UserService } from '../../user.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastRef, ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 const checkbox: Field = {
   type: 'CHECKBOX',
@@ -55,6 +57,9 @@ export class AddNewRoleComponent implements OnInit {
   checkedList: any;
   roleId: any;
   type: any;
+  view:boolean;
+  edit:boolean;
+  add:boolean;
   isLoading: boolean = true;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
@@ -64,7 +69,9 @@ export class AddNewRoleComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private fb: FormBuilder,
     private service: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toaster : ToastrService,
+    private router : Router, 
   ) {
     (this.masterSelected = false),
       (this.checklist = [
@@ -83,7 +90,6 @@ export class AddNewRoleComponent implements OnInit {
     this.route.queryParams.subscribe((params) => {
       this.roleId = params['roleId'];
       this.type = params['type'];
-
       this.fillData();
     });
     this.userFacade.menus$
@@ -98,11 +104,18 @@ export class AddNewRoleComponent implements OnInit {
       });
     if (this.type) {
       if (this.type == 1) {
+        this.view = true;
         this.isType = true;
       }
+      else if(this.type == 2)
+      {
+        this.edit = true;
+      }
+      else{this.add = true}
       this.userFacade.roles$
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((response) => {
+          debugger;
           if (response) {
             this.roleForControl = response.filter(
               (x) => x.id == this.roleId
@@ -256,11 +269,13 @@ export class AddNewRoleComponent implements OnInit {
       this.roleMenuRel = this.data;
       if (this.type == 2) {
         this.service.updateRoleMenu(this.roleMenuRel).subscribe((response) => {
-          console.log(response);
+          this.toaster.success('Role - Menu relation saved successfully!');
+          this.router.navigateByUrl('/user-management/roles');
         });
       } else {
         this.service.submitRoleMenu(this.roleMenuRel).subscribe((response) => {
-          console.log(response);
+          this.toaster.success('Role - Menu relation updated successfully!');
+          this.router.navigateByUrl('/user-management/roles');
         });
       }
     }
@@ -300,8 +315,9 @@ export class AddNewRoleComponent implements OnInit {
 
   CheckData() {
     if (!this.type) {
-      this.userFacade.submitNewRole();
       debugger;
+      this.userFacade.submitNewRole();
+      
       this.userFacade.roles$
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((response) => {

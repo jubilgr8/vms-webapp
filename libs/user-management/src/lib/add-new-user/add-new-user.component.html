@@ -5,7 +5,11 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <i class="icon-check"></i> <strong>Add New User</strong>
+            <i class="icon-check"></i> 
+            <strong *ngIf="view">View User</strong>
+            <strong *ngIf="edit">Edit User</strong>
+            <strong *ngIf="add">Add New User</strong>
+        <!-- <span><strong>Add New User</strong></span> -->
           </div>
           <div class="card-body p-0">
             <div class="tab-content">

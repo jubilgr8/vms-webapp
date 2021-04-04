@@ -5,7 +5,10 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-header">
-            <i class="icon-check"></i> <strong>Add New Role</strong>
+            <i class="icon-check"></i>  
+            <strong *ngIf="view">View Role</strong>
+            <strong *ngIf="edit">Edit Role</strong>
+            <strong *ngIf="add">Add New Role</strong>
           </div>
           <div class="card-body p-0">
             <div class="tab-content">
