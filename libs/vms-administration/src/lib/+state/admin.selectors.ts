@@ -7,12 +7,6 @@ export const getAdminManagement = createFeatureSelector<AdminManagement>(
   adminFeatureKey
 );
 // Zone Details ------------------
-
-export const isLoading = createSelector(
-  getAdminManagement,
-  (adminManagement: AdminManagement) => adminManagement.isLoading
-);
-
 export const getZones = createSelector(
   getAdminManagement,
   (adminMngmnt: AdminManagement) => adminMngmnt.zones
@@ -38,5 +32,4 @@ export const usersQuery = {
   getZoneCoords,
   getMenus,
   getVms,
-  isLoading
 };

@@ -34,9 +34,6 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   unsubscribe$: Subject<void> = new Subject();
   userId: any;
   type: any;
-  view:boolean;
-  edit:boolean;
-  add:boolean;
   isLoading: boolean = true;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
@@ -54,14 +51,6 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
     });
 
     if (this.type) {
-      if(this.type ==1)
-      {
-        this.view =true;
-      }
-      else if(this.type == 2)
-      {
-        this.edit = true;
-      }
       this.facade.users$
         .pipe(takeUntil(this.unsubscribe$))
         .subscribe((response) => {
@@ -74,30 +63,16 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
           }
         });
     }
-    else{
-        this.add = true;
-    }
     this.adminFacade.zones$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
         if (response) {
-          debugger;
           var ddlList = response.map((x) => ({
             name: x.description,
             value: x.id,
           }));
-            console.log(this.users);
+
           var structure: Field[] = [
-            {
-              type: 'INPUT',
-              name: 'id',
-              placeholder: '',
-              validator: [Validators.required],
-              value: this.users ? this.users.id : '',
-              attrs: {
-                type:'hidden'
-              },
-            },
             {
               type: 'INPUT',
               name: 'usrId',
@@ -124,7 +99,9 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
               ddlList: ddlList,
               placeholder: 'Role Master',
               validator: [Validators.required],
-              selected: ddlList[0],
+              selected: this.users
+                ? ddlList.filter((x) => x.value == this.users.roleMasterId)[0]
+                : null,
               attrs: {
                 disabled: this.type == 1 ? true : null,
               },
@@ -202,7 +179,6 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   }
 
   submit() {
-    debugger;
     if (this.userId) {
       this.facade.updateUser();
     } else {
