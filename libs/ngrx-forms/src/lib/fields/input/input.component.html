@@ -2,9 +2,10 @@
   <input
     [formControlName]="field?.name"
     [attr.placeholder]="field?.placeholder"
-    class="form-control form-control-lg"
+    class="form-control form-control-lg {{ isError }}"
     [attr.type]="field?.attrs?.type || 'text'"
     [(ngModel)]="value"
     [attr.disabled]="field?.attrs?.disabled || null"
   />
+  <vms-error-message [control]="control"></vms-error-message>
 </fieldset>
