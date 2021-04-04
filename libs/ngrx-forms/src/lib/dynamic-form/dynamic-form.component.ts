@@ -11,6 +11,7 @@ import {
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { Observable, Subject, combineLatest } from 'rxjs';
 import { debounceTime, map, takeUntil, tap, filter } from 'rxjs/operators';
+import { FormValidatorsService } from '../services/form-validators.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -23,10 +24,14 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
   @Input() data$: Observable<any>;
   @Input() touchedForm$: Observable<boolean>;
   @Output() updateForm: EventEmitter<any> = new EventEmitter();
+  @Output() getForm: EventEmitter<FormGroup> = new EventEmitter();
   unsubscribe$: Subject<void> = new Subject();
   form: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private formValidatorsService: FormValidatorsService
+  ) {}
 
   ngOnInit() {
     this.structure$
@@ -37,7 +42,10 @@ export class DynamicFormComponent implements OnInit, OnDestroy {
         (f$) => combineLatest([f$, this.data$]),
         takeUntil(this.unsubscribe$)
       )
-      .subscribe(this.patchValue);
+      .subscribe((x) => {
+        this.patchValue;
+        this.getForm.emit(this.form);
+      });
 
     if (this.touchedForm$) {
       this.touchedForm$

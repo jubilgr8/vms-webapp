@@ -19,6 +19,8 @@ import { ListErrorsComponent } from './list-errors/list-errors.component';
 import { DropdownComponent } from './fields/dropdown/dropdown.component';
 import { CheckboxComponent } from './fields/checkbox/checkbox.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ErrorMessageComponent } from './error-message/error-message.component';
+import { FormValidatorsService } from './services/form-validators.service';
 
 @NgModule({
   imports: [
@@ -29,7 +31,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     }),
     EffectsModule.forFeature([NgrxFormsEffects]),
   ],
-  providers: [NgrxFormsEffects, NgrxFormsFacade],
+  providers: [NgrxFormsEffects, NgrxFormsFacade, FormValidatorsService],
   declarations: [
     DynamicFormComponent,
     DynamicFieldDirective,
@@ -39,6 +41,7 @@ import { SpinnerComponent } from './spinner/spinner.component';
     DropdownComponent,
     CheckboxComponent,
     SpinnerComponent,
+    ErrorMessageComponent,
   ],
   entryComponents: [
     InputComponent,

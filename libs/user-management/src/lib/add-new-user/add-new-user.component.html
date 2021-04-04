@@ -20,6 +20,7 @@
                   (updateForm)="updateForm($event)"
                   [data$]="data$"
                   [structure$]="structure$"
+                  (getForm)="getForm($event)"
                 >
                 </app-dynamic-form>
                 <!-- <div class="col-md-3"><app-checkbox [field$]="checkbox$" [id]="'isActive'"></app-checkbox>Is Active</div> -->
@@ -28,6 +29,7 @@
                     <button
                       type="button"
                       class="btn btn-danger px-4"
+                      disabled="{{ isFormValid }}"
                       (click)="submit()"
                     >
                       Add User

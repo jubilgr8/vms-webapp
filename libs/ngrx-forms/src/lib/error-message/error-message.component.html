@@ -1,0 +1,7 @@
+<span
+  class="danger"
+  *ngIf="errorMessage"
+  translate
+  [translateParams]="{ value: errorMessage.value }"
+  >{{ errorMessage.key != undefined ? errorMessage.key : errorMessage }}</span
+>

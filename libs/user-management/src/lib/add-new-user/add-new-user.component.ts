@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Validators } from '@angular/forms';
 import { AuthFacade } from '@vms/auth';
-import { Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
+import { Errors, Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
 import { elementAt, takeUntil } from 'rxjs/operators';
 import { UserFacade } from '../+state/user.facade';
@@ -10,6 +10,7 @@ import { AdminFacade } from '../../../../vms-administration/src/lib/+state/admin
 import { SharedData } from '../user.service';
 import { UserMaster } from '../+state/user.interfaces';
 import { ActivatedRoute } from '@angular/router';
+import { FormValidatorsService } from 'libs/ngrx-forms/src/lib/services/form-validators.service';
 
 var defDdlList: KeyValue[] = [
   {
@@ -35,13 +36,18 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   userId: any;
   type: any;
   isLoading: boolean = true;
+  errors: Errors;
+  isSubmitted$: Observable<boolean>;
+  form: any;
+  isFormValid: any;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: UserFacade,
     private adminFacade: AdminFacade,
     private ref: ChangeDetectorRef,
     private sharedData: SharedData,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private formValidatorsService: FormValidatorsService
   ) {}
 
   ngOnInit() {
@@ -178,11 +184,24 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
     this.ngrxFormsFacade.updateData(changes);
   }
 
-  submit() {
-    if (this.userId) {
-      this.facade.updateUser();
+  getForm(form: any) {
+    debugger;
+    this.form = form;
+    if (this.form.status === 'INVALID') {
+      this.isFormValid = true;
     } else {
-      this.facade.submitNewUser();
+      this.isFormValid = null;
+    }
+    this.ref.detectChanges();
+  }
+  submit() {
+    this.formValidatorsService.validateAllFormFields(this.form);
+    if (this.form.valid) {
+      if (this.userId) {
+        this.facade.updateUser();
+      } else {
+        this.facade.submitNewUser();
+      }
     }
   }
 
