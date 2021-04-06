@@ -109,7 +109,7 @@ export class UserEffects {
         this.userService.submitRole(data).pipe(
           map((response) => {
             this.toastr.success('Role Created Successfully!');
-            this.router.navigateByUrl('/user-management/roles');
+            //this.router.navigateByUrl('/user-management/roles');
             return userActions.submitRoleSuccess({ paylod: response });
           }),
           catchError((result) => {

@@ -11,6 +11,7 @@ import { SharedData } from '../user.service';
 import { UserMaster } from '../+state/user.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { FormValidatorsService } from 'libs/ngrx-forms/src/lib/services/form-validators.service';
+import { ToastrService } from 'ngx-toastr';
 
 var defDdlList: KeyValue[] = [
   {
@@ -47,11 +48,15 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
     private ref: ChangeDetectorRef,
     private sharedData: SharedData,
     private route: ActivatedRoute,
-    private formValidatorsService: FormValidatorsService
+    private formValidatorsService: FormValidatorsService,
+    private toastr : ToastrService,
   ) {}
 
   ngOnInit() {
+    this.type = null;
+    this.userId = null;
     this.route.queryParams.subscribe((params) => {
+      debugger;
       this.userId = params['userId'];
       this.type = params['type'];
     });
@@ -119,6 +124,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
               validator: [Validators.required],
               value: this.users ? this.users.usrDisplayname : '',
               attrs: {
+                name : "Display Name",
                 disabled: this.type == 1 ? true : null,
               },
             },
@@ -126,7 +132,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
               type: 'INPUT',
               name: 'usrMobileNo',
               placeholder: 'Mobile No',
-              validator: [Validators.required],
+              validator: [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")],
               value: this.users ? this.users.usrMobileNo : '',
               attrs: {
                 disabled: this.type == 1 ? true : null,
@@ -136,7 +142,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
               type: 'INPUT',
               name: 'usrEmailId',
               placeholder: 'Email Id',
-              validator: [Validators.required],
+              validator: [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
               value: this.users ? this.users.usrEmailId : '',
               attrs: {
                 disabled: this.type == 1 ? true : null,
@@ -196,6 +202,8 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   }
   submit() {
     this.formValidatorsService.validateAllFormFields(this.form);
+    this.passwordMatch(this.form);
+    debugger;
     if (this.form.valid) {
       if (this.userId) {
         this.facade.updateUser();
@@ -208,4 +216,21 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ngrxFormsFacade.initializeForm();
   }
+  passwordMatch(form:any)
+  {
+    if(form.controls.usrPassword.value != "" && form.controls.cnfrmPass.value != "")
+    {
+      if(form.controls.usrPassword.value !=  form.controls.cnfrmPass.value)
+      {
+        this.form.status = "INVALID";
+        this.toastr.error("Password and Confirm Password does not matched.");
+      }
+      else{
+        this.form.status = "VALID";
+      }
+    }
+    
+  }
 }
+
+

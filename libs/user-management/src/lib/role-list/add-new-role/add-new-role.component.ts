@@ -14,6 +14,8 @@ import {
 import { FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { UserService } from '../../user.service';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Route, Router } from '@angular/router';
 
 const checkbox: Field = {
   type: 'CHECKBOX',
@@ -64,7 +66,9 @@ export class AddNewRoleComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private fb: FormBuilder,
     private service: UserService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router : Router,
+    private toastr : ToastrService,
   ) {
     (this.masterSelected = false),
       (this.checklist = [
@@ -231,7 +235,7 @@ export class AddNewRoleComponent implements OnInit {
   }
   onSubmit() {
     debugger;
-
+    var res = "";
     for (var i = 0; i < this.menus.length; i++) {
       var accVw = this.menus[i].accessView == undefined ? false : true;
       var accAd = this.menus[i].accessAdd == undefined ? false : true;
@@ -256,14 +260,29 @@ export class AddNewRoleComponent implements OnInit {
       this.roleMenuRel = this.data;
       if (this.type == 2) {
         this.service.updateRoleMenu(this.roleMenuRel).subscribe((response) => {
-          console.log(response);
+          res= response;
+          if(i == (this.menus.length - 1) && res == "1")
+          {
+              this.toastr.success('Role updated successfully!');
+              this.router.navigateByUrl('/user-management/roles');
+          }
         });
+        
       } else {
         this.service.submitRoleMenu(this.roleMenuRel).subscribe((response) => {
-          console.log(response);
+          res = response;
+          if(i == (this.menus.length - 1) && res == "1")
+          {
+              this.toastr.success('Role saved successfully!');
+              this.router.navigateByUrl('/user-management/roles');
+          }
         });
+        
       }
     }
+    // this.toastr.success('Role updated successfully!');
+    // this.toastr.success('Role saved successfully!');
+    // this.router.navigateByUrl('/user-management/roles');
   }
 
   updateItem(e, type) {
@@ -310,7 +329,6 @@ export class AddNewRoleComponent implements OnInit {
             this.ref.detectChanges();
           } else {
             this.userFacade.getRoleList();
-            
           }
         });
     } else {
@@ -320,7 +338,6 @@ export class AddNewRoleComponent implements OnInit {
     this.isMenu = true;
     this.t.push(
       this.fb.group({
-
         accessArray: ['', Validators.required],
         accessAdd: [false, Validators.required],
         accessDel: [false, Validators.required],
