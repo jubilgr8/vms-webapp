@@ -8,6 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { UserFacade } from './+state/user.facade';
 import { UserMaster } from './+state/user.interfaces';
 import { SharedData, UserService } from './user.service';
+import { ToastrService} from 'ngx-toastr';
 // import { DashboardFacade } from './+state/dashboard.facade';
 @Component({
   selector: 'user-management',
@@ -28,7 +29,8 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     private userFacade: UserFacade,
     private ref: ChangeDetectorRef,
     private sharedData: SharedData,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +78,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
           this.userService
             .updateUser(this.singleUser)
             .subscribe((data: any) => {
+              this.toastr.success("User removed successfully.");
               this.userFacade.getUserList();
             });
         }

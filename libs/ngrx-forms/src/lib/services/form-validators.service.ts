@@ -10,11 +10,14 @@ import {
 @Injectable()
 export class FormValidatorsService {
   public getValidatorErrorMessage(
+    controlName :string,
     validatorName: string,
-    validatorValue?: any
+    validatorValue?: any,
   ): string | { [key: string]: any } {
     const config = {
       required: 'This Field is Required',
+      pattern: 'Invalid data in field.' +controlName,
+      email: 'EMail must be valid email address.',
       minlength: {
         key: 'FORM_ERROR_MESSAGES.MIN_LENGTH',
         value: `${validatorValue.requiredLength}`,
@@ -24,6 +27,7 @@ export class FormValidatorsService {
         value: `${validatorValue.requiredLength}`,
       },
       exactLength: 'FORM_ERROR_MESSAGES.EXACT_LENGTH',
+      passwordMatch: 'Password and Confirm Password is not matched.',
       min: {
         key: 'FORM_ERROR_MESSAGES.MIN',
         value: `${validatorValue.min}`,
@@ -37,6 +41,7 @@ export class FormValidatorsService {
   }
 
   public exactLength(length: number): ValidatorFn {
+    debugger;
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       const { value } = control;
       return value !== null && value.length !== Number(length)
