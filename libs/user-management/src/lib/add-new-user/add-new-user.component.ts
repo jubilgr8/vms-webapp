@@ -229,7 +229,6 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
         this.form.status = "VALID";
       }
     }
-    
   }
 }
 
