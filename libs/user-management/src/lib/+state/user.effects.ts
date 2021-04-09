@@ -45,6 +45,16 @@ export class UserEffects {
       })
     )
   );
+  getRoleById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(userActions.getRoleById),
+      switchMap((item) => {
+        return this.userService
+          .getRoleById(item.roleId)
+          .pipe(map((data) => userActions.getRoleByIdSuccess({ role: data })));
+      })
+    )
+  );
 
   getMenuList$ = createEffect(() =>
     this.actions$.pipe(

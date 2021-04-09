@@ -70,3 +70,18 @@ export const submitRoleFail = createAction(
   '[Role] New Role Submitted Fail',
   props<{ error: Error }>()
 );
+
+export const getRoleById = createAction(
+  '[Role] GET_ROLE_BY_ID',
+  props<{ roleId: number }>()
+);
+
+export const getRoleByIdSuccess = createAction(
+  '[Role] GET Role Success',
+  props<{ role: RoleMaster }>()
+);
+
+export const getRoleByIdFail = createAction(
+  '[Role] GET Role Fail',
+  props<{ error: Error }>()
+);

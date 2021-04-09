@@ -12,6 +12,7 @@ export class UserFacade {
   users$ = this.store.select(usersQuery.getUsers);
   roles$ = this.store.select(usersQuery.getRoles);
   menus$ = this.store.select(usersQuery.getMenus);
+  role$ = this.store.select(usersQuery.getRoleById);
   getUserList() {
     this.store.dispatch(userActions.getUserList());
   }
@@ -30,5 +31,8 @@ export class UserFacade {
   }
   submitNewRole() {
     this.store.dispatch(userActions.submitRole());
+  }
+  getRoleById(roleId: number) {
+    this.store.dispatch(userActions.getRoleById({ roleId }));
   }
 }

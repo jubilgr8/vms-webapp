@@ -22,6 +22,10 @@ export const getMenus = createSelector(
   getUserManagement,
   (userManagement: UserManagement) => userManagement.menus
 );
+export const getRoleById = createSelector(
+  getUserManagement,
+  (userManagement: UserManagement) => userManagement.role
+);
 
 export const usersQuery = {
   getUserManagement,
@@ -29,4 +33,5 @@ export const usersQuery = {
   getRoles,
   getMenus,
   isLoading,
+  getRoleById,
 };

@@ -5,6 +5,7 @@ export interface UserManagement {
   users: UserMaster[];
   roles: RoleMaster[];
   menus: MenuMaster[];
+  role: RoleMaster;
   errors: Errors;
 }
 

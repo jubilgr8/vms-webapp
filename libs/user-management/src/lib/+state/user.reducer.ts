@@ -13,6 +13,7 @@ export const userInitialState: UserManagement = {
   users: null,
   roles: null,
   menus: null,
+  role: null,
   errors: {},
 };
 
@@ -43,6 +44,11 @@ const reducer = createReducer(
   on(userActions.getMenuSuccess, (state, action) => ({
     ...state,
     menus: action.menus,
+    isLoading: false,
+  })),
+  on(userActions.getRoleByIdSuccess, (state, action) => ({
+    ...state,
+    role: action.role,
     isLoading: false,
   }))
 );

@@ -22,14 +22,21 @@ export class UserService {
   getRoles(): Observable<RoleMaster[]> {
     return this.apiService.get<RoleMaster[]>('User_API/api/Role/GetRoles');
   }
+  getRoleById(roleId: number): Observable<RoleMaster> {
+    return this.apiService.get<RoleMaster>(
+      'User_API/api/Role/GetRolesById?id=' + roleId
+    );
+  }
   getMenuMaster(): Observable<MenuMaster[]> {
     return this.apiService.get<MenuMaster[]>(
       'User_API/api/MenuMaster/getMenuMaster'
     );
   }
 
-  getRoleMenus(): Observable<RoleMenuRelation[]> {
-    return this.apiService.get<RoleMenuRelation[]>('User_API/api/RoleMenu/GetRoleMenuRelations');
+  getRoleMenus(roleId: number): Observable<RoleMenuRelation[]> {
+    return this.apiService.get<RoleMenuRelation[]>(
+      'User_API/api/RoleMenu/GetRoleMenuRelations?roleId=' + roleId
+    );
   }
 
   submitUser(mstUser: UserMaster): Observable<any> {
@@ -39,8 +46,7 @@ export class UserService {
     );
   }
 
- updateUser(mstUser: UserMaster): Observable<any> {
-   
+  updateUser(mstUser: UserMaster): Observable<any> {
     return this.apiService.post<any, UserMaster>(
       'User_API/api/User/PutUserMaster',
       mstUser
@@ -74,7 +80,7 @@ export class UserService {
       mstRole
     );
   }
-  
+
   updateRole(mstRole: RoleMaster): Observable<any> {
     return this.apiService.post<any, RoleMaster>(
       'User_API/api/Role/PutRoleMaster',
