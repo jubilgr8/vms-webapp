@@ -51,7 +51,6 @@ export class AddNewZoneComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      debugger;
       this.zoneId = params['zoneId'];
       this.type = params['type'];
       if (this.zoneId) {

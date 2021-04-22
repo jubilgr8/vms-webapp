@@ -12,7 +12,7 @@ import { UserMaster } from '../+state/user.interfaces';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormValidatorsService } from 'libs/ngrx-forms/src/lib/services/form-validators.service';
 import { ToastrService } from 'ngx-toastr';
-import {UserService}  from '../user.service';
+import { UserService } from '../user.service';
 
 var defDdlList: KeyValue[] = [
   {
@@ -51,15 +51,14 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router,
     private formValidatorsService: FormValidatorsService,
-    private toastr : ToastrService,
-    private service : UserService
+    private toastr: ToastrService,
+    private service: UserService
   ) {}
 
   ngOnInit() {
     // this.type = null;
     // this.userId = null;
     this.route.queryParams.subscribe((params) => {
-      debugger;
       this.userId = params['userId'];
       this.type = params['type'];
     });
@@ -71,7 +70,6 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
           if (response) {
             this.users = response.filter((x) => x.id == this.userId)[0];
             this.ref.detectChanges();
-            debugger;
           } else {
             this.facade.getUserList();
           }
@@ -127,7 +125,7 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
               validator: [Validators.required],
               value: this.users ? this.users.usrDisplayname : '',
               attrs: {
-                name : "Display Name",
+                name: 'Display Name',
                 disabled: this.type == 1 ? true : null,
               },
             },
@@ -135,7 +133,10 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
               type: 'INPUT',
               name: 'usrMobileNo',
               placeholder: 'Mobile No',
-              validator: [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")],
+              validator: [
+                Validators.required,
+                Validators.pattern('^((\\+91-?)|0)?[0-9]{10}$'),
+              ],
               value: this.users ? this.users.usrMobileNo : '',
               attrs: {
                 disabled: this.type == 1 ? true : null,
@@ -145,7 +146,11 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
               type: 'INPUT',
               name: 'usrEmailId',
               placeholder: 'Email Id',
-              validator: [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')],
+              validator: [
+                Validators.required,
+                Validators.email,
+                Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+              ],
               value: this.users ? this.users.usrEmailId : '',
               attrs: {
                 disabled: this.type == 1 ? true : null,
@@ -194,7 +199,6 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   }
 
   getForm(form: any) {
-    debugger;
     this.form = form;
     if (this.form.status === 'INVALID') {
       this.isFormValid = true;
@@ -206,28 +210,47 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   submit() {
     this.formValidatorsService.validateAllFormFields(this.form);
     this.passwordMatch(this.form);
-    debugger;
+
     if (this.form.valid) {
       if (this.userId) {
-        var data = JSON.stringify('{"cnfrmPass": "'+this.form.controls.cnfrmPass.value+'",'+
-        '"roleMasterId":"'+this.form.controls.roleMasterId.value+'",'+
-        '"usrDisplayname": "'+this.form.controls.usrDisplayname.value+'",'+
-        '"usrEmailId": "'+this.form.controls.usrEmailId.value+'",'+
-        '"usrId": "'+this.form.controls.usrId.value+'",'+
-        '"usrMobileNo": "'+this.form.controls.usrMobileNo.value+'",'+
-        '"usrName": "'+this.form.controls.usrName.value+'",'+
-        '"usrPassword": "'+this.form.controls.cnfrmPass.value+'",'+
-        '"id":"'+this.userId+'"}');
+        var data = JSON.stringify(
+          '{"cnfrmPass": "' +
+            this.form.controls.cnfrmPass.value +
+            '",' +
+            '"roleMasterId":"' +
+            this.form.controls.roleMasterId.value +
+            '",' +
+            '"usrDisplayname": "' +
+            this.form.controls.usrDisplayname.value +
+            '",' +
+            '"usrEmailId": "' +
+            this.form.controls.usrEmailId.value +
+            '",' +
+            '"usrId": "' +
+            this.form.controls.usrId.value +
+            '",' +
+            '"usrMobileNo": "' +
+            this.form.controls.usrMobileNo.value +
+            '",' +
+            '"usrName": "' +
+            this.form.controls.usrName.value +
+            '",' +
+            '"usrPassword": "' +
+            this.form.controls.cnfrmPass.value +
+            '",' +
+            '"id":"' +
+            this.userId +
+            '"}'
+        );
         var sendData = JSON.parse(data);
         this.service.updateUser(JSON.parse(sendData)).subscribe((response) => {
-          if(response == 1 || response == 4)
-          {
+          if (response == 1 || response == 4) {
             this.facade.getUserList();
             this.router.navigateByUrl('/user-management/users');
-            this.toastr.success("User successfully updated.");
+            this.toastr.success('User successfully updated.');
           }
-          });
-       // this.facade.updateUser();
+        });
+        // this.facade.updateUser();
       } else {
         this.facade.submitNewUser();
       }
@@ -237,20 +260,17 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ngrxFormsFacade.initializeForm();
   }
-  passwordMatch(form:any)
-  {
-    if(form.controls.usrPassword.value != "" && form.controls.cnfrmPass.value != "")
-    {
-      if(form.controls.usrPassword.value !=  form.controls.cnfrmPass.value)
-      {
-        this.form.status = "INVALID";
-        this.toastr.error("Password and Confirm Password does not matched.");
-      }
-      else{
-        this.form.status = "VALID";
+  passwordMatch(form: any) {
+    if (
+      form.controls.usrPassword.value != '' &&
+      form.controls.cnfrmPass.value != ''
+    ) {
+      if (form.controls.usrPassword.value != form.controls.cnfrmPass.value) {
+        this.form.status = 'INVALID';
+        this.toastr.error('Password and Confirm Password does not matched.');
+      } else {
+        this.form.status = 'VALID';
       }
     }
   }
 }
-
-

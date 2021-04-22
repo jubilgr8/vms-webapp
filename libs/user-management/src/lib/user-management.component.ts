@@ -8,7 +8,7 @@ import { takeUntil } from 'rxjs/operators';
 import { UserFacade } from './+state/user.facade';
 import { UserMaster } from './+state/user.interfaces';
 import { SharedData, UserService } from './user.service';
-import { ToastrService} from 'ngx-toastr';
+import { ToastrService } from 'ngx-toastr';
 // import { DashboardFacade } from './+state/dashboard.facade';
 @Component({
   selector: 'user-management',
@@ -36,7 +36,6 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userFacade.getUserList();
     this.userFacade.isLoading$.subscribe((r) => {
-      debugger;
       this.isLoading = r;
       this.ref.detectChanges();
     });
@@ -50,7 +49,6 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.userFacade.users$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
-        debugger;
         if (response) {
           this.users = response;
           this.ref.detectChanges();
@@ -61,13 +59,11 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   }
 
   ViewAction(id, type) {
-    debugger;
     console.log(this.users.find((x) => x.id == id));
     this.userFacade.users$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((response) => {
         if (response) {
-          debugger;
           this.singleUser = response.find((X) => X.id == id);
           var strData = JSON.stringify(this.singleUser);
           var _jsonData = JSON.parse(strData);
@@ -78,7 +74,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
           this.userService
             .updateUser(this.singleUser)
             .subscribe((data: any) => {
-              this.toastr.success("User removed successfully.");
+              this.toastr.success('User removed successfully.');
               this.userFacade.getUserList();
             });
         }

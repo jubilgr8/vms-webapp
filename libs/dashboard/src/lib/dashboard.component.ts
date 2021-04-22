@@ -23,7 +23,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.dashboardFacade.isLoading$.subscribe((res) => {
-      debugger;
       this.isLoading = res;
       this.ref.detectChanges();
     });

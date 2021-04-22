@@ -87,7 +87,6 @@ export class AddNewRoleComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
-      debugger;
       this.roleId = params['roleId'];
       this.type = params['type'];
 
@@ -107,7 +106,6 @@ export class AddNewRoleComponent implements OnInit {
             }
           });
         this.service.getRoleMenusById(this.roleId).subscribe((response) => {
-          
           response.forEach((element) => {
             if (element.roleMasterId == this.roleId) {
               if (element.accessView == true) {
@@ -115,28 +113,31 @@ export class AddNewRoleComponent implements OnInit {
                   (x) => x.id == element.menuMasterId
                 ).accessView = true;
                 this.getCheckedItemList('accessView');
+                this.ref.detectChanges();
               }
               if (element.accessAdd == true) {
                 this.menus.find(
                   (x) => x.id == element.menuMasterId
                 ).accessAdd = true;
                 this.getCheckedItemList('accessAdd');
+                this.ref.detectChanges();
               }
               if (element.accessEdit == true) {
                 this.menus.find(
                   (x) => x.id == element.menuMasterId
                 ).accessEdit = true;
                 this.getCheckedItemList('accessEdit');
+                this.ref.detectChanges();
               }
               if (element.accessDelete == true) {
                 this.menus.find(
                   (x) => x.id == element.menuMasterId
                 ).accessDelete = true;
                 this.getCheckedItemList('accessDelete');
+                this.ref.detectChanges();
               }
               this.CheckData();
             }
-            
           });
         });
       }
@@ -161,7 +162,7 @@ export class AddNewRoleComponent implements OnInit {
     return this.f.accessArrays as FormArray;
   }
   get getaccessArrays() {
-    return this.form.get("accessArrays") as FormArray;
+    return this.form.get('accessArrays') as FormArray;
   }
   getCheckedItemList(type: string, isAll?: boolean) {
     this.checkedList = [];
@@ -213,9 +214,9 @@ export class AddNewRoleComponent implements OnInit {
     this.form = this.fb.group({
       //appForm:['',Validators.required],
       accessArrays: new FormArray([]),
-      roleId:'',
-      roleName:'',
-      roleDesc:''
+      roleId: '',
+      roleName: '',
+      roleDesc: '',
     });
     this.ngrxFormsFacade.setStructure(structure);
     this.data$ = this.ngrxFormsFacade.data$;
@@ -223,14 +224,13 @@ export class AddNewRoleComponent implements OnInit {
     this.isLoading = false;
   }
   getForm(form: any) {
-    
     // this.form = form;
-    let val=form.value;
+    let val = form.value;
     this.form.patchValue({
-      roleId:val.roleId,
-      roleName:val.roleName,
-      roleDesc:val.roleDesc
-    })
+      roleId: val.roleId,
+      roleName: val.roleName,
+      roleDesc: val.roleDesc,
+    });
     this.form = form;
     if (this.form.status === 'INVALID') {
       this.isFormValid = true;
@@ -253,7 +253,6 @@ export class AddNewRoleComponent implements OnInit {
   }
 
   checkUncheckAll(e: Event, type: string) {
-    debugger;
     for (let i = 0; i < this.menus.length; i++) {
       const element = this.menus[i];
       this.menus[i][type] = this[type];
@@ -261,32 +260,43 @@ export class AddNewRoleComponent implements OnInit {
     this.getCheckedItemList(type, true);
   }
   onSubmit() {
-    debugger;
     var res = '';
-    if(this.type)
-    {
+    if (this.type) {
       res = this.roleId;
-    }
-    else
-    {
-      res = "0";
+    } else {
+      res = '0';
     }
     for (var i = 0; i < this.menus.length; i++) {
-      var accVw = this.menus[i].accessView == undefined || this.menus[i].accessView == false ? false : true;
-      var accAd = this.menus[i].accessAdd == undefined || this.menus[i].accessAdd == false ? false : true;
-      var accUp = this.menus[i].accessEdit == undefined || this.menus[i].accessEdit == false ? false : true;
-      var accDl = this.menus[i].accessDelete == undefined || this.menus[i].accessDelete == false ? false : true;
+      var accVw =
+        this.menus[i].accessView == undefined ||
+        this.menus[i].accessView == false
+          ? false
+          : true;
+      var accAd =
+        this.menus[i].accessAdd == undefined || this.menus[i].accessAdd == false
+          ? false
+          : true;
+      var accUp =
+        this.menus[i].accessEdit == undefined ||
+        this.menus[i].accessEdit == false
+          ? false
+          : true;
+      var accDl =
+        this.menus[i].accessDelete == undefined ||
+        this.menus[i].accessDelete == false
+          ? false
+          : true;
       var a = JSON.stringify(
         '{"roleMasterId":"' +
-        res +
+          res +
           '","menuMasterId":"' +
           this.menus[i].id +
           '","accessAdd":"' +
           accAd +
-          '","accessEdit":"' +accUp
-           +
-          '","accessDelete":"' +accDl
-           +
+          '","accessEdit":"' +
+          accUp +
+          '","accessDelete":"' +
+          accDl +
           '","accessView":"' +
           accVw +
           '"}'
@@ -294,23 +304,23 @@ export class AddNewRoleComponent implements OnInit {
       this.data = JSON.parse(JSON.parse(a));
       this.roleMenuRel = this.data;
       if (this.type == 2) {
-        this.isLoading =true;
+        this.isLoading = true;
         this.service.updateRoleMenu(this.roleMenuRel).subscribe((response) => {
           res = response;
-          debugger;
+
           if (i == this.menus.length) {
-            this.isLoading =false;
+            this.isLoading = false;
             this.userFacade.getRoleList();
             this.userFacade.getMenuList();
             this.router.navigateByUrl('/user-management/roles');
           }
         });
       } else {
-        this.isLoading =true;
+        this.isLoading = true;
         this.service.submitRoleMenu(this.roleMenuRel).subscribe((response) => {
           res = response;
           if (i == this.menus.length) {
-            this.isLoading =false;
+            this.isLoading = false;
             this.userFacade.getRoleList();
             this.router.navigateByUrl('/user-management/roles');
           }
@@ -323,7 +333,6 @@ export class AddNewRoleComponent implements OnInit {
   }
 
   updateItem(e, type) {
-    debugger;
     const formArray: FormArray = this.form.get('accessArrays') as FormArray;
 
     /* Selected */
@@ -350,7 +359,6 @@ export class AddNewRoleComponent implements OnInit {
   }
 
   submit() {
-    debugger;
     //this.userFacade.submitNewRole();
   }
 
@@ -362,15 +370,17 @@ export class AddNewRoleComponent implements OnInit {
       this.isLoading = false;
     }
     this.isMenu = true;
-    this.t.push(
-      this.fb.group({
-        accessArray: ['', Validators.required],
-        accessAdd: [false, Validators.required],
-        accessDelete: [false, Validators.required],
-        accessEdit: [false, Validators.required],
-        accessView: [false, Validators.required],
-      })
-    );
+    if (this.t) {
+      this.t.push(
+        this.fb.group({
+          accessArray: ['', Validators.required],
+          accessAdd: [false, Validators.required],
+          accessDelete: [false, Validators.required],
+          accessEdit: [false, Validators.required],
+          accessView: [false, Validators.required],
+        })
+      );
+    }
   }
 
   ngOnDestroy() {

@@ -38,7 +38,6 @@ export class ZoneAccessComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      debugger;
       this.zoneId = params['zoneId'];
       this.type = params['type'];
     });
@@ -90,7 +89,6 @@ export class ZoneAccessComponent implements OnInit {
     // addInteraction(this.map, this.draw, this.source);
   }
   getCoords() {
-    debugger;
     return function (coordinates, geometry, projection) {
       if (geometry) {
         if (coordinates[0].length) {
@@ -108,7 +106,6 @@ export class ZoneAccessComponent implements OnInit {
   }
 
   getCoord(event: any) {
-    debugger;
     var vector = this.vector.features[3].geometry.getBounds();
     var coordinate = this.map.getEventCoordinate(event);
     this.coords.push({

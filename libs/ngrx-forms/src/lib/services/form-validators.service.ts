@@ -10,13 +10,13 @@ import {
 @Injectable()
 export class FormValidatorsService {
   public getValidatorErrorMessage(
-    controlName :string,
+    controlName: string,
     validatorName: string,
-    validatorValue?: any,
+    validatorValue?: any
   ): string | { [key: string]: any } {
     const config = {
       required: 'This Field is Required',
-      pattern: 'Invalid data in field.' +controlName,
+      pattern: 'Invalid data in field.' + controlName,
       email: 'EMail must be valid email address.',
       minlength: {
         key: 'FORM_ERROR_MESSAGES.MIN_LENGTH',
@@ -41,7 +41,6 @@ export class FormValidatorsService {
   }
 
   public exactLength(length: number): ValidatorFn {
-    debugger;
     return (control: AbstractControl): { [key: string]: boolean } | null => {
       const { value } = control;
       return value !== null && value.length !== Number(length)

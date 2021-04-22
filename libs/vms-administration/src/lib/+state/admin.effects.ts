@@ -65,7 +65,6 @@ export class AdminEffects {
       exhaustMap(([action, data]) =>
         this.adminService.submitZone(data).pipe(
           map((response) => {
-            debugger;
             this.toastr.success('Zone Created Successfully!');
             return adminActions.submitZoneSuccess({ paylod: response });
           }),

@@ -8,7 +8,7 @@ import { UserFacade } from '../+state/user.facade';
 import { RoleMaster, UserMaster } from '../+state/user.interfaces';
 import { ToastrService } from 'ngx-toastr';
 import { Route, Router } from '@angular/router';
-import {UserService } from '../user.service';
+import { UserService } from '../user.service';
 // import { DashboardFacade } from './+state/dashboard.facade';
 //import {} from '../role-list/add-new-role/add-new-role.component'
 @Component({
@@ -25,9 +25,9 @@ export class RoleListComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private authFacade: AuthFacade,
     private userFacade: UserFacade,
-    private service : UserService,
-    private toastr : ToastrService,
-    private router : Router
+    private service: UserService,
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -54,36 +54,26 @@ export class RoleListComponent implements OnInit {
   }
 
   ViewAction(id, type) {
-    debugger;
-    if(type)
-    {
+    if (type) {
       console.log(this.roles.find((x) => x.id == id));
-      this.userFacade.roles$
-        .pipe()
-        .subscribe((response) => {
-          if (response) {
-            debugger;
-            var singlerole = response.find((X) => X.id == id);
-            if(singlerole)
-            {
-              var strData = JSON.stringify(singlerole);
-              var _jsonData = JSON.parse(strData);
-              _jsonData.isDeleted = true;
-              singlerole = _jsonData;
-              this.ref.detectChanges();
-              // this.userFacade.updateUser();
-              this.service
-                .updateRole(singlerole)
-                .subscribe((data: any) => {
-                  this.toastr.success('Role deleted successfully!');
-                  this.userFacade.getRoleList();
-                });
-            }
-            
+      this.userFacade.roles$.pipe().subscribe((response) => {
+        if (response) {
+          var singlerole = response.find((X) => X.id == id);
+          if (singlerole) {
+            var strData = JSON.stringify(singlerole);
+            var _jsonData = JSON.parse(strData);
+            _jsonData.isDeleted = true;
+            singlerole = _jsonData;
+            this.ref.detectChanges();
+            // this.userFacade.updateUser();
+            this.service.updateRole(singlerole).subscribe((data: any) => {
+              this.toastr.success('Role deleted successfully!');
+              this.userFacade.getRoleList();
+            });
           }
-        });
+        }
+      });
     }
-   
   }
 
   ngOnDestroy() {
