@@ -32,10 +32,17 @@ export class UserService {
       'User_API/api/MenuMaster/getMenuMaster'
     );
   }
+  
 
   getRoleMenus(roleId: number): Observable<RoleMenuRelation[]> {
     return this.apiService.get<RoleMenuRelation[]>(
       'User_API/api/RoleMenu/GetRoleMenuRelations?roleId=' + roleId
+    );
+  }
+
+  getRoleMenusById(roleId: number): Observable<RoleMenuRelation[]> {
+    return this.apiService.get<RoleMenuRelation[]>(
+      'User_API/api/RoleMenu/GetRoleMenuRelationsByRoleId?roleId=' + roleId
     );
   }
 

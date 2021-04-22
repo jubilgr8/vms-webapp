@@ -50,11 +50,12 @@ export class AddNewRoleComponent implements OnInit {
   masterSelected: boolean;
   accessAdd: boolean;
   accessView: boolean;
-  accessUpd: boolean;
-  accessDel: boolean;
+  accessEdit: boolean;
+  accessDelete: boolean;
   data: any;
   checklist: any;
   checkedList: any;
+  isFormValid: any;
   roleId: any;
   type: any;
   isLoading: boolean = true;
@@ -105,7 +106,8 @@ export class AddNewRoleComponent implements OnInit {
               this.fillData();
             }
           });
-        this.service.getRoleMenus(this.roleId).subscribe((response) => {
+        this.service.getRoleMenusById(this.roleId).subscribe((response) => {
+          
           response.forEach((element) => {
             if (element.roleMasterId == this.roleId) {
               if (element.accessView == true) {
@@ -120,20 +122,21 @@ export class AddNewRoleComponent implements OnInit {
                 ).accessAdd = true;
                 this.getCheckedItemList('accessAdd');
               }
-              if (element.accessUpd == true) {
+              if (element.accessEdit == true) {
                 this.menus.find(
                   (x) => x.id == element.menuMasterId
-                ).accessUpd = true;
-                this.getCheckedItemList('accessUpd');
+                ).accessEdit = true;
+                this.getCheckedItemList('accessEdit');
               }
-              if (element.accessDel == true) {
+              if (element.accessDelete == true) {
                 this.menus.find(
                   (x) => x.id == element.menuMasterId
-                ).accessDel = true;
-                this.getCheckedItemList('accessDel');
+                ).accessDelete = true;
+                this.getCheckedItemList('accessDelete');
               }
               this.CheckData();
             }
+            
           });
         });
       }
@@ -156,6 +159,9 @@ export class AddNewRoleComponent implements OnInit {
   }
   get t() {
     return this.f.accessArrays as FormArray;
+  }
+  get getaccessArrays() {
+    return this.form.get("accessArrays") as FormArray;
   }
   getCheckedItemList(type: string, isAll?: boolean) {
     this.checkedList = [];
@@ -207,13 +213,38 @@ export class AddNewRoleComponent implements OnInit {
     this.form = this.fb.group({
       //appForm:['',Validators.required],
       accessArrays: new FormArray([]),
+      roleId:'',
+      roleName:'',
+      roleDesc:''
     });
     this.ngrxFormsFacade.setStructure(structure);
     this.data$ = this.ngrxFormsFacade.data$;
     this.structure$ = this.ngrxFormsFacade.structure$;
     this.isLoading = false;
   }
-
+  getForm(form: any) {
+    
+    // this.form = form;
+    let val=form.value;
+    this.form.patchValue({
+      roleId:val.roleId,
+      roleName:val.roleName,
+      roleDesc:val.roleDesc
+    })
+    this.form = form;
+    if (this.form.status === 'INVALID') {
+      this.isFormValid = true;
+    } else {
+      this.isFormValid = null;
+    }
+    this.ref.detectChanges();
+    // if (this.form.status === 'VALID') {
+    //   this.isFormValid = true;
+    // } else {
+    //   this.isFormValid = false;
+    // }
+    this.ref.detectChanges();
+  }
   isAllSelected(type: string) {
     this.masterSelected = this.menus.every(function (item: any) {
       return item[type] == true;
@@ -232,41 +263,55 @@ export class AddNewRoleComponent implements OnInit {
   onSubmit() {
     debugger;
     var res = '';
+    if(this.type)
+    {
+      res = this.roleId;
+    }
+    else
+    {
+      res = "0";
+    }
     for (var i = 0; i < this.menus.length; i++) {
-      var accVw = this.menus[i].accessView == undefined ? false : true;
-      var accAd = this.menus[i].accessAdd == undefined ? false : true;
-      var accUp = this.menus[i].accessUpd == undefined ? false : true;
-      var accDl = this.menus[i].accessDel == undefined ? false : true;
+      var accVw = this.menus[i].accessView == undefined || this.menus[i].accessView == false ? false : true;
+      var accAd = this.menus[i].accessAdd == undefined || this.menus[i].accessAdd == false ? false : true;
+      var accUp = this.menus[i].accessEdit == undefined || this.menus[i].accessEdit == false ? false : true;
+      var accDl = this.menus[i].accessDelete == undefined || this.menus[i].accessDelete == false ? false : true;
       var a = JSON.stringify(
         '{"roleMasterId":"' +
-          this.role.id +
+        res +
           '","menuMasterId":"' +
           this.menus[i].id +
           '","accessAdd":"' +
           accAd +
+          '","accessEdit":"' +accUp
+           +
+          '","accessDelete":"' +accDl
+           +
           '","accessView":"' +
           accVw +
-          '","accessUpd":"' +
-          accUp +
-          '","accessDel":"' +
-          accDl +
           '"}'
       );
       this.data = JSON.parse(JSON.parse(a));
       this.roleMenuRel = this.data;
       if (this.type == 2) {
+        this.isLoading =true;
         this.service.updateRoleMenu(this.roleMenuRel).subscribe((response) => {
           res = response;
-          if (i == this.menus.length - 1 && res == '1') {
-            this.toastr.success('Role updated successfully!');
+          debugger;
+          if (i == this.menus.length) {
+            this.isLoading =false;
+            this.userFacade.getRoleList();
+            this.userFacade.getMenuList();
             this.router.navigateByUrl('/user-management/roles');
           }
         });
       } else {
+        this.isLoading =true;
         this.service.submitRoleMenu(this.roleMenuRel).subscribe((response) => {
           res = response;
-          if (i == this.menus.length - 1 && res == '1') {
-            this.toastr.success('Role saved successfully!');
+          if (i == this.menus.length) {
+            this.isLoading =false;
+            this.userFacade.getRoleList();
             this.router.navigateByUrl('/user-management/roles');
           }
         });
@@ -311,15 +356,18 @@ export class AddNewRoleComponent implements OnInit {
 
   CheckData() {
     if (!this.type) {
+      this.isLoading = true;
       this.userFacade.submitNewRole();
+      // this.userFacade.getRoleList();
+      this.isLoading = false;
     }
     this.isMenu = true;
     this.t.push(
       this.fb.group({
         accessArray: ['', Validators.required],
         accessAdd: [false, Validators.required],
-        accessDel: [false, Validators.required],
-        accessUpd: [false, Validators.required],
+        accessDelete: [false, Validators.required],
+        accessEdit: [false, Validators.required],
         accessView: [false, Validators.required],
       })
     );

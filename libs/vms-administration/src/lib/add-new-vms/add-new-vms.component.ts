@@ -95,6 +95,7 @@ export class AddNewVmsComponent implements OnInit {
   value2:number=100;
   structure$: Observable<Field[]>;
   data$: Observable<any>;
+  isLoading:boolean;
  
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
@@ -103,9 +104,11 @@ export class AddNewVmsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.isLoading =true;
     this.ngrxFormsFacade.setStructure(structure);
     this.data$ = this.ngrxFormsFacade.data$;
     this.structure$ = this.ngrxFormsFacade.structure$;
+    this.isLoading = false;
   }
 
   updateForm(changes: any) {

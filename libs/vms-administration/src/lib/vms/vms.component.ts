@@ -18,6 +18,7 @@ export class VmsComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   vmss: VMSMaster[];
+  isLoading : boolean;
   constructor(
     private authFacade: AuthFacade,
     private adminFacade: AdminFacade,
@@ -25,6 +26,7 @@ export class VmsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.authFacade.isLoggedIn$
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe((isLoggedIn) => {
@@ -39,8 +41,10 @@ export class VmsComponent implements OnInit, OnDestroy {
           this.ref.detectChanges();
         } else {
           this.adminFacade.getVmsList();
+          this.isLoading = false;
         }
       });
+      this.isLoading = false;
   }
   ngOnDestroy() {
     this.unsubscribe$.next();
