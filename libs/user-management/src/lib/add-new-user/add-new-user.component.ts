@@ -9,9 +9,10 @@ import { ZoneMaster } from '../../../../vms-administration/src/lib/+state/admin.
 import { AdminFacade } from '../../../../vms-administration/src/lib/+state/admin.facade';
 import { SharedData } from '../user.service';
 import { UserMaster } from '../+state/user.interfaces';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormValidatorsService } from 'libs/ngrx-forms/src/lib/services/form-validators.service';
 import { ToastrService } from 'ngx-toastr';
+import {UserService}  from '../user.service';
 
 var defDdlList: KeyValue[] = [
   {
@@ -48,13 +49,15 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
     private ref: ChangeDetectorRef,
     private sharedData: SharedData,
     private route: ActivatedRoute,
+    private router: Router,
     private formValidatorsService: FormValidatorsService,
     private toastr : ToastrService,
+    private service : UserService
   ) {}
 
   ngOnInit() {
-    this.type = null;
-    this.userId = null;
+    // this.type = null;
+    // this.userId = null;
     this.route.queryParams.subscribe((params) => {
       debugger;
       this.userId = params['userId'];
@@ -206,7 +209,25 @@ export class AddNewUserComponent implements OnInit, OnDestroy {
     debugger;
     if (this.form.valid) {
       if (this.userId) {
-        this.facade.updateUser();
+        var data = JSON.stringify('{"cnfrmPass": "'+this.form.controls.cnfrmPass.value+'",'+
+        '"roleMasterId":"'+this.form.controls.roleMasterId.value+'",'+
+        '"usrDisplayname": "'+this.form.controls.usrDisplayname.value+'",'+
+        '"usrEmailId": "'+this.form.controls.usrEmailId.value+'",'+
+        '"usrId": "'+this.form.controls.usrId.value+'",'+
+        '"usrMobileNo": "'+this.form.controls.usrMobileNo.value+'",'+
+        '"usrName": "'+this.form.controls.usrName.value+'",'+
+        '"usrPassword": "'+this.form.controls.cnfrmPass.value+'",'+
+        '"id":"'+this.userId+'"}');
+        var sendData = JSON.parse(data);
+        this.service.updateUser(JSON.parse(sendData)).subscribe((response) => {
+          if(response == 1 || response == 4)
+          {
+            this.facade.getUserList();
+            this.router.navigateByUrl('/user-management/users');
+            this.toastr.success("User successfully updated.");
+          }
+          });
+       // this.facade.updateUser();
       } else {
         this.facade.submitNewUser();
       }

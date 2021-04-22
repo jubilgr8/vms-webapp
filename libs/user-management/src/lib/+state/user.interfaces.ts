@@ -26,6 +26,11 @@ export interface UserMaster {
   roles: RoleMaster[];
 }
 
+export interface RoleMenuMaster{
+  role:RoleMaster;
+  roleMenu : RoleMenuRelation;
+}
+
 export interface RoleMaster {
   id: number;
   roleId: string;
@@ -52,8 +57,8 @@ export interface MenuMaster {
   relations: RoleMenuRelation;
   accessAdd: boolean;
   accessView: boolean;
-  accessUpd: boolean;
-  accessDel: boolean;
+  accessEdit: boolean;
+  accessDelete: boolean;
 }
 
 export interface RoleMenuRelation {
@@ -62,8 +67,8 @@ export interface RoleMenuRelation {
   menuMasterId: number;
   accessAdd: boolean;
   accessView: boolean;
-  accessUpd: boolean;
-  accessDel: boolean;
+  accessEdit: boolean;
+  accessDelete: boolean;
   createdBy: string;
   createdDate: number;
   isDeleted: boolean;

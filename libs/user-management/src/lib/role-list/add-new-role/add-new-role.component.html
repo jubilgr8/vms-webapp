@@ -4,8 +4,14 @@
     <div class="row">
       <div class="col-md-12">
         <div class="card">
-          <div class="card-header">
+          <div class="card-header" *ngIf="type == undefined || type == null">
             <i class="icon-check"></i> <strong>Add New Role</strong>
+          </div>
+          <div class="card-header" *ngIf="type == 1">
+            <i class="icon-check"></i> <strong>View Role</strong>
+          </div>
+          <div class="card-header" *ngIf="type == 2">
+            <i class="icon-check"></i> <strong>Edit Role</strong>
           </div>
           <div class="card-body p-0">
             <div class="tab-content">
@@ -15,12 +21,14 @@
                   (updateForm)="updateForm($event)"
                   [data$]="data$"
                   [structure$]="structure$"
+                  (getForm)="getForm($event)"
                 >
                 </app-dynamic-form>
                 <div class="row">
                   <div class="col-12 text-right">
                     <button
                       type="button"
+                      disabled="{{isFormValid}}"
                       class="btn btn-danger px-4"
                       (click)="CheckData()"
                     >
@@ -84,10 +92,10 @@
                 <input
                   type="checkbox"
                   [field$]="checkbox$"
-                  [id]="'accessUpd'"
-                  [(ngModel)]="accessUpd"
+                  [id]="'accessEdit'"
+                  [(ngModel)]="accessEdit"
                   #all
-                  (change)="checkUncheckAll($event, 'accessUpd')"
+                  (change)="checkUncheckAll($event, 'accessEdit')"
                   [disabled]="isType"
                 />
               </th>
@@ -97,10 +105,10 @@
                 <input
                   type="checkbox"
                   [field$]="checkbox$"
-                  [id]="'accessDel'"
-                  [(ngModel)]="accessDel"
+                  [id]="'accessDelete'"
+                  [(ngModel)]="accessDelete"
                   #all
-                  (change)="checkUncheckAll($event, 'accessDel')"
+                  (change)="checkUncheckAll($event, 'accessDelete')"
                   [disabled]="isType"
                 />
               </th>
@@ -136,8 +144,8 @@
                   type="checkbox"
                   [field$]="checkbox$"
                   [id]="'update|' + menu.id"
-                  [(ngModel)]="menu.accessUpd"
-                  (change)="getCheckedItemList('accessUpd')"
+                  [(ngModel)]="menu.accessEdit"
+                  (change)="getCheckedItemList('accessEdit')"
                   [disabled]="isType"
                 />
               </td>
@@ -146,8 +154,8 @@
                   type="checkbox"
                   [field$]="checkbox$"
                   [id]="'delete|' + menu.id"
-                  [(ngModel)]="menu.accessDel"
-                  (change)="getCheckedItemList('accessDel')"
+                  [(ngModel)]="menu.accessDelete"
+                  (change)="getCheckedItemList('accessDelete')"
                   [disabled]="isType"
                 />
               </td>
