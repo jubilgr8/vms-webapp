@@ -25,6 +25,14 @@ export const getVms = createSelector(
   getAdminManagement,
   (adminMngmnt: AdminManagement) => adminMngmnt.vmss
 );
+export const getNewZoneId = createSelector(
+  getAdminManagement,
+  (adminMngmnt: AdminManagement) => adminMngmnt.newZoneId
+);
+export const getZoneById = createSelector(
+  getAdminManagement,
+  (adminMngmnt: AdminManagement) => adminMngmnt.zone
+);
 
 export const usersQuery = {
   getAdminManagement,
@@ -32,4 +40,6 @@ export const usersQuery = {
   getZoneCoords,
   getMenus,
   getVms,
+  getNewZoneId,
+  getZoneById,
 };

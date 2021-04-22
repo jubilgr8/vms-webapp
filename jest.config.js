@@ -11,5 +11,6 @@ module.exports = {
     '<rootDir>/libs/dashboard',
     '<rootDir>/libs/user-management',
     '<rootDir>/libs/media-management',
+    '<rootDir>/libs/open-street-map',
   ],
 };

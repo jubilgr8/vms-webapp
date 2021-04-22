@@ -457,6 +457,31 @@
           }
         }
       }
+    },
+    "open-street-map": {
+      "projectType": "library",
+      "root": "libs/open-street-map",
+      "sourceRoot": "libs/open-street-map/src",
+      "prefix": "vms",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/open-street-map/src/**/*.ts",
+              "libs/open-street-map/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/open-street-map"],
+          "options": {
+            "jestConfig": "libs/open-street-map/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

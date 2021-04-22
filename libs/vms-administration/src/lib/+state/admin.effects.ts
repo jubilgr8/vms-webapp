@@ -12,13 +12,15 @@ import { AdminService } from '../admin.service';
 import { NgrxFormsFacade } from '@vms/ngrx-forms';
 import { of } from 'rxjs';
 import * as fromNgrxForms from 'libs/ngrx-forms/src';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AdminEffects {
   constructor(
     private actions$: Actions,
     private adminService: AdminService,
-    private ngrxFormsFacade: NgrxFormsFacade
+    private ngrxFormsFacade: NgrxFormsFacade,
+    private toastr: ToastrService
   ) {}
 
   getUserList$ = createEffect(() =>
@@ -42,76 +44,36 @@ export class AdminEffects {
       })
     )
   );
-  // getRoleList$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(adminActions.getRoleList),
-  //     switchMap((item) => {
-  //       return this.userService
-  //         .getRoles()
-  //         .pipe(map((data) => adminActions.getRolesSuccess({ roles: data })));
-  //     })
-  //   )
-  // );
 
-//   getMenuList$ = createEffect(() =>
-//   this.actions$.pipe(
-//     ofType(adminActions.getMenuList),
-//     switchMap((item) => {
-//       return this.userService
-//         .getMenuMaster()
-//         .pipe(map((data) => adminActions.getMenuSuccess({ menus: data })));
-//     })
-//   )
-// );
+  getZoneById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(adminActions.getZoneById),
+      switchMap((item) => {
+        return this.adminService
+          .getZoneById(item.zoneId)
+          .pipe(
+            map((data) => adminActions.getZoneByIdSuccess({ paylod: data }))
+          );
+      })
+    )
+  );
 
-//   submitNewUser$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(adminActions.submitUser),
-//       withLatestFrom(this.ngrxFormsFacade.data$),
-//       exhaustMap(([action, data]) =>
-//         this.userService.submitUser(data).pipe(
-//           map((response) => {
-//             return adminActions.submitUserSuccess({ paylod: response });
-//           }),
-//           catchError((result) =>
-//             of(fromNgrxForms.setErrors({ errors: result.error.errors }))
-//           )
-//         )
-//       )
-//     )
-//   );
-
-//   submitNewRole$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(adminActions.submitRole),
-//       withLatestFrom(this.ngrxFormsFacade.data$),
-//       exhaustMap(([action, data]) =>
-//         this.userService.submitRole(data).pipe(
-//           map((response) => {
-//             debugger
-//             return adminActions.submitRoleSuccess({ paylod: response });
-//           }),
-//           catchError((result) =>
-//             of(fromNgrxForms.setErrors({ errors: result.error.errors }))
-//           )
-//         )
-//       )
-//     )
-//   );
-  // submitNewRole$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(userActions.submitUser),
-  //     withLatestFrom(this.ngrxFormsFacade.data$),
-  //     exhaustMap(([action, data]) =>
-  //       this.userService.submitUser(data).pipe(
-  //         map((response) => {
-  //           return userActions.submitUserSuccess({ paylod: response });
-  //         }),
-  //         catchError((result) =>
-  //           of(fromNgrxForms.setErrors({ errors: result.error.errors }))
-  //         )
-  //       )
-  //     )
-  //   )
-  // );
+  submitNewZone$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(adminActions.submitZone),
+      withLatestFrom(this.ngrxFormsFacade.data$),
+      exhaustMap(([action, data]) =>
+        this.adminService.submitZone(data).pipe(
+          map((response) => {
+            debugger;
+            this.toastr.success('Zone Created Successfully!');
+            return adminActions.submitZoneSuccess({ paylod: response });
+          }),
+          catchError((result) =>
+            of(fromNgrxForms.setErrors({ errors: result.error.errors }))
+          )
+        )
+      )
+    );
+  });
 }

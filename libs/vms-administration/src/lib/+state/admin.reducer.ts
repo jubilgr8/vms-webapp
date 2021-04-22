@@ -13,7 +13,9 @@ export const adminInitialState: AdminManagement = {
   zonecoords: null,
   menus: null,
   errors: {},
-  vmss:null,
+  vmss: null,
+  newZoneId: null,
+  zone: null,
 };
 
 const reducer = createReducer(
@@ -32,20 +34,14 @@ const reducer = createReducer(
     ...state,
     vmss: action.vmss,
   })),
-  // on(adminAction.getRoleList, (state, action) => ({
-  //   ...state,
-  // })),
-  // on(adminAction.getRolesSuccess, (state, action) => ({
-  //   ...state,
-  //   roles: action.roles,
-  // })),
-  // on(adminAction.getMenuList, (state,action)=>({
-  //   ...state,
-  // })),
-  // on(adminAction.getMenuSuccess, (state, action) => ({
-  //   ...state,
-  //   menus: action.menus,
-  // })),
+  on(adminAction.submitZoneSuccess, (state, action) => ({
+    ...state,
+    newZoneId: action.paylod,
+  })),
+  on(adminAction.getZoneByIdSuccess, (state, action) => ({
+    ...state,
+    zone: action.paylod,
+  }))
 );
 
 export function adminReducer(

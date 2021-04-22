@@ -20,6 +20,7 @@ import { AgmCoreModule } from '@agm/core';
 import { ListViewComponent } from './list-view/list-view.component';
 import { from } from 'rxjs';
 import { NgrxFormsModule } from '@vms/ngrx-forms';
+import { OpenStreetMapComponent } from './open-street-map/open-street-map.component';
 
 @NgModule({
   imports: [
@@ -56,6 +57,6 @@ import { NgrxFormsModule } from '@vms/ngrx-forms';
       multi: true,
     },
   ],
-  declarations: [DashboardComponent, GoogleMapComponent, ListViewComponent],
+  declarations: [DashboardComponent, GoogleMapComponent, ListViewComponent, OpenStreetMapComponent],
 })
 export class DashboardModule {}

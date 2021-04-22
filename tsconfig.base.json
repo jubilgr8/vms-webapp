@@ -23,7 +23,8 @@
       "@vms/ngrx-router": ["libs/ngrx-router/src/index.ts"],
       "@vms/dashboard": ["libs/dashboard/src/index.ts"],
       "@vms/user-management": ["libs/user-management/src/index.ts"],
-      "@vms/media-management": ["libs/media-management/src/index.ts"]
+      "@vms/media-management": ["libs/media-management/src/index.ts"],
+      "@vms/open-street-map": ["libs/open-street-map/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

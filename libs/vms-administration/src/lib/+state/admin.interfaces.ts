@@ -4,8 +4,10 @@ export interface AdminManagement {
   zones: ZoneMaster[];
   zonecoords: ZoneCoords[];
   menus: MenuMaster[];
-  vmss:VMSMaster[];
+  vmss: VMSMaster[];
   errors: Errors;
+  newZoneId: number;
+  zone: ZoneMaster;
 }
 
 export interface AdminMaster {
@@ -25,41 +27,41 @@ export interface AdminMaster {
   roles: RoleMaster[];
 }
 
-export interface ZoneMaster{
-  id:number;
-  zoneId:string;
-  zoneName:string;
-  description:string;
-  isDeleted:boolean;
-  deletedBy : string;
-  zoneCoords:ZoneCoords[];
+export interface ZoneMaster {
+  id: number;
+  zoneId: string;
+  zoneName: string;
+  description: string;
+  isDeleted: boolean;
+  deletedBy: string;
+  zoneCoords: ZoneCoords[];
 }
 
-export interface VMSMaster{
-  id:number;
-  vmsId:string;
-  vmsSrNo:string;
-  vmsDescription:string;
-  isActive:boolean;
-  isDeleted:boolean;
-  deletedDate:number;
-  zoneMasterId:number;
-  latitude:number;
-  longitude:number;
-  contrastCtrl:number;
-  width:number;
-  brightnessCtrl:number;
-  dimmingCtrl:number;
-  staticIp:string;
-  zoneMaster:ZoneMaster[];
+export interface VMSMaster {
+  id: number;
+  vmsId: string;
+  vmsSrNo: string;
+  vmsDescription: string;
+  isActive: boolean;
+  isDeleted: boolean;
+  deletedDate: number;
+  zoneMasterId: number;
+  latitude: number;
+  longitude: number;
+  contrastCtrl: number;
+  width: number;
+  brightnessCtrl: number;
+  dimmingCtrl: number;
+  staticIp: string;
+  zoneMaster: ZoneMaster[];
 }
 
-export interface ZoneCoords{
-  id:number;
-  zoneMasterId:number;
-  seqno:number;
-  latitude:number;
-  longitude:number;
+export interface ZoneCoords {
+  id?: number;
+  zoneMasterId: number;
+  seqno?: number;
+  latitude: number;
+  longitude: number;
 }
 export interface RoleMaster {
   id: number;
@@ -86,22 +88,21 @@ export interface MenuMaster {
   deletedDate: number;
 }
 
-export interface RoleMenuRelation
-{
-id:number;
-roleMasterId:number;
-menuMasterId:number;
-accessAdd:boolean;
-accessView:boolean;
-accessUpd:boolean;
-accessDel:boolean;
-createdBy: string;
-createdDate:number;
-isDeleted:boolean;
-deletedBy:string;
-deletedDate:number;
-menuMaster:MenuMaster[];
-roleMaster:RoleMaster[];
+export interface RoleMenuRelation {
+  id: number;
+  roleMasterId: number;
+  menuMasterId: number;
+  accessAdd: boolean;
+  accessView: boolean;
+  accessUpd: boolean;
+  accessDel: boolean;
+  createdBy: string;
+  createdDate: number;
+  isDeleted: boolean;
+  deletedBy: string;
+  deletedDate: number;
+  menuMaster: MenuMaster[];
+  roleMaster: RoleMaster[];
 }
 
 export type FieldType = 'INPUT' | 'TEXTAREA';

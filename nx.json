@@ -26,6 +26,7 @@
     "ngrx-router": { "tags": ["ngrx-router"] },
     "dashboard": { "tags": ["dashboard"] },
     "user-management": { "tags": [] },
-    "media-management": { "tags": [] }
+    "media-management": { "tags": [] },
+    "open-street-map": { "tags": [] }
   }
 }

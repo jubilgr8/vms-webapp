@@ -26,12 +26,13 @@ import { AddNewZoneComponent } from './add-new-zone/add-new-zone.component';
 import { AddVmsComponent } from './add-vms/add-vms.component';
 import { VmsComponent } from './vms/vms.component';
 import { AddNewVmsComponent } from './add-new-vms/add-new-vms.component';
-import { NgxSliderModule} from "@angular-slider/ngx-slider";
-
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   imports: [
     AuthModule,
+    ToastrModule.forRoot(),
     CommonModule,
     NgxSliderModule,
     NgrxFormsModule,
@@ -84,7 +85,7 @@ import { NgxSliderModule} from "@angular-slider/ngx-slider";
     }),
     EffectsModule.forFeature([AdminEffects]),
   ],
-  
+
   providers: [
     AdminEffects,
     AdminService,
@@ -97,7 +98,14 @@ import { NgxSliderModule} from "@angular-slider/ngx-slider";
       multi: true,
     },
   ],
-  declarations: [ZoneComponent, ZoneAccessComponent, VmsMasterComponent, AddNewZoneComponent, 
-    AddVmsComponent, VmsComponent, AddNewVmsComponent],
+  declarations: [
+    ZoneComponent,
+    ZoneAccessComponent,
+    VmsMasterComponent,
+    AddNewZoneComponent,
+    AddVmsComponent,
+    VmsComponent,
+    AddNewVmsComponent,
+  ],
 })
 export class VmsAdministrationModule {}

@@ -11,8 +11,14 @@ export class AdminFacade {
   zonecoords$ = this.store.select(usersQuery.getZoneCoords);
   menus$ = this.store.select(usersQuery.getMenus);
   vmss$ = this.store.select(usersQuery.getVms);
+  newZoneId$ = this.store.select(usersQuery.getNewZoneId);
+  zone$ = this.store.select(usersQuery.getZoneById);
   getZoneList() {
     this.store.dispatch(adminActions.getZoneList());
+  }
+
+  getZoneById(zoneId: string) {
+    this.store.dispatch(adminActions.getZoneById({ zoneId }));
   }
 
   getVmsList() {
@@ -27,7 +33,7 @@ export class AdminFacade {
   // submitNewUser() {
   //   this.store.dispatch(adminActions.submitUser());
   // }
-  // submitNewRole() {
-  //   this.store.dispatch(adminActions.submitRole());
-  // }
+  submitNewZone() {
+    this.store.dispatch(adminActions.submitZone());
+  }
 }

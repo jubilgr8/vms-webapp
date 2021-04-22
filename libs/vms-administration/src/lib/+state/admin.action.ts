@@ -1,4 +1,10 @@
-import { Errors, MenuMaster, RoleMaster, ZoneMaster,VMSMaster } from './admin.interfaces';
+import {
+  Errors,
+  MenuMaster,
+  RoleMaster,
+  ZoneMaster,
+  VMSMaster,
+} from './admin.interfaces';
 import { props, createAction } from '@ngrx/store';
 
 // Zone Details -------------
@@ -24,5 +30,32 @@ export const getVmsSuccess = createAction(
 
 export const getVmsFail = createAction(
   '[Vms] VMS_FAIL',
+  props<{ error: Error }>()
+);
+
+export const submitZone = createAction('[ZONE] SUBMIT_NEW_ZONE');
+
+export const submitZoneSuccess = createAction(
+  '[ZONE] NEW_ZONE_SUBMITTED',
+  props<{ paylod: any }>()
+);
+
+export const submitZoneFail = createAction(
+  '[ZONE] NEW_ZONE_FAILED',
+  props<{ error: Error }>()
+);
+
+export const getZoneById = createAction(
+  '[ZONE] GET_ZONE_BY_ID',
+  props<{ zoneId: string }>()
+);
+
+export const getZoneByIdSuccess = createAction(
+  '[ZONE] GET_ZONE_SUCCESS',
+  props<{ paylod: any }>()
+);
+
+export const getZoneByIdFail = createAction(
+  '[ZONE] GET_ZONE_FAILED',
   props<{ error: Error }>()
 );

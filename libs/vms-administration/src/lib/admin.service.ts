@@ -29,6 +29,11 @@ export class AdminService {
       'Administration_API/api/VMSMaster/GetVmsMasterDetails'
     );
   }
+  getZoneById(zoneId: string): Observable<ZoneMaster> {
+    return this.apiService.get<ZoneMaster>(
+      'Administration_API/api/ZoneMaster/GetZonesById?id=' + zoneId
+    );
+  }
   // getRoles(): Observable<RoleMaster[]> {
   //   return this.apiService.get<RoleMaster[]>('User_API/api/Role/GetRoles');
   // }
@@ -41,13 +46,12 @@ export class AdminService {
   //     mstUser
   //   );
   // }
-  // submitRole(mstRoleMenu: RoleMenuRelation): Observable<any> {
-  //
-  //   return this.apiService.post<any, RoleMenuRelation>(
-  //     'User_API/api/RoleMenu/PostRoleMenuRelation',
-  //     mstRoleMenu
-  //   );
-  // }
+  submitZone(zoneMaster: ZoneMaster): Observable<any> {
+    return this.apiService.post<any, ZoneMaster>(
+      'Administration_API/api/ZoneMaster/PostZoneMaster',
+      zoneMaster
+    );
+  }
   // submitMenu(mstRole: MenuMaster): Observable<any> {
   //   return this.apiService.post<any, MenuMaster>(
   //     'User_API/api/MenuMaster/PostMenuMaster',

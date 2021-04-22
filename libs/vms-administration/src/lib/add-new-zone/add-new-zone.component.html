@@ -1,68 +1,48 @@
-
 <div class="container-fluid">
-    <div class="animated fadeIn">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"> <i class="icon-check"></i> <strong>Add New Zone</strong>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tickets" aria-expanded="true">
-                                <app-list-errors></app-list-errors>
-                                <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
-                                </app-dynamic-form>
-                                <div class="row">
-                                    <div class="col-12 text-right"><button type="button" class="btn btn-danger px-4" 
-                                        [routerLink]="['../../vms-admin/add-zone-coords']" routerLinkActive="active"
-                                        [routerLinkActiveOptions]="{ exact: true }" (click)="openVerticallyCentered(content)"
-                                        class="btn btn-danger px-4">Next</button>
-                                
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="icon-check"></i> <strong>Add New Zone</strong>
+          </div>
+          <div class="card-body p-0">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tickets" aria-expanded="true">
+                <app-list-errors></app-list-errors>
+                <app-dynamic-form
+                  (updateForm)="updateForm($event)"
+                  [data$]="data$"
+                  [structure$]="structure$"
+                  (getForm)="getForm($event)"
+                >
+                </app-dynamic-form>
+                <vms-zoneaccess *ngIf="isMapView" #zoneAccess></vms-zoneaccess>
+                <div class="row">
+                  <div class="col-12 text-right">
+                    <button
+                      type="button"
+                      class="btn btn-warning"
+                      disabled="{{ isFormValid }}"
+                      (click)="undo()"
+                    >
+                      Undo Last Point
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-danger px-4"
+                      disabled="{{ isFormValid }}"
+                      (click)="submit()"
+                    >
+                      Next
+                    </button>
+                  </div>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
-    <ng-template #content let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title">Modal title</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>One fine body&hellip;</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-        </div>
-      </ng-template>
-      
-      <ng-template #longContent let-modal>
-        <div class="modal-header">
-          <h4 class="modal-title">Modal title</h4>
-          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-        </div>
-      </ng-template>
-      
-      <button class="btn btn-outline-primary mb-2 mr-2" (click)="openWindowCustomClass(content)">Modal with window custom class</button>
-      <button class="btn btn-outline-primary mb-2 mr-2" (click)="openBackDropCustomClass(content)">Modal with backdrop custom class</button>
-      <button class="btn btn-outline-primary mb-2 mr-2" (click)="openSm(content)">Small modal</button>
-      <button class="btn btn-outline-primary mb-2 mr-2" (click)="openLg(content)">Large modal</button>
-      <button class="btn btn-outline-primary mb-2 mr-2" (click)="openXl(content)">Extra large modal</button>
-      <button class="btn btn-outline-primary mb-2 mr-2" (click)="openVerticallyCentered(content)">Modal vertically centered</button>
-      <button class="btn btn-outline-primary mb-2 mr-2" (click)="openScrollableContent(longContent)">Modal scrollable content</button>
-      
+  </div>
+</div>
