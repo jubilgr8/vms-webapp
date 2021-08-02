@@ -39,6 +39,13 @@ import { AddNewMediaComponent } from './add-new-media/add-new-media.component';
       // resolve: { DashboardService },
     },
     {
+      path: 'media-upload/:id',
+      pathMatch: 'full',
+      component: MediaUploadComponent,
+      // canActivateChild: [AuthGuardService],
+      // resolve: { DashboardService },
+    },
+    {
       path: 'add-medias',
       pathMatch: 'full',
       component: AddNewMediaComponent,
