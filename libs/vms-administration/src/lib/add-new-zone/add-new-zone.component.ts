@@ -39,7 +39,7 @@ export class AddNewZoneComponent implements OnInit, OnDestroy {
   zoneId: any;
   type: any;
   isMapView: boolean = false;
-  zone: import('d:/VMS-Webapp-18-03/vms-webapp/libs/vms-administration/src/lib/+state/admin.interfaces').ZoneMaster;
+  zone: import('../+state/admin.interfaces').ZoneMaster;
   @ViewChild('zoneAccess') zoneAccess: ZoneAccessComponent;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,

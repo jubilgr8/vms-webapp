@@ -67,7 +67,8 @@
                           <button
                             type="button"
                             class="btn btn-danger"
-                            id="delete|{{ zone.id }}"
+                            id="delete|{{ zone.id }}" 
+                            (click)="ViewAction(zone.id, 2)"
                           >
                             Delete
                           </button>

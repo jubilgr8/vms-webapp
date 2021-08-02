@@ -6,6 +6,8 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AdminFacade } from '../+state/admin.facade';
 import { AdminMaster, ZoneMaster } from '../+state/admin.interfaces';
+import{AdminService} from '../admin.service';
+import { ToastrService } from 'ngx-toastr';
 // import { DashboardFacade } from './+state/dashboard.facade';
 @Component({
   selector: 'zone',
@@ -21,7 +23,9 @@ export class ZoneComponent implements OnInit, OnDestroy {
   constructor(
     private authFacade: AuthFacade,
     private adminFacade: AdminFacade,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private service : AdminService,
+    private toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -46,5 +50,32 @@ export class ZoneComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  ViewAction(id, type) {
+    this.adminFacade.zones$
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((response) => {
+        if (response) {
+          var singleUser = response.find((X) => X.id == id);
+          var strData = JSON.stringify(singleUser);
+          var _jsonData = JSON.parse(strData);
+          _jsonData.isDeleted = true;
+          singleUser = _jsonData;
+          console.log(singleUser);
+          this.ref.detectChanges();
+          this.service.updateZone(singleUser).subscribe((data: any) => {
+                this.toastr.success('Zone removed successfully.');
+                this.adminFacade.getZoneList();
+              });
+          // this.userFacade.updateUser();
+          // this.userService
+          //   .updateUser(this.singleUser)
+          //   .subscribe((data: any) => {
+          //     this.toastr.success('User removed successfully.');
+          //     this.userFacade.getUserList();
+          //   });
+        }
+      });
   }
 }
