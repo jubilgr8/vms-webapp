@@ -25,6 +25,9 @@ import { MediaService } from './media.service';
 import { CheckboxComponent } from 'libs/ngrx-forms/src/lib/fields/checkbox/checkbox.component';
 import { MediaUploadComponent } from './media-upload/media-upload.component';
 import { AddNewMediaComponent } from './add-new-media/add-new-media.component';
+import { PlaylistMstComponent } from './playlist-mst/playlist-mst.component';
+import { CreatePlaylistComponent } from './create-playlist/create-playlist.component';
+import { MediaListComponent } from './media-list/media-list.component';
 
 @NgModule({imports: [
   AuthModule,
@@ -51,6 +54,20 @@ import { AddNewMediaComponent } from './add-new-media/add-new-media.component';
       component: AddNewMediaComponent,
       // canActivateChild: [AuthGuardService],
       // resolve: { DashboardService },
+    },
+    {
+      path: 'playlist',
+      pathMatch: 'full',
+      component: PlaylistMstComponent,
+      // canActivateChild: [AuthGuardService],
+      // resolve: { DashboardService },
+    },
+    {
+      path: 'playlist-create',
+      pathMatch: 'full',
+      component: CreatePlaylistComponent,
+      // canActivateChild: [AuthGuardService],
+      // resolve: { DashboardService },
     }
   ]),
   StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
@@ -71,6 +88,9 @@ providers: [
   },
 ],declarations: [
   MediaUploadComponent,
-  AddNewMediaComponent
+  AddNewMediaComponent,
+  PlaylistMstComponent,
+  CreatePlaylistComponent,
+  MediaListComponent
 ],})
 export class MediaManagementModule {}
