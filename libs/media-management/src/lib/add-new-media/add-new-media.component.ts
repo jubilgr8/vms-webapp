@@ -6,6 +6,7 @@ import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MediaFacade } from '../+state/media.facade';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
 
 var ddlList: KeyValue[] = [
   {
@@ -42,13 +43,17 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: MediaFacade,
     private mediaFacade: MediaFacade,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private evtSvc: EventService
   ) {}
 
   ngOnInit() {
     this.ngrxFormsFacade.setStructure(structure);
     this.data$ = this.ngrxFormsFacade.data$;
     this.structure$ = this.ngrxFormsFacade.structure$;
+    this.evtSvc.childEventListner().subscribe(info =>{
+      console.log(info); // here you get the message from Child component
+   })
     //   this.adminFacade.zones$
     //   .pipe(takeUntil(this.unsubscribe$))
     //   .subscribe((response) => {
