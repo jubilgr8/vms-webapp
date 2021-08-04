@@ -16,18 +16,15 @@ import * as Rx from 'rxjs/Rx';
 import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
+
 var ddlList: KeyValue[] = [
   {
-    name: '--Select--',
+    name: 'Medias',
     value: 0,
   },
   {
-    name: 'Medias',
-    value: 1,
-  },
-  {
     name: 'Text',
-    value: 2,
+    value: 1,
   },
 ];
 
@@ -50,17 +47,15 @@ const structure: Field[] = [
     ddlList: ddlList,
     placeholder: 'Media Type',
     validator: [Validators.required],
-    
   },
 ];
-
 @Component({
-  selector: 'vms-media-upload',
-  templateUrl: './media-upload.component.html',
-  styleUrls: ['./media-upload.component.css'],
+  selector: 'vms-media-list',
+  templateUrl: './media-list.component.html',
+  styleUrls: ['./media-list.component.css']
 })
-export class MediaUploadComponent implements OnInit, OnDestroy {
-  textData:any;
+
+export class MediaListComponent implements OnInit {
   isAuthenticated: boolean;
   unsubscribe$: Subject<void> = new Subject();
   structure$: Observable<Field[]>;
@@ -112,13 +107,10 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
       });
   }
   openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true});
+    this.modalService.open(content, { centered: true, size: 'xxl' });
   }
   openScrollableContent(longContent) {
     this.modalService.open(longContent, { centered: true, size: 'xl' });
-  }
-  openLongContent(content){
-    this.modalService.open(content, { centered: true, size: 'lg' });
   }
   updateForm(changes: any) {
     this.ngrxFormsFacade.updateData(changes);

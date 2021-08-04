@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Field, KeyValue } from '../../+state/ngrx-forms.interfaces';
+import { EventService } from '../../services/event.service';
 
 @Component({
   selector: 'app-dropdown',
@@ -10,9 +11,10 @@ import { Field, KeyValue } from '../../+state/ngrx-forms.interfaces';
 export class DropdownComponent implements OnInit {
   dropdownList: KeyValue[];
   defOption: KeyValue;
-  constructor(private _changeDetector: ChangeDetectorRef) {}
+  constructor(private _changeDetector: ChangeDetectorRef, private evtSvc: EventService) {}
   @Input() field: Field;
   @Input() group: FormGroup;
+  @Output() handleClick = new EventEmitter
   ngOnInit(): void {
     if (!this.field.selected) {
       this.defOption = {
@@ -27,5 +29,9 @@ export class DropdownComponent implements OnInit {
       .concat(this.defOption)
       .sort((a, b) => a.value - b.value);
     this._changeDetector.detectChanges();
+  }
+
+  optionSelected(ev){
+    this.evtSvc.emitChildEvent(ev);
   }
 }

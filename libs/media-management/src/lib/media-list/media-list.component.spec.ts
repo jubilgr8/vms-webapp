@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddNewMediaComponent } from './add-new-media.component';
+import { MediaListComponent } from './media-list.component';
 
-describe('AddNewMediaComponent', () => {
-  let component: AddNewMediaComponent;
-  let fixture: ComponentFixture<AddNewMediaComponent>;
+describe('MediaListComponent', () => {
+  let component: MediaListComponent;
+  let fixture: ComponentFixture<MediaListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddNewMediaComponent ]
+      declarations: [ MediaListComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddNewMediaComponent);
+    fixture = TestBed.createComponent(MediaListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -34,28 +34,16 @@ export class AdminService {
       'Administration_API/api/ZoneMaster/GetZonesById?id=' + zoneId
     );
   }
-  // getRoles(): Observable<RoleMaster[]> {
-  //   return this.apiService.get<RoleMaster[]>('User_API/api/Role/GetRoles');
-  // }
-  // getMenuMaster(): Observable<MenuMaster[]> {
-  //   return this.apiService.get<MenuMaster[]>('User_API/api/MenuMaster/getMenuMaster');
-  // }
-  // submitUser(mstUser: AdminMaster): Observable<any> {
-  //   return this.apiService.post<any, AdminMaster>(
-  //     'User_API/api/User/PostUserMaster',
-  //     mstUser
-  //   );
-  // }
   submitZone(zoneMaster: ZoneMaster): Observable<any> {
     return this.apiService.post<any, ZoneMaster>(
       'Administration_API/api/ZoneMaster/PostZoneMaster',
       zoneMaster
     );
   }
-  // submitMenu(mstRole: MenuMaster): Observable<any> {
-  //   return this.apiService.post<any, MenuMaster>(
-  //     'User_API/api/MenuMaster/PostMenuMaster',
-  //     mstRole
-  //   );
-  // }
+  updateZone(zoneMaster:ZoneMaster):Observable<any> {
+    return this.apiService.post<any, ZoneMaster>(
+      'Administration_API/api/ZoneMaster/PutZoneMaster',
+      zoneMaster
+    );
+  }
 }

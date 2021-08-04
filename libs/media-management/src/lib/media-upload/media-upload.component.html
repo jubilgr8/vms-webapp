@@ -1,4 +1,3 @@
-
 <div class="container-fluid">
     <div class="animated fadeIn">
         <div class="row">
@@ -6,12 +5,11 @@
                 <div class="card">
                     <div class="card-header"> <i class="icon-check"></i> <strong>Upload Set List</strong>
                         <div class="col-12 text-right">
-                            <button 
-                                type="button" 
-                                class="btn btn-danger px-4"  (click)="openVerticallyCentered(content)">Add New Medias</button>
+                            <button type="button" class="btn btn-danger px-4"
+                                (click)="openVerticallyCentered(longTextContent)">Add New Medias</button>
                         </div>
                     </div>
-                    <div class="card-body p-0" >
+                    <div class="card-body p-0">
                         <div class="tab-content">
                             <div class="tab-pane active" id="tickets" aria-expanded="true">
                                 <table class="table table-hover mb-0">
@@ -27,22 +25,27 @@
                                     </thead>
                                     <tbody>
                                         <!-- <div *ngIf="medias.length > 0"> -->
-                                            <tr *ngFor="let md of medias">
-                                         
-                                                <td>{{md.uploadSetId}}</td>
-                                                <td>{{md.uploadedDate}}</td>
-                                                <td>{{medias.length}}</td>
-                                                <td>{{md.mstUser.usrName}}</td>
-                                                <td>{{md.auditedStatus}}</td>
-                                                <td>
-                                                    <div class="col-md-12"><button type="button" id="add|{{md.id}}" class="btn btn-primary">View</button>&nbsp;
-                                                    <button type="button" class="btn btn-success" id="edit|{{md.id}}">Edit</button>&nbsp;
-                                                    <button type="button" class="btn btn-secondary" id="addMedia|{{md.id}}">Add</button>&nbsp;
-                                                    <button type="button" class="btn btn-danger" id="delete|{{md.id}}">Delete</button></div>
-                                                </td>
-                                            </tr> 
+                                        <tr *ngFor="let md of medias">
+
+                                            <td>{{md.uploadSetId}}</td>
+                                            <td>{{md.uploadedDate}}</td>
+                                            <td>{{medias.length}}</td>
+                                            <td>{{md.mstUser.usrName}}</td>
+                                            <td>{{md.auditedStatus}}</td>
+                                            <td>
+                                                <div class="col-md-12"><button type="button" id="add|{{md.id}}"
+                                                        class="btn btn-primary">View</button>&nbsp;
+                                                    <button type="button" class="btn btn-success"
+                                                        id="edit|{{md.id}}">Edit</button>&nbsp;
+                                                    <button type="button" class="btn btn-secondary"
+                                                        id="addMedia|{{md.id}}">Add</button>&nbsp;
+                                                    <button type="button" class="btn btn-danger"
+                                                        id="delete|{{md.id}}">Delete</button>
+                                                </div>
+                                            </td>
+                                        </tr>
                                         <!-- </div> -->
-                                         
+
                                     </tbody>
                                 </table>
                             </div>
@@ -50,61 +53,144 @@
                     </div>
                 </div>
             </div>
+        </div>
     </div>
-</div>
 
-<ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title"></h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-        <div class="tab-content">
-            <div class="tab-pane active" id="tickets" aria-expanded="true">
-                <div class="card">
-                    <div class="card-header"> <i class="icon-check"></i> <strong>Add New Media</strong>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tickets" aria-expanded="true">
-                                <app-list-errors></app-list-errors>
-                                <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
-                                </app-dynamic-form>
-                            </div>
-                            <div class="tab-pane active">
-                                <input type='file' (change)="onSelectFile($event)" multiple>
-                            </div>
-                            <div class="tab-pane active">
-                                <div class="col-12 text-left"><button type="button" class="btn btn-success px-4" >Add Medias</button>
-                                   &nbsp;&nbsp; <button type="button" class="btn btn-danger px-4 text-right" (click)="openScrollableContent(longContent)">View</button>
+    <ng-template #longContent let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title"></h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="tickets" aria-expanded="true">
+                    <div class="card">
+                        <div class="card-header"> <i class="icon-check"></i> <strong>Add New Media</strong>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tickets" aria-expanded="true">
+                                    <app-list-errors></app-list-errors>
+                                    <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$"
+                                        [structure$]="structure$">
+                                    </app-dynamic-form>
+                                </div>
+                                <div class="tab-pane active">
+                                    <input type='file' (change)="onSelectFile($event)" multiple>
+                                </div>
+                                <div class="tab-pane active">
+                                    <div class="col-12 text-left"><button type="button" class="btn btn-success px-4">Add
+                                            Medias</button>
+                                        &nbsp;&nbsp; <button type="button" class="btn btn-danger px-4 text-right"
+                                            (click)="openScrollableContent(longVContent)">View</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
-                    
                 </div>
             </div>
-        </div>            
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-success">Save</button>
-        <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
-    </div>
-</ng-template>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-success">Save</button>
+            <button type="button" class="btn btn-danger" (click)="modal.close('Close click')">Close</button>
+        </div>
+    </ng-template>
 
-<ng-template #longContent let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">View Medias</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-<img *ngFor='let url of urls'  [src]="url" height="200"> <br/>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
-    </div>
-</ng-template>
+    <ng-template #longVContent let-modal>
+        <div class="modal-header">
+            <h4 class="modal-title">View Medias</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img *ngFor='let url of urls' [src]="url" height="200"> <br />
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        </div>
+    </ng-template>
+    
+    
+    <ng-template #longTextContent let-modal style="width: 90%;">
+        <div class="modal-header">
+            <h4 class="modal-title">Add Your Text</h4>
+            <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="tab-pane active" id="tickets" aria-expanded="true">
+                <table class="table table-hover mb-0">
+                    <thead>
+                        <tr>
+                            <th>Font</th>
+                            <th>Font Size</th>
+                            <th>Fore Color</th>
+                            <th>Back Color</th>
+                            <th>Blink Times</th>
+                            <th>Text Content</th>
+                            <th>Font Style</th>
+                            <th>Character Pitch</th>
+                            <th>Arrangement Mode</th>
+                            <th>Scrolling Direction</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <td>
+                            <select name="demo" id="#">
+                                <option selected="selected" value="0">--Select--</option>
+                                <option value="1">Arial</option>
+                                <option value="2">Verdana</option>
+                                <option value="3">Calibri</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" placeholder="Size(Numeric only)">
+                        </td>
+                        <td>
+                            <input [value]="color" [style.background]="color" [cpOutputFormat]="'rgba'"
+                                [(colorPicker)]="color" id="foreColor" />
+                        </td>
+                        <td>
+                            <input [value]="color" [style.background]="color" [cpOutputFormat]="'rgba'"
+                                [(colorPicker)]="color" id="backColor" />
+                        </td>
+                        <td>
+                            <input type="text" placeholder="Numeric only">
+                        </td>
+                        <td>
+                            <input type="text" placeholder="Your Message">
+                        </td>
+                        <td>
+                            <select name="demo" id="#">
+                                <option selected="selected" value="0">--Select--</option>
+                                <option value="1">Regular</option>
+                                <option value="2">Bold</option>
+                                <option value="3">Italic</option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="text" placeholder="Numeric only">
+                        </td>
+                        <td>
+                            <input type="text" placeholder="Numeric only">
+                        </td>
+                        <td>
+                            <input type="text" placeholder="Numeric only">
+                        </td>
+                        <td>
+                            <button class="btn"><i class="fa fa-plus"></i></button>
+                        </td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+        </div>
+    </ng-template>

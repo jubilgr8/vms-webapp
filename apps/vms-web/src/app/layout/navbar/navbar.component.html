@@ -57,7 +57,7 @@
       <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
       <a
           class="nav-link nav-dropdown-toggle"
-          [routerLink]="['/media-management']"
+          [routerLink]="['/media-management/media-upload',0]"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           >
@@ -66,12 +66,15 @@
       </a>
       <ul class="nav-dropdown-items">
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/media-management/']" routerLinkActive="active"     
+      <a class="nav-link" [routerLink]="['/media-management/media-upload',0]" routerLinkActive="active"     
           [routerLinkActiveOptions]="{ exact: true }"
           (click)="OnMenuClick($event)"><i class="icon-arrow-right-circle"></i> Media Upload</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" routerLink="/media-management/" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Media Audit</a>
+      <a class="nav-link" [routerLink]="['/media-management/media-upload',1]" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Media Audit</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/media-management/playlist']" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Playlist Creation</a>
     </li>
     </ul>
     </li>
