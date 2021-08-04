@@ -18,12 +18,16 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 var ddlList: KeyValue[] = [
   {
-    name: 'Medias',
+    name: '--Select--',
     value: 0,
   },
   {
-    name: 'Text',
+    name: 'Medias',
     value: 1,
+  },
+  {
+    name: 'Text',
+    value: 2,
   },
 ];
 
@@ -46,6 +50,7 @@ const structure: Field[] = [
     ddlList: ddlList,
     placeholder: 'Media Type',
     validator: [Validators.required],
+    
   },
 ];
 
@@ -55,6 +60,7 @@ const structure: Field[] = [
   styleUrls: ['./media-upload.component.css'],
 })
 export class MediaUploadComponent implements OnInit, OnDestroy {
+  textData:any;
   isAuthenticated: boolean;
   unsubscribe$: Subject<void> = new Subject();
   structure$: Observable<Field[]>;
@@ -106,10 +112,13 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
       });
   }
   openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true, size: 'xl' });
+    this.modalService.open(content, { centered: true});
   }
   openScrollableContent(longContent) {
     this.modalService.open(longContent, { centered: true, size: 'xl' });
+  }
+  openLongContent(content){
+    this.modalService.open(content, { centered: true, size: 'lg' });
   }
   updateForm(changes: any) {
     this.ngrxFormsFacade.updateData(changes);

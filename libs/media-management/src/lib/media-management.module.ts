@@ -28,11 +28,11 @@ import { AddNewMediaComponent } from './add-new-media/add-new-media.component';
 import { PlaylistMstComponent } from './playlist-mst/playlist-mst.component';
 import { CreatePlaylistComponent } from './create-playlist/create-playlist.component';
 import { MediaListComponent } from './media-list/media-list.component';
-
+import { ColorPickerModule } from 'ngx-color-picker';
 @NgModule({imports: [
   AuthModule,
   CommonModule,
-  NgrxFormsModule,
+  NgrxFormsModule,ColorPickerModule,
   RouterModule.forChild([
     {
       path: '',
@@ -91,6 +91,6 @@ providers: [
   AddNewMediaComponent,
   PlaylistMstComponent,
   CreatePlaylistComponent,
-  MediaListComponent
+  MediaListComponent,
 ],})
 export class MediaManagementModule {}
