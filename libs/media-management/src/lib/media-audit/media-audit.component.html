@@ -1,0 +1,60 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header"> <i class="icon-check"></i> <strong>Media Audit Management</strong>
+                      <!-- <div class="col-12 text-right">
+                          <button 
+                              type="button" 
+                              class="btn btn-danger px-4"  [routerLink] ="['/media-management/playlist-create']">Add New Playlist</button>
+                      </div> -->
+                  </div>
+                  <div class="card-body p-0" >
+                      <div class="tab-content">
+                          <div class="col-3 text-right" style="margin: 5px;">
+                              <input 
+                                  type="text" 
+                                  class="form-control" placeholder="Search"/>
+                          </div>
+                          <div class="tab-pane active" id="tickets" aria-expanded="true">
+                              <table class="table table-hover mb-0">
+                                  <thead>
+                                      <tr>
+                                          <th>Sr No.</th>
+                                          <th>Playlist ID</th>
+                                          <th>Playlist Name</th>
+                                          <th>VMS Height</th>
+                                          <th>VMS Width</th>
+                                          <th>Block Counts</th>
+                                          <th>Actions</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <!-- <div *ngIf="medias.length > 0"> -->
+                                          <tr *ngFor="let md of medias">
+                                       
+                                              <td>{{md.uploadSetId}}</td>
+                                              <td>{{md.uploadedDate}}</td>
+                                              <td>{{medias.length}}</td>
+                                              <td>{{md.mstUser.usrName}}</td>
+                                              <td>{{md.auditedStatus}}</td>
+                                              <td>{{md.auditedStatus}}</td>
+                                              <td>
+                                                  <div class="col-md-12"><button type="button" id="add|{{md.id}}" class="btn btn-primary">View</button>&nbsp;
+                                                  <button type="button" class="btn btn-success" id="edit|{{md.id}}">Edit</button>&nbsp;
+                                                  <button type="button" class="btn btn-secondary" id="addMedia|{{md.id}}">Add</button>&nbsp;
+                                                  <button type="button" class="btn btn-danger" id="delete|{{md.id}}">Delete</button></div>
+                                              </td>
+                                          </tr> 
+                                      <!-- </div> -->
+                                       
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+  </div>
+</div>

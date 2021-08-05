@@ -29,10 +29,26 @@ import { PlaylistMstComponent } from './playlist-mst/playlist-mst.component';
 import { CreatePlaylistComponent } from './create-playlist/create-playlist.component';
 import { MediaListComponent } from './media-list/media-list.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-@NgModule({imports: [
+import {MatDialogModule} from '@angular/material/dialog';
+import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { MediaAuditComponent } from './media-audit/media-audit.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+@NgModule({
+  imports: [
   AuthModule,
   CommonModule,
   NgrxFormsModule,ColorPickerModule,
+  MatDialogModule,
+  MatTabsModule,
+  MatIconModule,
+  FormsModule, ReactiveFormsModule,
+  MatInputModule,
   RouterModule.forChild([
     {
       path: '',
@@ -68,17 +84,28 @@ import { ColorPickerModule } from 'ngx-color-picker';
       component: CreatePlaylistComponent,
       // canActivateChild: [AuthGuardService],
       // resolve: { DashboardService },
+    },
+    {
+      path: 'media-audit',
+      pathMatch: 'full',
+      component: MediaAuditComponent,
+      // canActivateChild: [AuthGuardService],
+      // resolve: { DashboardService },
     }
   ]),
   StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
     initialState: mediaInitialState,
   }),
   EffectsModule.forFeature([MediaEffects]),
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
 ],
 providers: [
   MediaEffects,
   MediaService,
   MediaFacade,
+  EventService,
   TokenInterceptorService,
   LocalStorageJwtService,
   {
@@ -92,5 +119,6 @@ providers: [
   PlaylistMstComponent,
   CreatePlaylistComponent,
   MediaListComponent,
+  MediaAuditComponent,
 ],})
 export class MediaManagementModule {}
