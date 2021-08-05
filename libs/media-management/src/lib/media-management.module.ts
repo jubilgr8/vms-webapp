@@ -35,6 +35,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatIconModule} from '@angular/material/icon';
 import {MatInputModule} from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { MediaAuditComponent } from './media-audit/media-audit.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 @NgModule({
   imports: [
   AuthModule,
@@ -80,12 +84,22 @@ import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
       component: CreatePlaylistComponent,
       // canActivateChild: [AuthGuardService],
       // resolve: { DashboardService },
+    },
+    {
+      path: 'media-audit',
+      pathMatch: 'full',
+      component: MediaAuditComponent,
+      // canActivateChild: [AuthGuardService],
+      // resolve: { DashboardService },
     }
   ]),
   StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
     initialState: mediaInitialState,
   }),
   EffectsModule.forFeature([MediaEffects]),
+  MatTableModule,
+  MatPaginatorModule,
+  MatSortModule,
 ],
 providers: [
   MediaEffects,
@@ -105,5 +119,6 @@ providers: [
   PlaylistMstComponent,
   CreatePlaylistComponent,
   MediaListComponent,
+  MediaAuditComponent,
 ],})
 export class MediaManagementModule {}

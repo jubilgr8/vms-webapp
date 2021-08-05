@@ -9,6 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MediaAuditDataSource } from '../media-audit/media-audit-datasource';
 
 
 export interface DialogData {
@@ -60,6 +61,7 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
   data$: Observable<any>;
   ddlData: any;
   mediaForm: FormGroup;
+  dataSource: MediaAuditDataSource;
 
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
@@ -71,7 +73,9 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private formBuilder: FormBuilder,
     private http: HttpClient
-  ) {}
+  ) {
+    this.dataSource = new MediaAuditDataSource();
+  }
 
   ngOnInit() {
     this.createForm();
@@ -127,6 +131,15 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     this.mediaForm = this.formBuilder.group({
       uploadsetID: new FormControl(	'',	[Validators.required]),  
       file: new FormControl(	'',	[Validators.required]),
+      font: new FormControl(	'',	[Validators.required]),
+      size: new FormControl(	'',	[Validators.required]),
+      foreColor: new FormControl(	'',	[Validators.required]),
+      backColor: new FormControl(	'',	[Validators.required]),
+      message: new FormControl(	'',	[Validators.required]),
+      style: new FormControl(	'',	[Validators.required]),
+      pitch: new FormControl(	'',	[Validators.required]),
+      mode: new FormControl(	'',	[Validators.required]),
+      direction: new FormControl(	'',	[Validators.required]),
     });
   }
 
