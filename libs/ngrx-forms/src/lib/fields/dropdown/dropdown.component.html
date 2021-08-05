@@ -4,6 +4,7 @@
     [formControlName]="field?.name"
     [(ngModel)]="defOption.value"
     [attr.disabled]="field?.attrs?.disabled || null"
+    (change)="optionSelected($event)"
   >
     <!-- <option value="0" >--Select--</option> -->
     <option *ngFor="let option of dropdownList" [ngValue]="option.value">

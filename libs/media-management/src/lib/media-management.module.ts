@@ -107,6 +107,7 @@ providers: [
   MediaFacade,
   EventService,
   TokenInterceptorService,
+  EventService,
   LocalStorageJwtService,
   {
     provide: HTTP_INTERCEPTORS,
