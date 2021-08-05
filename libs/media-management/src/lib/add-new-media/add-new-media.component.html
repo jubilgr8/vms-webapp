@@ -23,7 +23,7 @@
 
                                 </div>
                                 <div class="tab-pane active">
-                                    <input type="file" id="uploadFile" multiple name = "file" placeholder = "File" formControlName="file"   />
+                                    <input type="file" id="uploadFile" (change)="uploadFile($event)" multiple name = "files" placeholder = "File" formControlName="files"   />
                                 </div>
                                 <div class="tab-pane active">
                                     <div class="col-12 text-left"><button type="submit" class="btn btn-success px-4" >Add Medias</button>
@@ -68,11 +68,11 @@
                                         <input type="text" placeholder="Size(Numeric only)" name = "size" formControlName="size" />
                                     </td>
                                     <td>
-                                        <input [value]="color" [style.background]="color" [cpOutputFormat]="'rgba'"
+                                        <input [value]="color" [cpOutputFormat]="'rgba'"
                                             [(colorPicker)]="color" id="foreColor" name = "foreColor" formControlName="foreColor" />
                                     </td>
                                     <td>
-                                        <input [value]="color" [style.background]="color" [cpOutputFormat]="'rgba'"
+                                        <input [value]="color"  [cpOutputFormat]="'rgba'"
                                             [(colorPicker)]="color" id="backColor" name = "backColor" placeholder = "backColor" formControlName="backColor"/>
                                     </td>
                                     <td>
@@ -106,7 +106,7 @@
                             
                         </div>
                         <div class="tab-pane active">
-                            <div class="col-12 text-left"><button type="submit" class="btn btn-success px-4" >Add Medias</button>
+                            <div class="col-12 text-left"><button type="button" class="btn btn-success px-4" >Add Medias</button>
                                <!-- &nbsp;&nbsp; <button type="button" class="btn btn-danger px-4 text-right" >View</button> -->
                             </div>
                         </div>

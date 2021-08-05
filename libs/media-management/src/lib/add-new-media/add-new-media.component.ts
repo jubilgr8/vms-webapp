@@ -5,9 +5,9 @@ import { Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MediaFacade } from '../+state/media.facade';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';import { ToastrService } from 'ngx-toastr';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MediaAuditDataSource } from '../media-audit/media-audit-datasource';
 
@@ -47,7 +47,7 @@ const structure: Field[] = [
     ddlList: ddlList,
     placeholder: 'Media Type',
     validator: [Validators.required],
-    
+
   },
 ];
 
@@ -60,12 +60,13 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   ddlData: any;
+  images: any[];
   mediaForm: FormGroup;
   dataSource: MediaAuditDataSource;
-
+  formData = new FormData();
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
-    private facade: MediaFacade,
+    private facade: MediaFacade,private toastr: ToastrService,
     private mediaFacade: MediaFacade,
     private ref: ChangeDetectorRef,
     private evtSvc: EventService,
@@ -82,9 +83,9 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     this.ngrxFormsFacade.setStructure(structure);
     this.data$ = this.ngrxFormsFacade.data$;
     this.structure$ = this.ngrxFormsFacade.structure$;
-    this.evtSvc.childEventListner().subscribe(info =>{
+    this.evtSvc.childEventListner().subscribe(info => {
       console.log(info); // here you get the message from Child component
-   })
+    })
     //   this.adminFacade.zones$
     //   .pipe(takeUntil(this.unsubscribe$))
     //   .subscribe((response) => {
@@ -127,30 +128,44 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     this.ngrxFormsFacade.initializeForm();
   }
 
-  createForm(){
+  createForm() {
     this.mediaForm = this.formBuilder.group({
-      uploadsetID: new FormControl(	'',	[Validators.required]),  
-      file: new FormControl(	'',	[Validators.required]),
-      font: new FormControl(	'',	[Validators.required]),
-      size: new FormControl(	'',	[Validators.required]),
-      foreColor: new FormControl(	'',	[Validators.required]),
-      backColor: new FormControl(	'',	[Validators.required]),
-      message: new FormControl(	'',	[Validators.required]),
-      style: new FormControl(	'',	[Validators.required]),
-      pitch: new FormControl(	'',	[Validators.required]),
-      mode: new FormControl(	'',	[Validators.required]),
-      direction: new FormControl(	'',	[Validators.required]),
+      uploadsetID: new FormControl('', [Validators.required]),
+      files: new FormControl('', [Validators.required]),
+      font: new FormControl('', [Validators.required]),
+      size: new FormControl('', [Validators.required]),
+      foreColor: new FormControl('', [Validators.required]),
+      backColor: new FormControl('', [Validators.required]),
+      message: new FormControl('', [Validators.required]),
+      style: new FormControl('', [Validators.required]),
+      pitch: new FormControl('', [Validators.required]),
+      mode: new FormControl('', [Validators.required]),
+      direction: new FormControl('', [Validators.required]),
     });
   }
 
-  onSubmit (user: any): void  {
+  onSubmit(user: any): void {
     debugger;
-    console.log(user);    
-      let url = "https://172.19.32.193/Media_API/api/MediaMaster/PostMediaMaster";     
-          const headers = new HttpHeaders()
-            // .set('Authorization', 'my-auth-token')
-            .set('Content-Type', 'application/json');
-        this.http.post(url, this.mediaForm.value).subscribe(res => console.log("Data Post Done"));
+
+    this.formData.append("uploadsetid", this.mediaForm.controls.uploadsetID.value);
+    let url = "https://172.19.32.193/api/MediaMaster/PostMediaMaster";
+    const headers = new HttpHeaders()
+      // .set('Authorization', 'my-auth-token')
+      .set('Accept', 'application/json');
+    this.http.post(url, this.formData,{headers:headers}).subscribe(res => {
+      if(res == "1"){
+        this.toastr.success("Saved successfully","Success");
+      }
+    });
   }
-  
+
+  uploadFile(event) {
+    this.formData = new FormData();
+    let fileList = event.target.files;
+    for(var i=0;i<fileList.length;i++){
+      this.formData.append('files',fileList[i]);
+    }
+    
+  }
+
 }

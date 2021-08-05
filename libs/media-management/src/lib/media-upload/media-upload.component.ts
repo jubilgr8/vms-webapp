@@ -16,8 +16,6 @@ import * as Rx from 'rxjs/Rx';
 import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
-import { MatDialog } from '@angular/material/dialog';
-import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
 
