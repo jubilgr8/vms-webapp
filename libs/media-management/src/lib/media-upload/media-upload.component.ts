@@ -16,6 +16,10 @@ import * as Rx from 'rxjs/Rx';
 import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
 
 var ddlList: KeyValue[] = [
   {
@@ -76,7 +80,8 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
     private mediaFacade: MediaFacade,
     private ref: ChangeDetectorRef,
     private modalService: NgbModal,
-    private evtSvc: EventService
+    private evtSvc: EventService,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -117,7 +122,11 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
       });
   }
   openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true});
+    // this.modalService.open(content, { centered: true});
+    const dialogRef = this.dialog.open(AddNewMediaComponent, {
+      width: '650px',
+      data: {name: 'this.name', animal: 'this.animal'}
+    });
   }
   openScrollableContent(longContent) {
     this.modalService.open(longContent, { centered: true, size: 'xl' });
