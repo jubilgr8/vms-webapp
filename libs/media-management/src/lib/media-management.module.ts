@@ -29,10 +29,22 @@ import { PlaylistMstComponent } from './playlist-mst/playlist-mst.component';
 import { CreatePlaylistComponent } from './create-playlist/create-playlist.component';
 import { MediaListComponent } from './media-list/media-list.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-@NgModule({imports: [
+import {MatDialogModule} from '@angular/material/dialog';
+import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
+import {MatInputModule} from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+@NgModule({
+  imports: [
   AuthModule,
   CommonModule,
   NgrxFormsModule,ColorPickerModule,
+  MatDialogModule,
+  MatTabsModule,
+  MatIconModule,
+  FormsModule, ReactiveFormsModule,
+  MatInputModule,
   RouterModule.forChild([
     {
       path: '',
@@ -79,6 +91,7 @@ providers: [
   MediaEffects,
   MediaService,
   MediaFacade,
+  EventService,
   TokenInterceptorService,
   LocalStorageJwtService,
   {

@@ -64,7 +64,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
             import('@vms/media-management').then(
               (m) => m.MediaManagementModule
             ),
-          canActivate: [AuthGuardService],
+          // canActivate: [AuthGuardService],
         },
         // {
         //   path: 'article/:slug',

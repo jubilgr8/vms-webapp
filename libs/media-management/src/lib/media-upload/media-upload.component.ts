@@ -15,6 +15,8 @@ import { MediaMaster, UploadMediaCounts } from '../+state/media.interfaces';
 import * as Rx from 'rxjs/Rx';
 import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
 
 var ddlList: KeyValue[] = [
   {
@@ -74,7 +76,8 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
     private ngrxFormsFacade: NgrxFormsFacade,
     private mediaFacade: MediaFacade,
     private ref: ChangeDetectorRef,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -112,7 +115,11 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
       });
   }
   openVerticallyCentered(content) {
-    this.modalService.open(content, { centered: true});
+    // this.modalService.open(content, { centered: true});
+    const dialogRef = this.dialog.open(AddNewMediaComponent, {
+      width: '650px',
+      data: {name: 'this.name', animal: 'this.animal'}
+    });
   }
   openScrollableContent(longContent) {
     this.modalService.open(longContent, { centered: true, size: 'xl' });

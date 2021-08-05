@@ -1,27 +1,112 @@
 <div class="container-fluid">
     <div class="animated fadeIn">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header"> <i class="icon-check"></i> <strong>Add New Media</strong>
                     </div>
-                    <div class="card-body p-0">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tickets" aria-expanded="true">
-                                <app-list-errors></app-list-errors>
-                                <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
-                                </app-dynamic-form>
-                            </div>
-                            <div class="tab-pane active">
-                                <input type="file" id="uploadFile" multiple />
-                            </div>
-                            <div class="tab-pane active">
-                                <div class="col-12 text-left"><button type="button" class="btn btn-success px-4" >Add Medias</button>
-                                   &nbsp;&nbsp; <button type="button" class="btn btn-danger px-4 text-right" >View</button>
+                    <mat-tab-group>
+                        <mat-tab>
+                          <ng-template mat-tab-label>
+                            <!-- <mat-icon class="example-tab-icon">thumb_up</mat-icon> -->
+                            Media
+                          </ng-template>
+                          <div class="card-body p-0">
+                            <div class="tab-content">
+                                <form [formGroup]="mediaForm" (ngSubmit)="onSubmit()">
+                                <div class="tab-pane active" id="tickets" aria-expanded="true">
+                                    <!-- <app-list-errors></app-list-errors>
+                                    <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
+                                    </app-dynamic-form> -->
+                                    <input type = "text" name = "uploadsetID" placeholder = "Upload Set Id" formControlName="uploadsetID" [(ngModel)]="uploadsetID" >
+
                                 </div>
+                                <div class="tab-pane active">
+                                    <input type="file" id="uploadFile" multiple name = "file" placeholder = "File" formControlName="file" [(ngModel)]="file"  />
+                                </div>
+                                <div class="tab-pane active">
+                                    <div class="col-12 text-left"><button type="submit" class="btn btn-success px-4" >Add Medias</button>
+                                       <!-- &nbsp;&nbsp; <button type="button" class="btn btn-danger px-4 text-right" >View</button> -->
+                                    </div>
+                                </div>
+                            </form>
                             </div>
                         </div>
-                    </div>
+                        </mat-tab>
+                      
+                        <mat-tab>
+                          <ng-template mat-tab-label>
+                            <!-- <mat-icon class="example-tab-icon">thumb_up</mat-icon> -->
+                            Text
+                          </ng-template>
+                          <div class="tab-pane active" id="tickets" aria-expanded="true" style="overflow-x: scroll;">
+                            <table class="table table-hover mb-0"> 
+                                <thead>
+                                    <tr>
+                                        <th>Font</th>
+                                        <th>Font Size</th>
+                                        <th>Fore Color</th>
+                                        <th>Back Color</th>
+                                        <th>Blink Times</th>
+                                        <th>Text Content</th>
+                                        <th>Font Style</th>
+                                        <th>Character Pitch</th>
+                                        <th>Arrangement Mode</th>
+                                        <th>Scrolling Direction</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <td>
+                                        <select name="demo" id="#">
+                                            <option selected="selected" value="0">--Select--</option>
+                                            <option value="1">Arial</option>
+                                            <option value="2">Verdana</option>
+                                            <option value="3">Calibri</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Size(Numeric only)">
+                                    </td>
+                                    <td>
+                                        <input [value]="color" [style.background]="color" [cpOutputFormat]="'rgba'"
+                                            [(colorPicker)]="color" id="foreColor" />
+                                    </td>
+                                    <td>
+                                        <input [value]="color" [style.background]="color" [cpOutputFormat]="'rgba'"
+                                            [(colorPicker)]="color" id="backColor" />
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Numeric only">
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Your Message">
+                                    </td>
+                                    <td>
+                                        <select name="demo" id="#">
+                                            <option selected="selected" value="0">--Select--</option>
+                                            <option value="1">Regular</option>
+                                            <option value="2">Bold</option>
+                                            <option value="3">Italic</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Numeric only">
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Numeric only">
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Numeric only">
+                                    </td>
+                                    <td>
+                                        <button class="btn"><i class="fa fa-plus"></i></button>
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                        </mat-tab>
+                      </mat-tab-group>
+                    
                     
                 </div>
             </div>

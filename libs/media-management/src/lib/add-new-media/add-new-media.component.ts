@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit, ChangeDetectorRef } from '@angular/core';
-import { Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit, ChangeDetectorRef, Inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthFacade } from '@vms/auth';
 import { Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
@@ -7,6 +7,14 @@ import { takeUntil } from 'rxjs/operators';
 import { MediaFacade } from '../+state/media.facade';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 var ddlList: KeyValue[] = [
   {
@@ -21,11 +29,24 @@ var ddlList: KeyValue[] = [
 
 const structure: Field[] = [
   {
+    type: 'INPUT',
+    name: 'uploadSetId',
+    placeholder: 'Upload Set ID',
+    validator: [Validators.required],
+  },
+  {
+    type: 'INPUT',
+    name: 'uploadSetName',
+    placeholder: 'Upload Set Name',
+    validator: [Validators.required],
+  },
+  {
     type: 'DROPDOWN',
     name: 'mediaType',
     ddlList: ddlList,
     placeholder: 'Media Type',
     validator: [Validators.required],
+    
   },
 ];
 
@@ -38,16 +59,22 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
   structure$: Observable<Field[]>;
   data$: Observable<any>;
   ddlData: any;
+  mediaForm: FormGroup;
 
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: MediaFacade,
     private mediaFacade: MediaFacade,
     private ref: ChangeDetectorRef,
-    private evtSvc: EventService
+    private evtSvc: EventService,
+    public dialogRef: MatDialogRef<AddNewMediaComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData,
+    private formBuilder: FormBuilder,
+    private http: HttpClient
   ) {}
 
   ngOnInit() {
+    this.createForm();
     this.ngrxFormsFacade.setStructure(structure);
     this.data$ = this.ngrxFormsFacade.data$;
     this.structure$ = this.ngrxFormsFacade.structure$;
@@ -95,4 +122,22 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ngrxFormsFacade.initializeForm();
   }
+
+  createForm(){
+    this.mediaForm = this.formBuilder.group({
+      uploadsetID: new FormControl(	'',	[Validators.required]),  
+      file: new FormControl(	'',	[Validators.required]),
+    });
+  }
+
+  onSubmit (user: any): void  {
+    debugger;
+    console.log(user);    
+      let url = "https://172.19.32.193/Media_API/api/MediaMaster/PostMediaMaster";     
+          const headers = new HttpHeaders()
+            // .set('Authorization', 'my-auth-token')
+            .set('Content-Type', 'application/json');
+        this.http.post(url, this.mediaForm.value).subscribe(res => console.log("Data Post Done"));
+  }
+  
 }

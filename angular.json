@@ -53,6 +53,7 @@
               "apps/vms-web/src/assets"
             ],
             "styles": [
+              "apps/vms-web/src/custom-theme.scss",
               "apps/vms-web/src/styles.less",
               "node_modules/ngx-toastr/toastr.css"
             ]
