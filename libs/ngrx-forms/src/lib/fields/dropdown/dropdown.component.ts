@@ -32,6 +32,7 @@ export class DropdownComponent implements OnInit {
   }
 
   optionSelected(ev){
+    debugger;
     this.evtSvc.emitChildEvent(ev);
   }
 }

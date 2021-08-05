@@ -29,6 +29,7 @@ import { PlaylistMstComponent } from './playlist-mst/playlist-mst.component';
 import { CreatePlaylistComponent } from './create-playlist/create-playlist.component';
 import { MediaListComponent } from './media-list/media-list.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
 @NgModule({imports: [
   AuthModule,
   CommonModule,
@@ -80,6 +81,7 @@ providers: [
   MediaService,
   MediaFacade,
   TokenInterceptorService,
+  EventService,
   LocalStorageJwtService,
   {
     provide: HTTP_INTERCEPTORS,
