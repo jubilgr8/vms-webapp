@@ -68,15 +68,31 @@
                                         <input type="text" placeholder="Size(Numeric only)" name = "size" formControlName="size" />
                                     </td>
                                     <td>
-                                        <input [value]="color" [cpOutputFormat]="'rgba'"
-                                            [(colorPicker)]="color" id="foreColor" name = "foreColor" formControlName="foreColor" />
+                                        <select name="demo" id="#" name = "style" placeholder = "style" formControlName="style" >
+                                            <option selected="selected" value="0">--Select--</option>
+                                            <option value="1">Red</option>
+                                            <option value="2">Green</option>
+                                            <option value="3">Black</option>
+                                            <option value="4">White</option>
+                                            <option value="5">Yellow</option>
+                                        </select>
+                                        <!-- <input [value]="color" [cpOutputFormat]="'rgba'"
+                                            [(colorPicker)]="color" id="foreColor" name = "foreColor" formControlName="foreColor" /> -->
                                     </td>
                                     <td>
-                                        <input [value]="color"  [cpOutputFormat]="'rgba'"
-                                            [(colorPicker)]="color" id="backColor" name = "backColor" placeholder = "backColor" formControlName="backColor"/>
+                                        <select name="demo" id="#" name = "style" placeholder = "style" formControlName="style" >
+                                            <option selected="selected" value="0">--Select--</option>
+                                            <option value="1">Red</option>
+                                            <option value="2">Green</option>
+                                            <option value="3">Black</option>
+                                            <option value="4">White</option>
+                                            <option value="5">Yellow</option>
+                                        </select>
+                                        <!-- <input [value]="color"  [cpOutputFormat]="'rgba'"
+                                            [(colorPicker)]="color" id="backColor" name = "backColor" placeholder = "backColor" formControlName="backColor"/> -->
                                     </td>
                                     <td>
-                                        <!-- <input type="text" placeholder="Numeric only" name = "font" placeholder = "Font" formControlName="font" > -->
+                                        <input type="text" placeholder="Numeric only" name = "font" placeholder = "Blinks(Numeric Only)" formControlName="font" >
                                     </td>
                                     <td>
                                         <input type="text" placeholder="Your Message" name = "message" formControlName="message" >
