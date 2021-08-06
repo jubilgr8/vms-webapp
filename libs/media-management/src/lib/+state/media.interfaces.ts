@@ -48,3 +48,11 @@ export interface MediaMaster {
     DeletedBy :string;
     mstUser : UserMaster[];
   }
+
+  export interface mediaUpload{
+    uploadSetId:number;
+    mediaCount: number;
+    user:string;
+    dateOfRequest:Date;
+    status:string;
+  }

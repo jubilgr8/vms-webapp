@@ -8,8 +8,9 @@ import { MediaFacade } from '../+state/media.facade';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';import { ToastrService } from 'ngx-toastr';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { MediaAuditDataSource } from '../media-audit/media-audit-datasource';
+import { mediaUpload } from '../+state/media.interfaces';
 
 
 export interface DialogData {
@@ -64,6 +65,7 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
   mediaForm: FormGroup;
   dataSource: MediaAuditDataSource;
   formData = new FormData();
+  medias: Object;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: MediaFacade,private toastr: ToastrService,
@@ -86,6 +88,22 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     this.evtSvc.childEventListner().subscribe(info => {
       console.log(info); // here you get the message from Child component
     })
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    
+    const myObject: any = { id: 1232};
+    const httpParams: HttpParamsOptions = { fromObject: myObject } as HttpParamsOptions;
+    
+    const options = { params: new HttpParams(httpParams), headers: headers };
+    
+
+    let url = "https://localhost:44364/api/MediaMaster/GetMediaMasterById";
+    this.http.get(url, options).subscribe(x => {
+      debugger;
+      this.medias = x;
+    })
+
+
     //   this.adminFacade.zones$
     //   .pipe(takeUntil(this.unsubscribe$))
     //   .subscribe((response) => {
@@ -148,7 +166,7 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     debugger;
 
     this.formData.append("uploadsetid", this.mediaForm.controls.uploadsetID.value);
-    let url = "https://172.19.32.193/Media_API/api/MediaMaster/PostMediaMaster";
+    let url = "https://localhost:44364/api/MediaMaster/PostMediaMaster";
     const headers = new HttpHeaders()
       // .set('Authorization', 'my-auth-token')
       .set('Accept', 'application/json');

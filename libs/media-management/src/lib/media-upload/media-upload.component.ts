@@ -11,13 +11,14 @@ import { Field, KeyValue, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MediaFacade } from '../+state/media.facade';
-import { MediaMaster, UploadMediaCounts } from '../+state/media.interfaces';
+import { MediaMaster, mediaUpload, UploadMediaCounts } from '../+state/media.interfaces';
 import * as Rx from 'rxjs/Rx';
 import * as _ from 'lodash';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
+import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
 
 var ddlList: KeyValue[] = [
   {
@@ -68,9 +69,10 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
   unsubscribe$: Subject<void> = new Subject();
   structure$: Observable<Field[]>;
   data$: Observable<any>;
-  medias: MediaMaster[];
+  medias: any;
   uploadMedias: UploadMediaCounts[];
   groupedData: any = [];
+  medaUpload:mediaUpload[];
   urls = [];
   constructor(
     private authFacade: AuthFacade,
@@ -79,9 +81,43 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
     private ref: ChangeDetectorRef,
     private modalService: NgbModal,
     private evtSvc: EventService,
-    public dialog: MatDialog
-  ) {}
+    public dialog: MatDialog,
+    private http: HttpClient
 
+  ) {
+
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+     const options = { headers: headers };
+    let url = "https://localhost:44364/api/MediaMaster/GetMediaMaster";
+    this.http.get<MediaMaster[]>(url, options).subscribe(x => {
+      debugger;
+      this.medias = x;
+      // let group =  x.reduce((r, a) => {
+      //   console.log("a", a);
+      //   console.log('r', r);
+      //   r[a.uploadSetId] = [...r[a.uploadSetId] || [], a];
+      //   return r;
+      //  }, {});
+      //  console.log("group", group);
+      //  this.medias = group;
+      this.medias = this.groupBy(this.medias, pet => pet.type);
+       this.ref.detectChanges();
+    });
+  }
+
+  groupBy(list, keyGetter) {
+    const map = new Map();
+    list.forEach((item) => {
+         const key = keyGetter(item);
+         const collection = map.get(key);
+         if (!collection) {
+             map.set(key, [item]);
+         } else {
+             collection.push(item);
+         }
+    });
+    return map;
+}
   ngOnInit(): void {
     this.ngrxFormsFacade.setStructure(structure);
     this.data$ = this.ngrxFormsFacade.data$;
@@ -94,30 +130,6 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
       this.evtSvc.childEventListner().subscribe(info =>{
         console.log(info); // here you get the message from Child component
      })
-
-    this.mediaFacade.medias$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        if (response) {
-          this.medias = response;
-          var data = Rx.Observable.from(this.medias)
-            .groupBy((x) => x.uploadSetId)
-            .flatMap((group) => group.toArray())
-            .map((g) => {
-              // mapping
-              return {
-                name: g[0].uploadSetId, //take the first name because we grouped them by name
-              };
-            })
-            .toArray() //.toArray because I guess you want to loop on it with ngFor
-            .do((sum) => console.log('sum:', sum)) // just for debug
-            .subscribe((d) => (this.groupedData = d));
-          console.log(data);
-          this.ref.detectChanges();
-        } else {
-          this.mediaFacade.getMediaList();
-        }
-      });
   }
   openVerticallyCentered(content) {
     // this.modalService.open(content, { centered: true});
