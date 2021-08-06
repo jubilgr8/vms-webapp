@@ -144,11 +144,11 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmit(user: any): void {
+  onSubmit(): void {
     debugger;
 
     this.formData.append("uploadsetid", this.mediaForm.controls.uploadsetID.value);
-    let url = "https://172.19.32.193/api/MediaMaster/PostMediaMaster";
+    let url = "https://172.19.32.193/Media_API/api/MediaMaster/PostMediaMaster";
     const headers = new HttpHeaders()
       // .set('Authorization', 'my-auth-token')
       .set('Accept', 'application/json');
