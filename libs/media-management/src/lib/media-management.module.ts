@@ -40,6 +40,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ViewMediaComponent } from './view-media/view-media.component';
+import { DeleteMediaComponent } from './delete-media/delete-media.component';
 @NgModule({
   imports: [
   AuthModule,
@@ -123,5 +124,6 @@ providers: [
   MediaListComponent,
   MediaAuditComponent,
   ViewMediaComponent,
+  DeleteMediaComponent,
 ],})
 export class MediaManagementModule {}

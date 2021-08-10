@@ -20,6 +20,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
 import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { ViewMediaComponent } from '../view-media/view-media.component';
+import { DeleteMediaComponent } from '../delete-media/delete-media.component';
 
 var ddlList: KeyValue[] = [
   {
@@ -146,7 +147,7 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
         });
         break;
       case 'Delete':
-        this.dialog.open(AddNewMediaComponent, {
+        this.dialog.open(DeleteMediaComponent, {
           width: '650px',
           data: {uploadSetId: id,type:type}
         });

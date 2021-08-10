@@ -49,4 +49,8 @@ export class ViewMediaComponent implements AfterViewInit {
       console.log(this.medias);
     })
   }
+
+  openImage(url){
+    window.open(url);
+  }
 }
