@@ -10,12 +10,12 @@ import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { MediaAuditDataSource } from '../media-audit/media-audit-datasource';
-import { mediaUpload } from '../+state/media.interfaces';
+import { MediaMaster, mediaUpload } from '../+state/media.interfaces';
 
 
 export interface DialogData {
-  animal: string;
-  name: string;
+  uploadSetId: number;
+  type: string;
 }
 
 var ddlList: KeyValue[] = [
@@ -66,6 +66,9 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
   dataSource: MediaAuditDataSource;
   formData = new FormData();
   medias: Object;
+  intDate: number;
+  uploadsetID: number;
+  type: string;
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: MediaFacade,private toastr: ToastrService,
@@ -78,6 +81,7 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     private http: HttpClient
   ) {
     this.dataSource = new MediaAuditDataSource();
+    this.intDate = +new Date()
   }
 
   ngOnInit() {
@@ -88,19 +92,28 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     this.evtSvc.childEventListner().subscribe(info => {
       console.log(info); // here you get the message from Child component
     })
+    this.type = this.data?.type;
+    if (this.data?.uploadSetId) {
+      this.uploadsetID = this.data.uploadSetId
+    }
+    else {
+      this.uploadsetID = this.intDate
+    }
 
+    console.log(this.data);
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     
-    const myObject: any = { id: 1232};
+    const myObject: any = { id: this.uploadsetID};
     const httpParams: HttpParamsOptions = { fromObject: myObject } as HttpParamsOptions;
     
     const options = { params: new HttpParams(httpParams), headers: headers };
     
 
-    let url = "https://localhost:44364/api/MediaMaster/GetMediaMasterById";
-    this.http.get(url, options).subscribe(x => {
+    let url = "https://172.19.32.193/Media_API/api/MediaMaster/GetMediaMasterById";
+    this.http.get<MediaMaster[]>(url, options).subscribe(x => {
       debugger;
       this.medias = x;
+      console.log(this.medias);
     })
 
 
@@ -166,13 +179,16 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     debugger;
 
     this.formData.append("uploadsetid", this.mediaForm.controls.uploadsetID.value);
-    let url = "https://localhost:44364/api/MediaMaster/PostMediaMaster";
+    let url = "https://172.19.32.193/Media_API/api/MediaMaster/PostMediaMaster";
     const headers = new HttpHeaders()
       // .set('Authorization', 'my-auth-token')
       .set('Accept', 'application/json');
     this.http.post(url, this.formData,{headers:headers}).subscribe(res => {
       if(res == "1"){
         this.toastr.success("Saved successfully","Success");
+      }
+      else {
+        this.toastr.error("Something Went Wrong!");
       }
     });
   }

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header"> <i class="icon-check"></i> <strong>Add New Media</strong>
+                    <div class="card-header"> <i class="icon-check"></i> <strong>{{this.type}} Media</strong>
                     </div>
                     <form [formGroup]="mediaForm" (ngSubmit)="onSubmit()">
                     <mat-tab-group>
@@ -19,7 +19,7 @@
                                     <!-- <app-list-errors></app-list-errors>
                                     <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$" [structure$]="structure$">
                                     </app-dynamic-form> -->
-                                    <input type = "text" name = "uploadsetID" placeholder = "Upload Set Id" formControlName="uploadsetID" >
+                                    <input class="form-control col-4" type = "text" name = "uploadsetID" placeholder = "Upload Set Id" formControlName="uploadsetID" disabled [(ngModel)]="uploadsetID" >
 
                                 </div>
                                 <div class="tab-pane active">
@@ -57,6 +57,28 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr *ngFor="let md of medias">
+                                        <td>
+                                            {{md.uploadSetId}}
+                                        </td>
+                                        <td>
+                                            {{md.uploadSetId}}
+                                        </td>
+                                        <td>
+                                            {{md.uploadSetId}}
+                                        </td>
+                                        <td>
+                                            {{md.uploadSetId}}
+                                        </td>
+                                        <td>
+                                            {{md.uploadSetId}}
+                                        </td>
+                                        <td>
+                                            {{md.uploadSetId}}
+                                        </td>
+
+                                    </tr>
+                                    <tr>
                                     <td>
                                         <select name="demo" id="#" name = "font" placeholder = "Font" formControlName="font">
                                             <option selected="selected" value="0">--Select--</option>
@@ -118,6 +140,8 @@
                                     <td>
                                         <button class="btn" type="submit"><i class="fa fa-plus"></i></button>
                                     </td>
+                                </tr>
+                                
                                 </tbody>
                             </table>
                             

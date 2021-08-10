@@ -1,3 +1,4 @@
+<vms-spinner *ngIf="isLoading"></vms-spinner>
 <div class="container-fluid">
     <div class="animated fadeIn">
         <div class="row">
@@ -6,7 +7,7 @@
                     <div class="card-header"> <i class="icon-check"></i> <strong>Upload Set List</strong>
                         <div class="col-12 text-right">
                             <button type="button" class="btn btn-danger px-4"
-                                (click)="openVerticallyCentered(longTextContent)">Add New Medias</button>
+                                (click)="openVerticallyCentered('Add')">Add New Medias</button>
                         </div>
                     </div>
                     <div class="card-body p-0">
@@ -34,13 +35,13 @@
                                             <td>{{md.auditedStatus}}</td>
                                             <td>
                                                 <div class="col-md-12"><button type="button" id="add|{{md.id}}"
-                                                        class="btn btn-primary">View</button>&nbsp;
+                                                        class="btn btn-primary" (click)="openVerticallyCentered('View', md.uploadSetId)"><i class="fa fa-eye"></i></button>&nbsp;
                                                     <button type="button" class="btn btn-success"
-                                                        id="edit|{{md.id}}">Edit</button>&nbsp;
-                                                    <button type="button" class="btn btn-secondary"
-                                                        id="addMedia|{{md.id}}">Add</button>&nbsp;
+                                                        id="edit|{{md.id}}" (click)="openVerticallyCentered('Edit', md.uploadSetId)"><i class="fa fa-edit"></i></button>&nbsp;
+                                                    <button type="button" class="btn btn-success"
+                                                        id="edit|{{md.id}}" (click)="openVerticallyCentered('Add', md.uploadSetId)"><i class=" fa fa-plus-square "></i></button>&nbsp;
                                                     <button type="button" class="btn btn-danger"
-                                                        id="delete|{{md.id}}">Delete</button>
+                                                        id="delete|{{md.id}}" (click)="openVerticallyCentered('Delete', md.uploadSetId)"><i class="fa fa-trash-o"></i></button>
                                                 </div>
                                             </td>
                                         </tr>

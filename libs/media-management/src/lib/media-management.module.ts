@@ -39,6 +39,7 @@ import { MediaAuditComponent } from './media-audit/media-audit.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { ViewMediaComponent } from './view-media/view-media.component';
 @NgModule({
   imports: [
   AuthModule,
@@ -121,5 +122,6 @@ providers: [
   CreatePlaylistComponent,
   MediaListComponent,
   MediaAuditComponent,
+  ViewMediaComponent,
 ],})
 export class MediaManagementModule {}

@@ -19,6 +19,7 @@ import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
 import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
+import { ViewMediaComponent } from '../view-media/view-media.component';
 
 var ddlList: KeyValue[] = [
   {
@@ -74,6 +75,7 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
   groupedData: any = [];
   medaUpload:mediaUpload[];
   urls = [];
+  isLoading: boolean = true;
   constructor(
     private authFacade: AuthFacade,
     private ngrxFormsFacade: NgrxFormsFacade,
@@ -88,19 +90,11 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
      const options = { headers: headers };
-    let url = "https://localhost:44364/api/MediaMaster/GetMediaMaster";
+    let url = "https://172.19.32.193/Media_API/api/MediaMaster/GetMediaMaster";
     this.http.get<MediaMaster[]>(url, options).subscribe(x => {
       debugger;
+      this.isLoading = false;
       this.medias = x;
-      // let group =  x.reduce((r, a) => {
-      //   console.log("a", a);
-      //   console.log('r', r);
-      //   r[a.uploadSetId] = [...r[a.uploadSetId] || [], a];
-      //   return r;
-      //  }, {});
-      //  console.log("group", group);
-      //  this.medias = group;
-      this.medias = this.groupBy(this.medias, pet => pet.type);
        this.ref.detectChanges();
     });
   }
@@ -131,12 +125,38 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
         console.log(info); // here you get the message from Child component
      })
   }
-  openVerticallyCentered(content) {
+  openVerticallyCentered(type, id?) {
+    switch (type) {
+      case 'Add':
+        this.dialog.open(AddNewMediaComponent, {
+          width: '650px',
+          data: {uploadSetId: id,type:type}
+        });
+        break;
+      case 'View':
+        this.dialog.open(ViewMediaComponent, {
+          width: '850px',
+          data: {uploadSetId: id,type:type}
+        });
+        break;
+      case 'Edit':
+        this.dialog.open(ViewMediaComponent, {
+          width: '850px',
+          data: {uploadSetId: id,type:type}
+        });
+        break;
+      case 'Delete':
+        this.dialog.open(AddNewMediaComponent, {
+          width: '650px',
+          data: {uploadSetId: id,type:type}
+        });
+        break;
+      default:
+        break;
+    }
+    
     // this.modalService.open(content, { centered: true});
-    const dialogRef = this.dialog.open(AddNewMediaComponent, {
-      width: '650px',
-      data: {name: 'this.name', animal: 'this.animal'}
-    });
+    
   }
   openScrollableContent(longContent) {
     this.modalService.open(longContent, { centered: true, size: 'xl' });

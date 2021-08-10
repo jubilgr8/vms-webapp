@@ -1,0 +1,55 @@
+<vms-spinner *ngIf="isLoading"></vms-spinner>
+<div class="container-fluid" >
+    <div class="animated fadeIn">
+        <div class="row" >
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"> <i class="icon-check"></i> <strong>{{data.type}} List</strong>
+                    </div>
+                    <div class="card-body p-0" *ngIf="!isLoading">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tickets" aria-expanded="true" style="overflow-y: scroll;">
+                                <table class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Upload Set ID</th>
+                                            <th>Media Id</th>
+                                            <th>Type</th>
+                                            <th>Name</th>
+                                            <th>Size</th>
+                                            <th>Uploaded By</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- <div *ngIf="medias.length > 0"> -->
+                                        <tr *ngFor="let md of medias">
+
+                                            <td>{{md.uploadSetId}}</td>
+                                            <td>{{md.id}}</td>
+                                            <td>{{md.fileType}}</td>
+                                            <td>{{md.fileName}}</td>
+                                            <td>{{md.uploadedBy}}</td>
+                                            <td>{{md.uploadedBy}}</td>
+                                            <td>{{md.uploadedBy}}</td>
+                                            <td>{{md.uploadedBy}}</td>
+                                            <td>
+                                              <button type="button" id="add|{{md.id}}"
+                                                        class="btn btn-primary" (click)="openVerticallyCentered('View', md.uploadSetId)"><i class="fa fa-eye"></i></button>&nbsp;
+                                              <button type="button" id="add|{{md.id}}"
+                                                        class="btn btn-primary" (click)="openVerticallyCentered('View', md.uploadSetId)"><i class="fa fa-trash-o"></i></button>
+                                            </td>
+                                        </tr>
+                                        <!-- </div> -->
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
