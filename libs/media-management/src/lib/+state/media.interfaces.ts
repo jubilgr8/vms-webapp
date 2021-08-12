@@ -1,5 +1,4 @@
 import { ValidatorFn } from '@angular/forms';
-import { NewUser } from 'libs/auth/src/lib/auth.interfaces';
 import {UserMaster} from '../../../../user-management/src/lib/+state/user.interfaces';
 
 export type FieldType = 'INPUT' | 'TEXTAREA';

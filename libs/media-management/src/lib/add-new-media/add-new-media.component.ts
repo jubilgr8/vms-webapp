@@ -72,7 +72,7 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
   constructor(
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: MediaFacade,private toastr: ToastrService,
-    private mediaFacade: MediaFacade,
+    private mediaFacade: MediaFacade,public dialog: MatDialog,
     private ref: ChangeDetectorRef,
     private evtSvc: EventService,
     public dialogRef: MatDialogRef<AddNewMediaComponent>,
@@ -83,7 +83,9 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     this.dataSource = new MediaAuditDataSource();
     this.intDate = +new Date()
   }
-
+  CloseModal(){
+    this.dialog.closeAll();
+  }
   ngOnInit() {
     this.createForm();
     this.ngrxFormsFacade.setStructure(structure);
