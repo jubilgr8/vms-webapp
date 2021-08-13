@@ -21,6 +21,7 @@ import { AddNewMediaComponent } from '../add-new-media/add-new-media.component';
 import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { ViewMediaComponent } from '../view-media/view-media.component';
 import { DeleteMediaComponent } from '../delete-media/delete-media.component';
+import {environment} from '../../../../../apps/vms-web/src/environments/environment';
 
 var ddlList: KeyValue[] = [
   {
@@ -76,6 +77,7 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
   groupedData: any = [];
   medaUpload:mediaUpload[];
   urls = [];
+  api_url = environment.api_url;
   isLoading: boolean = true;
   constructor(
     private authFacade: AuthFacade,
@@ -91,7 +93,7 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
 
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
      const options = { headers: headers };
-    let url = "https://172.19.32.193/Media_API/api/MediaMaster/GetMediaMaster";
+    let url = this.api_url+"MediaMaster/GetMediaMaster";
     this.http.get<MediaMaster[]>(url, options).subscribe(x => {
       debugger;
       this.isLoading = false;

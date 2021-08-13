@@ -188,6 +188,7 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     this.http.post(url, this.formData,{headers:headers}).subscribe(res => {
       if(res == "1"){
         this.toastr.success("Saved successfully","Success");
+        this.CloseModal();
       }
       else {
         this.toastr.error("Something Went Wrong!");
