@@ -11,6 +11,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular/common/http';
 import { MediaAuditDataSource } from '../media-audit/media-audit-datasource';
 import { MediaMaster, mediaUpload } from '../+state/media.interfaces';
+import { Router } from '@angular/router';
 
 
 export interface DialogData {
@@ -70,6 +71,7 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
   uploadsetID: number;
   type: string;
   constructor(
+    private router:Router,
     private ngrxFormsFacade: NgrxFormsFacade,
     private facade: MediaFacade,private toastr: ToastrService,
     private mediaFacade: MediaFacade,public dialog: MatDialog,
@@ -188,6 +190,7 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     this.http.post(url, this.formData,{headers:headers}).subscribe(res => {
       if(res == "1"){
         this.toastr.success("Saved successfully","Success");
+        this.router.navigateByUrl('/media-management/media-upload/0');
         this.CloseModal();
       }
       else {

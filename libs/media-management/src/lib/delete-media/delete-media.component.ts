@@ -8,6 +8,7 @@ import { DeleteMediaDataSource, DeleteMediaItem } from './delete-media-datasourc
 import {environment} from '../../../../../apps/vms-web/src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vms-delete-media',
@@ -18,7 +19,7 @@ export class DeleteMediaComponent implements OnInit {
   api_url = environment.api_url;
   isLoading: boolean = false;
   uploadSetId :number;
-  constructor(  private toastr: ToastrService,
+  constructor(  private toastr: ToastrService,private router:Router,
     private http: HttpClient,
     public dialogRef: MatDialogRef<DeleteMediaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -33,6 +34,7 @@ export class DeleteMediaComponent implements OnInit {
   confirmDelete(){
     this.isLoading = true;
     debugger;
+    //let url = this.api_url + "Media_API/api/MediaMaster/DeleteMediaMaster?uploadSetId="+this.uploadSetId;
     let url = this.api_url + "MediaMaster/DeleteMediaMaster?uploadSetId="+this.uploadSetId;
     const headers = new HttpHeaders()
       // .set('Authorization', 'my-auth-token')
@@ -40,6 +42,7 @@ export class DeleteMediaComponent implements OnInit {
     this.http.post(url,{headers:headers}).subscribe(res => {
       if(res == "1"){
         this.toastr.success("Removed successfully","Success");
+        this.router.navigateByUrl('/media-management/media-upload/0');
         this.isLoading = false;
       }
       else {

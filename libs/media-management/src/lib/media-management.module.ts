@@ -41,6 +41,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ViewMediaComponent } from './view-media/view-media.component';
 import { DeleteMediaComponent } from './delete-media/delete-media.component';
+import { PartyMasterComponent } from './party-master/party-master.component';
+import { AddNewPartyComponent } from './add-new-party/add-new-party.component';
+import { PublishDashboardComponent } from './publish-dashboard/publish-dashboard.component';
+import { AddNewPublishComponent } from './add-new-publish/add-new-publish.component';
 @NgModule({
   imports: [
   AuthModule,
@@ -93,6 +97,20 @@ import { DeleteMediaComponent } from './delete-media/delete-media.component';
       component: MediaAuditComponent,
       // canActivateChild: [AuthGuardService],
       // resolve: { DashboardService },
+    },
+    {
+      path: 'party-master',
+      pathMatch: 'full',
+      component: PartyMasterComponent,
+      // canActivateChild: [AuthGuardService],
+      // resolve: { DashboardService },
+    },
+    {
+      path: 'publish-dashboard',
+      pathMatch: 'full',
+      component: PublishDashboardComponent,
+      // canActivateChild: [AuthGuardService],
+      // resolve: { DashboardService },
     }
   ]),
   StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
@@ -125,5 +143,9 @@ providers: [
   MediaAuditComponent,
   ViewMediaComponent,
   DeleteMediaComponent,
+  PartyMasterComponent,
+  AddNewPartyComponent,
+  PublishDashboardComponent,
+  AddNewPublishComponent,
 ],})
 export class MediaManagementModule {}

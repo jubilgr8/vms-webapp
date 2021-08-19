@@ -28,6 +28,7 @@ import { VmsComponent } from './vms/vms.component';
 import { AddNewVmsComponent } from './add-new-vms/add-new-vms.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ToastrModule } from 'ngx-toastr';
+import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
 
 @NgModule({
   imports: [
@@ -91,6 +92,7 @@ import { ToastrModule } from 'ngx-toastr';
     AdminService,
     AdminFacade,
     TokenInterceptorService,
+    EventService,
     LocalStorageJwtService,
     {
       provide: HTTP_INTERCEPTORS,

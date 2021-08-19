@@ -56,8 +56,7 @@ const structure: Field[] = [
     name: 'mediaType',
     ddlList: ddlList,
     placeholder: 'Media Type',
-    validator: [Validators.required],
-    
+    validator: [Validators.required],  
   },
 ];
 
@@ -90,18 +89,19 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
     private http: HttpClient
 
   ) {
-
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-     const options = { headers: headers };
-    let url = this.api_url+"MediaMaster/GetMediaMaster";
-    this.http.get<MediaMaster[]>(url, options).subscribe(x => {
-      debugger;
-      this.isLoading = false;
-      this.medias = x;
-       this.ref.detectChanges();
-    });
+    this.getMediaDetails();
   }
-
+getMediaDetails(){
+  const headers = new HttpHeaders().set('Content-Type', 'application/json');
+  const options = { headers: headers };
+ let url = this.api_url+"Media_API/api/MediaMaster/GetMediaMaster";
+ this.http.get<MediaMaster[]>(url, options).subscribe(x => {
+   debugger;
+   this.isLoading = false;
+   this.medias = x;
+    this.ref.detectChanges();
+ });
+}
   groupBy(list, keyGetter) {
     const map = new Map();
     list.forEach((item) => {
@@ -116,6 +116,7 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
     return map;
 }
   ngOnInit(): void {
+    this.getMediaDetails();
     this.ngrxFormsFacade.setStructure(structure);
     this.data$ = this.ngrxFormsFacade.data$;
     this.structure$ = this.ngrxFormsFacade.structure$;
