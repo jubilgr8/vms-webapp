@@ -29,17 +29,17 @@
                                         <tr *ngFor="let md of medias">
 
                                             <td>{{md.uploadSetId}}</td>
-                                            <td>{{md.uploadedDate}}</td>
-                                            <td>{{medias.length}}</td>
-                                            <td>Admin</td>
+                                            <td>{{md.dateOfRequest}}</td>
+                                            <td>{{md.mediaCounts}}</td>
+                                            <td>{{md.user}}</td>
                                             <td>{{md.auditedStatus}}</td>
                                             <td>
                                                 <div class="col-md-12"><button type="button" id="add|{{md.id}}"
                                                         class="btn btn-primary" (click)="openVerticallyCentered('View', md.uploadSetId)"><i class="fa fa-eye"></i></button>&nbsp;
                                                     <button type="button" class="btn btn-success"
                                                         id="edit|{{md.id}}" (click)="openVerticallyCentered('Edit', md.uploadSetId)"><i class="fa fa-edit"></i></button>&nbsp;
-                                                    <button type="button" class="btn btn-success"
-                                                        id="edit|{{md.id}}" (click)="openVerticallyCentered('Add', md.uploadSetId)"><i class=" fa fa-plus-square "></i></button>&nbsp;
+                                                    <!-- <button type="button" class="btn btn-success"
+                                                        id="edit|{{md.id}}" (click)="openVerticallyCentered('Add', md.uploadSetId)"><i class=" fa fa-plus-square "></i></button>&nbsp; -->
                                                     <button type="button" class="btn btn-danger"
                                                         id="delete|{{md.id}}" (click)="openVerticallyCentered('Delete', md.uploadSetId)"><i class="fa fa-trash-o"></i></button>
                                                 </div>
