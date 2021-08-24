@@ -1,0 +1,107 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="icon-check"></i> <strong>Add Effects to Media</strong>
+          </div>
+          <div class="card-body p-0">
+            <div cdkDropListGroup>
+              <div class="example-container">
+                <div
+                  cdkDropList
+                  [cdkDropListData]="done"
+                  class="example-list"
+                  (cdkDropListDropped)="drop($event)"
+                >
+                  <div
+                    class="tab-pane active"
+                    id="tickets"
+                    aria-expanded="true"
+                  >
+                    <form [formGroup]="effectsForm" (ngSubmit)="onSubmit()">
+                      <table class="table table-hover mb-0">
+                        <thead>
+                          <tr>
+                            <th>File Thumb</th>
+                            <th>File Name</th>
+                            <th>Duration (Second)</th>
+                            <th>Effect (IN)</th>
+                            <th>Effect (OUT)</th>
+                            <th>Party ID</th>
+                            <th>Media Type</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <!-- <div *ngIf="medias.length > 0"> -->
+                          <tr *ngFor="let md of done" cdkDrag>
+                            <td>{{ md }}</td>
+                            <td>{{ md }}</td>
+                            <td>
+                              <input
+                                class="form-control"
+                                type="text"
+                                name="duration"
+                                placeholder="Duration"
+                                formControlName="duration"
+                              />
+                            </td>
+                            <td>
+                              <select
+                                class="form-control"
+                                formControlName="effectIn"
+                              >
+                                <option [value]="1">Fade In</option>
+                                <option [value]="2">Fade Out</option>
+                                <option [value]="3">Slide In</option>
+                                <option [value]="4">Slide Out</option>
+                                <option [value]="5">Spin</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select
+                                class="form-control"
+                                formControlName="effectOut"
+                              >
+                                <option [value]="0" [selected]="selected">
+                                  Select Effect
+                                </option>
+                                <option [value]="1">Fade In</option>
+                                <option [value]="2">Fade Out</option>
+                                <option [value]="3">Slide In</option>
+                                <option [value]="4">Slide Out</option>
+                                <option [value]="5">Spin</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select
+                                class="form-control"
+                                formControlName="partyId"
+                              >
+                                <option [value]="1">Party 1</option>
+                              </select>
+                            </td>
+                            <td>
+                              <select
+                                class="form-control"
+                                formControlName="mediaType"
+                              >
+                                <option [value]="1">Media 1</option>
+                              </select>
+                            </td>
+                          </tr>
+                          <!-- </div> -->
+                        </tbody>
+                      </table>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

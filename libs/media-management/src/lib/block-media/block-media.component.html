@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="icon-check"></i> <strong>Add Blocks to Playlist</strong>
+          </div>
+          <div class="card-body p-0">
+            <div class="tab-content">
+              <mat-tab-group>
+                <mat-tab>
+                  <ng-template mat-tab-label>
+                    <!-- <mat-icon class="example-tab-icon">thumb_up</mat-icon> -->
+                    Media
+                  </ng-template>
+                  <div class="mat-elevation-z8">
+                    <mat-grid-list cols="3" rowHeight="2:1">
+                      <mat-grid-tile>
+                        <input type="checkbox" id="cb1" />
+                        <label for="cb1"
+                          ><img src="http://lorempixel.com/100/100"
+                        /></label>
+                        <span>hello</span>
+                      </mat-grid-tile>
+                      <mat-grid-tile
+                        ><input type="checkbox" id="cb2" />
+                        <label for="cb2"
+                          ><img src="http://lorempixel.com/100/100"
+                        /></label>
+                        <span>hello</span></mat-grid-tile
+                      >
+                      <mat-grid-tile
+                        ><input type="checkbox" id="cb3" />
+                        <label for="cb3"
+                          ><img src="http://lorempixel.com/100/100"
+                        /></label>
+                        <span>hello</span></mat-grid-tile
+                      >
+                      <mat-grid-tile
+                        ><input type="checkbox" id="cb4" />
+                        <label for="cb4"
+                          ><img src="http://lorempixel.com/100/100"
+                        /></label>
+                        <span>hello</span></mat-grid-tile
+                      >
+                    </mat-grid-list>
+                  </div>
+                </mat-tab>
+                <mat-tab>
+                  <ng-template mat-tab-label>
+                    <!-- <mat-icon class="example-tab-icon">thumb_up</mat-icon> -->
+                    Text
+                  </ng-template>
+                </mat-tab>
+              </mat-tab-group>
+              <div class="tab-pane active">
+                <div class="col-12 text-left">
+                  <button
+                    type="button"
+                    class="btn btn-warning px-4"
+                    (click)="addMedia()"
+                  >
+                    Proceed
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

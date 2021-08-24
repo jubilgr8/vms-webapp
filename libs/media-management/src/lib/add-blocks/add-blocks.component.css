@@ -1,0 +1,8 @@
+.full-width-table {
+  width: 100%;
+}
+.box-container {
+  margin-left: 17px;
+  background-color: #000000;
+  outline: 3px solid grey;
+}

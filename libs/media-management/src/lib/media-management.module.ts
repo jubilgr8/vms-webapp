@@ -29,101 +29,139 @@ import { PlaylistMstComponent } from './playlist-mst/playlist-mst.component';
 import { CreatePlaylistComponent } from './create-playlist/create-playlist.component';
 import { MediaListComponent } from './media-list/media-list.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
-import {MatTabsModule} from '@angular/material/tabs';
-import {MatIconModule} from '@angular/material/icon';
-import {MatInputModule} from '@angular/material/input';
-import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MediaAuditComponent } from './media-audit/media-audit.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { ViewMediaComponent } from './view-media/view-media.component';
 import { DeleteMediaComponent } from './delete-media/delete-media.component';
+import { AddBlocksComponent } from './add-blocks/add-blocks.component';
+import { ResizableDraggableComponent } from './add-blocks/resizable-draggable/resizable-draggable.component';
+import { BlockMediaComponent } from './block-media/block-media.component';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { AddEffectsComponent } from './add-effects/add-effects.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   imports: [
-  AuthModule,
-  CommonModule,
-  NgrxFormsModule,ColorPickerModule,
-  MatDialogModule,
-  MatTabsModule,
-  MatIconModule,
-  FormsModule, ReactiveFormsModule,
-  MatInputModule,
-  RouterModule.forChild([
+    AuthModule,
+    CommonModule,
+    NgrxFormsModule,
+    ColorPickerModule,
+    MatDialogModule,
+    MatTabsModule,
+    MatIconModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        pathMatch: 'full',
+        component: MediaUploadComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'media-upload/:id',
+        pathMatch: 'full',
+        component: MediaUploadComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'add-medias',
+        pathMatch: 'full',
+        component: AddNewMediaComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'playlist',
+        pathMatch: 'full',
+        component: PlaylistMstComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'playlist-create',
+        pathMatch: 'full',
+        component: CreatePlaylistComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'media-audit',
+        pathMatch: 'full',
+        component: MediaAuditComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'add-effects',
+        pathMatch: 'full',
+        component: AddEffectsComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'add-blocks',
+        pathMatch: 'full',
+        component: AddBlocksComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'block-media',
+        pathMatch: 'full',
+        component: BlockMediaComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+    ]),
+    StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
+      initialState: mediaInitialState,
+    }),
+    EffectsModule.forFeature([MediaEffects]),
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatGridListModule,
+    DragDropModule,
+  ],
+  providers: [
+    MediaEffects,
+    MediaService,
+    MediaFacade,
+    EventService,
+    TokenInterceptorService,
+    EventService,
+    LocalStorageJwtService,
     {
-      path: '',
-      pathMatch: 'full',
-      component: MediaUploadComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
     },
-    {
-      path: 'media-upload/:id',
-      pathMatch: 'full',
-      component: MediaUploadComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'add-medias',
-      pathMatch: 'full',
-      component: AddNewMediaComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'playlist',
-      pathMatch: 'full',
-      component: PlaylistMstComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'playlist-create',
-      pathMatch: 'full',
-      component: CreatePlaylistComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'media-audit',
-      pathMatch: 'full',
-      component: MediaAuditComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    }
-  ]),
-  StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
-    initialState: mediaInitialState,
-  }),
-  EffectsModule.forFeature([MediaEffects]),
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-],
-providers: [
-  MediaEffects,
-  MediaService,
-  MediaFacade,
-  EventService,
-  TokenInterceptorService,
-  EventService,
-  LocalStorageJwtService,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true,
-  },
-],declarations: [
-  MediaUploadComponent,
-  AddNewMediaComponent,
-  PlaylistMstComponent,
-  CreatePlaylistComponent,
-  MediaListComponent,
-  MediaAuditComponent,
-  ViewMediaComponent,
-  DeleteMediaComponent,
-],})
+  ],
+  declarations: [
+    MediaUploadComponent,
+    AddNewMediaComponent,
+    PlaylistMstComponent,
+    CreatePlaylistComponent,
+    MediaListComponent,
+    MediaAuditComponent,
+    ViewMediaComponent,
+    DeleteMediaComponent,
+    AddBlocksComponent,
+    ResizableDraggableComponent,
+    BlockMediaComponent,
+    AddEffectsComponent,
+  ],
+})
 export class MediaManagementModule {}

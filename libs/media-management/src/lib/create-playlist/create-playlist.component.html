@@ -10,110 +10,17 @@
                             <div class="tab-pane active" id="tickets" aria-expanded="true">
                                 <app-list-errors></app-list-errors>
                                 <app-dynamic-form (updateForm)="updateForm($event)" [data$]="data$"
-                                    [structure$]="structure$">
+                                    [structure$]="structure$" (getForm)="getForm($event)">
                                 </app-dynamic-form>
                             </div>
                             <div class="tab-pane active">
-                                <div class="col-12 text-left"><button type="button" class="btn btn-warning px-4">Add
+                                <div class="col-12 text-left"><button type="button" class="btn btn-warning px-4" (click)= "addBlocks()">Add
                                         Blocks</button>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"> <i class="icon-check"></i> <strong>Block Details</strong>
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tickets" aria-expanded="true">
-                                <input type="text" placeholder="Block Name" class="col-md-2" style="padding: 5px;">
-                                <input type="text" placeholder="Block Name" class="col-md-2" style="padding: 5px;">
-                                <input type="text" placeholder="Block Name" class="col-md-2" style="padding: 5px;">
-                                <input type="text" placeholder="Block Name" class="col-md-2" style="padding: 5px;">
-                            </div>
-                            <div class="tab-pane active">
-                                <div class="col-12 text-left"><button type="button" class="btn btn-warning px-4">Add
-                                        Medias</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header"> <i class="icon-check"></i> <strong>Media List</strong>
-                    </div>
-                    <!-- <ul class="nav justify-content-center nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#tickets" style="color: blue;">Pictures
-                                & Videos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#tickets2" style="color: blue;">Text</a>
-                        </li>
-                    </ul> -->
-
-                    <nav>
-                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                            <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-medias" type="button" role="tab" aria-controls="nav-medias"
-                                aria-selected="true">Pictures & Videos</button>
-                            <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab"
-                                data-bs-target="#nav-text" type="button" role="tab" aria-controls="nav-text"
-                                aria-selected="false">Text</button>
-                        </div>
-                    </nav>
-                    <div class="tab-content" id="nav-tabContent">
-                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
-                            aria-labelledby="nav-medias">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Select</th>
-                                        <th>Sr No.</th>
-                                        <th>Media Id</th>
-                                        <th>Media Name</th>
-                                        <th>Media Type</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- <div *ngIf="medias.length > 0"> -->
-    
-                                    <!-- </div> -->
-    
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="tab-pane fade" id="nav-text" role="tabpanel" aria-labelledby="nav-profile-tab">
-                            <table class="table table-hover mb-0">
-                                <thead>
-                                    <tr>
-                                        <th>Font</th>
-                                        <th>Font Size</th>
-                                        <th>Fore Color</th>
-                                        <th>Back Color</th>
-                                        <th>Blink Time</th>
-                                        <th>Text Content</th>
-                                        <th>Font Style</th>
-                                        <th>Character Pitch</th>
-                                        <th>Scrolling Direction</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <!-- <div *ngIf="medias.length > 0"> -->
-    
-                                    <!-- </div> -->
-    
-                                </tbody>
-                            </table></div>
-                    </div>
                 </div>
             </div>
         </div>
