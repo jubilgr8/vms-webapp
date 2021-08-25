@@ -39,7 +39,13 @@ export class ResizableDraggableComponent implements OnInit, AfterViewInit {
   public mouse: { x: number; y: number };
   public status: Status = Status.OFF;
   private mouseClick: { x: number; y: number; left: number; top: number };
-  blockSize: any;
+  blockSize: {
+    width: number;
+    height: number;
+  } = {
+    width: 50,
+    height: 50,
+  };
 
   ngOnInit() {}
 
@@ -90,8 +96,11 @@ export class ResizableDraggableComponent implements OnInit, AfterViewInit {
       this.height = Number(this.mouse.y > this.boxPosition.top)
         ? this.mouse.y - this.boxPosition.top
         : 0;
-      this.blockSize.width = this.width;
-      this.blockSize.height = this.height;
+      this.blockSize = {
+        width: this.width,
+        height: this.height,
+      };
+      console.log(this.blockSize);
       this.resized.emit(this.blockSize);
     }
   }

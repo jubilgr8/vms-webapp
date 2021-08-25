@@ -47,6 +47,12 @@ import { BlockMediaComponent } from './block-media/block-media.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { AddEffectsComponent } from './add-effects/add-effects.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { TarrifMasterComponent } from './tarrif-master/tarrif-master.component';
+import { PartyMasterComponent } from './party-master/party-master.component';
+import { PublishDashboardComponent } from './publish-dashboard/publish-dashboard.component';
+import { AddNewPartyComponent } from './add-new-party/add-new-party.component';
+import { AddNewPublishComponent } from './add-new-publish/add-new-publish.component';
+import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-tarrif.component';
 
 @NgModule({
   imports: [
@@ -124,6 +130,27 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
         // canActivateChild: [AuthGuardService],
         // resolve: { DashboardService },
       },
+      {
+        path: 'party-master',
+        pathMatch: 'full',
+        component: PartyMasterComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'publish-dashboard',
+        pathMatch: 'full',
+        component: PublishDashboardComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
+      {
+        path: 'tarrif-master',
+        pathMatch: 'full',
+        component: TarrifMasterComponent,
+        // canActivateChild: [AuthGuardService],
+        // resolve: { DashboardService },
+      },
     ]),
     StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
       initialState: mediaInitialState,
@@ -162,6 +189,12 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     ResizableDraggableComponent,
     BlockMediaComponent,
     AddEffectsComponent,
+    TarrifMasterComponent,
+    PartyMasterComponent,
+    AddNewPartyComponent,
+    PublishDashboardComponent,
+    AddNewPublishComponent,
+    AddNewTarrifComponent,
   ],
 })
 export class MediaManagementModule {}

@@ -36,13 +36,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
           path: '',
           loadChildren: () =>
             import('@vms/dashboard').then((m) => m.DashboardModule),
-          canActivate: [AuthGuardService],
+          // canActivate: [AuthGuardService],
         },
         {
           path: 'dashboard',
           loadChildren: () =>
             import('@vms/dashboard').then((m) => m.DashboardModule),
-          canActivate: [AuthGuardService],
+          // canActivate: [AuthGuardService],
         },
         {
           path: 'vms-admin',
@@ -50,13 +50,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
             import('@vms/vms-administration').then(
               (m) => m.VmsAdministrationModule
             ),
-          canActivate: [AuthGuardService],
+          // canActivate: [AuthGuardService],
         },
         {
           path: 'user-management',
           loadChildren: () =>
             import('@vms/user-management').then((m) => m.UserManagementModule),
-          canActivate: [AuthGuardService],
+          // canActivate: [AuthGuardService],
         },
         {
           path: 'media-management',

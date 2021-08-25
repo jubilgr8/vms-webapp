@@ -48,6 +48,23 @@ export interface MediaMaster {
   mstUser: UserMaster[];
 }
 
+export interface tarrifMaster {
+  unitOfMeasurementId: number;
+  tarrifName: string;
+  amount: number;
+  gst: number;
+  totalAmount: number;
+  remarks: string;
+  tarrifType: string;
+  fromDate: Date;
+  toDate: Date;
+  id: number;
+  unit: Unit;
+}
+export interface Unit {
+  id: number;
+  uomName: string;
+}
 export interface mediaUpload {
   uploadSetId: number;
   mediaCount: number;

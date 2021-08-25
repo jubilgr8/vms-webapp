@@ -1,0 +1,56 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="icon-check"></i> <strong>Tarrif Master</strong>
+            <div class="col-12 text-right">
+              <button
+                type="button"
+                class="btn btn-danger px-4"
+                (click)="addNewTarrif()"
+              >
+                Add New Tarrif
+              </button>
+            </div>
+          </div>
+          <div class="card-body p-0">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tickets" aria-expanded="true">
+                <table class="table table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Sr No.</th>
+                      <th>Tarrif Id</th>
+                      <th>Tarrif Type</th>
+                      <th>Unit Of Measurement</th>
+                      <th>Amount (INR)</th>
+                      <th>GST (%)</th>
+                      <th>Total Amount (INR)</th>
+                      <th>Remarks Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <div *ngIf="medias.length > 0"> -->
+                    <tr *ngFor="let tr of tarrifs; let i = index">
+                      <td>{{ i + 1 }}</td>
+                      <td>{{ tr.tarrifName }}</td>
+                      <td>{{ tr.tarrifType }}</td>
+                      <td>{{ tr.unit.uomName }}</td>
+                      <td>{{ tr.amount }}</td>
+                      <td>{{ tr.gst }}</td>
+                      <td>{{ tr.totalAmount }}</td>
+                      <td>{{ tr.remarks }}</td>
+                    </tr>
+                    <!-- </div> -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

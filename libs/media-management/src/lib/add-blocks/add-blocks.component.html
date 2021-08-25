@@ -9,14 +9,67 @@
           <div class="card-body p-0">
             <div class="tab-content">
               <div class="tab-pane active" id="tickets" aria-expanded="true">
-                <app-list-errors></app-list-errors>
+                <!-- <app-list-errors></app-list-errors>
                 <app-dynamic-form
                   (updateForm)="updateForm($event)"
                   [data$]="data$"
                   [structure$]="structure$"
                   (getForm)="getForm($event)"
                 >
-                </app-dynamic-form>
+                </app-dynamic-form> -->
+                <form [formGroup]="blocksForm" (ngSubmit)="onSubmit()">
+                  <div class="row">
+                    <div class="col-3">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="blockName"
+                        placeholder="Block Name"
+                        formControlName="blockName"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="left"
+                        placeholder="Left"
+                        formControlName="left"
+                        [(ngModel)]="left"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="right"
+                        placeholder="Right"
+                        formControlName="right"
+                        [(ngModel)]="right"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="height"
+                        placeholder="Height"
+                        formControlName="height"
+                        [(ngModel)]="height"
+                      />
+                    </div>
+                    <div class="col-3">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="width"
+                        placeholder="Width"
+                        formControlName="width"
+                        [(ngModel)]="width"
+                      />
+                    </div>
+                  </div>
+                </form>
               </div>
               <div class="tab-pane active">
                 <div class="row">
@@ -31,7 +84,8 @@
                       [height]="50"
                       [left]="0"
                       [top]="0"
-                      (widthChanged)="blockChanged()"
+                      (resized)="blockChanged($event)"
+                      (moved)="blockMoved($event)"
                     ></app-resizable-draggable>
                   </div>
                 </div>
