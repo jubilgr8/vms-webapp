@@ -45,6 +45,9 @@ import { PartyMasterComponent } from './party-master/party-master.component';
 import { AddNewPartyComponent } from './add-new-party/add-new-party.component';
 import { PublishDashboardComponent } from './publish-dashboard/publish-dashboard.component';
 import { AddNewPublishComponent } from './add-new-publish/add-new-publish.component';
+import { AddPublishTimeComponent } from './add-publish-time/add-publish-time.component';
+import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
+
 @NgModule({
   imports: [
   AuthModule,
@@ -52,7 +55,7 @@ import { AddNewPublishComponent } from './add-new-publish/add-new-publish.compon
   NgrxFormsModule,ColorPickerModule,
   MatDialogModule,
   MatTabsModule,
-  MatIconModule,
+  MatIconModule,DateTimePickerModule,
   FormsModule, ReactiveFormsModule,
   MatInputModule,
   RouterModule.forChild([
@@ -111,6 +114,13 @@ import { AddNewPublishComponent } from './add-new-publish/add-new-publish.compon
       component: PublishDashboardComponent,
       // canActivateChild: [AuthGuardService],
       // resolve: { DashboardService },
+    },
+    {
+      path: 'add-publish-time',
+      pathMatch: 'full',
+      component: AddPublishTimeComponent,
+      // canActivateChild: [AuthGuardService],
+      // resolve: { DashboardService },
     }
   ]),
   StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
@@ -147,5 +157,6 @@ providers: [
   AddNewPartyComponent,
   PublishDashboardComponent,
   AddNewPublishComponent,
+  AddPublishTimeComponent,
 ],})
 export class MediaManagementModule {}

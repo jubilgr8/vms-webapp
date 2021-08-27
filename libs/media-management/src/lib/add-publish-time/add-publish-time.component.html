@@ -1,0 +1,73 @@
+<div class="container-fluid" style="overflow-y: scroll; height: 700px;">
+    <div class="animated fadeIn">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"> <i class="icon-check"></i> <strong>Schedule Publish</strong>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tickets" aria-expanded="true">
+                                <h2 class="col-3">VMS List</h2>
+                                <select class="col-3 form-control-lg">
+                                    <!-- <option value="0" >--Select--</option> -->
+                                    <option *ngFor="let option of vmsList" [ngValue]="option.value">
+                                        {{ option.name }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="tab-pane active" id="tickets" aria-expanded="true">
+                                <h2>Loop</h2>
+                                <input type="checkbox" />
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tickets" aria-expanded="true">
+                                    <table class="table table-hover mb-0">
+                                        <thead>
+                                            <tr>
+                                                <th>Playlist ID</th>
+                                                <th>Playlist Name</th>
+                                                <th>From</th>
+                                                <th>To</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Playist ID
+                                                </td>
+                                                <td>
+                                                    Playlist Name
+                                                </td>
+                                                <td style="width: 300px;">
+                                                    <ejs-datetimepicker format="dd-MM-yyyy HH:mm:ss"  ></ejs-datetimepicker>
+                                                </td>
+                                                <td style="width: 300px;">
+                                                    <ejs-datetimepicker format="dd-MM-yyyy HH:mm:ss"></ejs-datetimepicker>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-danger px-4">Remove</button>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="tab-pane active">
+                                    <div class="col-12 text-left">
+                                        <button type="button"
+                                            class="btn btn-success px-4">Save</button>&nbsp;&nbsp;&nbsp;
+                                        <button type="button" class="btn btn-danger px-4">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

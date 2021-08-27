@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { MediaFacade } from '../+state/media.facade';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbDropdown} from '@ng-bootstrap/ng-bootstrap';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'vms-add-new-publish',
@@ -22,7 +23,7 @@ export class AddNewPublishComponent implements OnInit {
   dropdownList:any;
   vmsList:any;
   constructor(private ngrxFormsFacade: NgrxFormsFacade,
-    private facade: MediaFacade,
+    private facade: MediaFacade,private router:Router,
     private mediaFacade: MediaFacade,
     private ref: ChangeDetectorRef) { }
    
@@ -55,5 +56,9 @@ export class AddNewPublishComponent implements OnInit {
   }
   CloseModal(){
     
+  }
+
+  NavigateToSchedule(){
+    this.router.navigateByUrl('/media-management/add-publish-time');
   }
 }

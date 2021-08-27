@@ -20,10 +20,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
 @NgModule({
   imports: [
-    ApiModule,
+    ApiModule,DateTimePickerModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     AuthModule,
