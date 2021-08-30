@@ -72,38 +72,38 @@ export class PlaylistMstComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.ngrxFormsFacade.setStructure(structure);
-    this.data$ = this.ngrxFormsFacade.data$;
-    this.structure$ = this.ngrxFormsFacade.structure$;
-    this.authFacade.isLoggedIn$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((isLoggedIn) => {
-        this.isAuthenticated = isLoggedIn;
-      });
+    // this.ngrxFormsFacade.setStructure(structure);
+    // this.data$ = this.ngrxFormsFacade.data$;
+    // this.structure$ = this.ngrxFormsFacade.structure$;
+    // this.authFacade.isLoggedIn$
+    //   .pipe(takeUntil(this.unsubscribe$))
+    //   .subscribe((isLoggedIn) => {
+    //     this.isAuthenticated = isLoggedIn;
+    //   });
 
-    this.mediaFacade.medias$
-      .pipe(takeUntil(this.unsubscribe$))
-      .subscribe((response) => {
-        if (response) {
-          this.medias = response;
-          var data = Rx.Observable.from(this.medias)
-            .groupBy((x) => x.uploadSetId)
-            .flatMap((group) => group.toArray())
-            .map((g) => {
-              // mapping
-              return {
-                name: g[0].uploadSetId, //take the first name because we grouped them by name
-              };
-            })
-            .toArray() //.toArray because I guess you want to loop on it with ngFor
-            .do((sum) => console.log('sum:', sum)) // just for debug
-            .subscribe((d) => (this.groupedData = d));
-          console.log(data);
-          this.ref.detectChanges();
-        } else {
-          this.mediaFacade.getMediaList();
-        }
-      });
+    // this.mediaFacade.medias$
+    //   .pipe(takeUntil(this.unsubscribe$))
+    //   .subscribe((response) => {
+    //     if (response) {
+    //       this.medias = response;
+    //       var data = Rx.Observable.from(this.medias)
+    //         .groupBy((x) => x.uploadSetId)
+    //         .flatMap((group) => group.toArray())
+    //         .map((g) => {
+    //           // mapping
+    //           return {
+    //             name: g[0].uploadSetId, //take the first name because we grouped them by name
+    //           };
+    //         })
+    //         .toArray() //.toArray because I guess you want to loop on it with ngFor
+    //         .do((sum) => console.log('sum:', sum)) // just for debug
+    //         .subscribe((d) => (this.groupedData = d));
+    //       console.log(data);
+    //       this.ref.detectChanges();
+    //     } else {
+    //       this.mediaFacade.getMediaList();
+    //     }
+    //   });
   }
   openVerticallyCentered(content) {
     this.modalService.open(content, { centered: true, size: 'xxl' });

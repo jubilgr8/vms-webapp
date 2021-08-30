@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="animated fadeIn">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="icon-check"></i> <strong>Add Tarrif</strong>
+          </div>
+          <div class="card-body p-0">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tickets" aria-expanded="true">
+                <app-list-errors></app-list-errors>
+                <app-dynamic-form
+                  (updateForm)="updateForm($event)"
+                  [data$]="data$"
+                  [structure$]="structure$"
+                  (getForm)="getForm($event)"
+                >
+                </app-dynamic-form>
+              </div>
+              <div class="tab-pane active">
+                <div class="col-12 text-left">
+                  <button
+                    type="button"
+                    class="btn btn-warning px-4"
+                    (click)="addTarrif()"
+                  >
+                    Add Tarrif
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

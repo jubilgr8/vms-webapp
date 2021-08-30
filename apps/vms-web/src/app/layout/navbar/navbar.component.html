@@ -1,88 +1,141 @@
 <nav class="sidebar-nav" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapse">
   <ul class="nav">
     <li class="nav-item">
-      <a 
-        class="nav-link" 
+      <a
+        class="nav-link"
         [routerLink]="['/dashboard']"
         routerLinkActive="active"
         [routerLinkActiveOptions]="{ exact: true }"
         (click)="OnMenuClick($event)"
-      ><i class="icon-speedometer"></i> Dashboard </a>
-    </li>
-
-    <li class="nav-item nav-dropdown open">
-      <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
-      <a
-          class="nav-link nav-dropdown-toggle"
-          (click)="collapseMenu.toggle()" [attr.aria-expanded]="!isCollapsed"
-          >
-          <i class="icon-location-pin"></i>
-          User Management
+        ><i class="icon-speedometer"></i> Dashboard
       </a>
-      <ul class="nav-dropdown-items" #collapseMenu ="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/user-management/users']" routerLinkActive="active"     
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="OnMenuClick($event)"><i class="icon-arrow-right-circle"></i> User List</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/user-management/roles" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Role List</a>
-    </li>
-    </ul>
     </li>
 
     <li class="nav-item nav-dropdown open">
       <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
       <a
-          class="nav-link nav-dropdown-toggle"
-          (click)="collapseV.toggle()" [attr.aria-expanded]="!isCollapsedv"
-          >
-          <i class="icon-location-pin"></i>
-          VMS Administration
+        class="nav-link nav-dropdown-toggle"
+        (click)="collapseMenu.toggle()"
+        [attr.aria-expanded]="!isCollapsed"
+      >
+        <i class="icon-location-pin"></i>
+        User Management
       </a>
-      <ul class="nav-dropdown-items" #collapseV ="ngbCollapse" [(ngbCollapse)]="isCollapsedv">
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/vms-admin/zone']" routerLinkActive="active"     
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="OnMenuClick($event)"><i class="icon-arrow-right-circle"></i> Zone List</a>
+      <ul
+        class="nav-dropdown-items"
+        #collapseMenu="ngbCollapse"
+        [(ngbCollapse)]="isCollapsed"
+      >
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/user-management/users']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="OnMenuClick($event)"
+            ><i class="icon-arrow-right-circle"></i> User List</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/user-management/roles"
+            routerLinkActive="active"
+            ><i class="icon-arrow-right-circle"></i> Role List</a
+          >
+        </li>
+      </ul>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/vms-admin/vms" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> VMS List</a>
-    </li>
-    </ul>
-    </li>
-
 
     <li class="nav-item nav-dropdown open">
       <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
       <a
-          class="nav-link nav-dropdown-toggle"
-          [routerLink]="['/media-management/media-upload',0]"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
+        class="nav-link nav-dropdown-toggle"
+        (click)="collapseV.toggle()"
+        [attr.aria-expanded]="!isCollapsedv"
+      >
+        <i class="icon-location-pin"></i>
+        VMS Administration
+      </a>
+      <ul
+        class="nav-dropdown-items"
+        #collapseV="ngbCollapse"
+        [(ngbCollapse)]="isCollapsedv"
+      >
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/vms-admin/zone']"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="OnMenuClick($event)"
+            ><i class="icon-arrow-right-circle"></i> Zone List</a
           >
-          <i class="icon-location-pin"></i>
-          Media Management
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            routerLink="/vms-admin/vms"
+            routerLinkActive="active"
+            ><i class="icon-arrow-right-circle"></i> VMS List</a
+          >
+        </li>
+      </ul>
+    </li>
+
+    <li class="nav-item nav-dropdown open">
+      <!-- <a class="nav-link nav-dropdown-toggle" href="#"><i class="icon-location-pin"></i> Zone Management</a> -->
+      <a
+        class="nav-link nav-dropdown-toggle"
+        [routerLink]="['/media-management/media-upload', 0]"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <i class="icon-location-pin"></i>
+        Media Management
       </a>
       <ul class="nav-dropdown-items">
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/media-management/media-upload',0]" routerLinkActive="active"     
-          [routerLinkActiveOptions]="{ exact: true }"
-          (click)="OnMenuClick($event)"><i class="icon-arrow-right-circle"></i> Media Upload</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/media-management/media-audit']" routerLinkActive="active"><i class="icon-arrow-right-circle"></i> Media Audit</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/media-management/playlist']" ><i class="icon-arrow-right-circle"></i> Playlist Creation</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/media-management/party-master']" ><i class="icon-arrow-right-circle"></i> Party Master</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" [routerLink]="['/media-management/publish-dashboard']" ><i class="icon-arrow-right-circle"></i> Publish Management</a>
-    </li>
-    </ul>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/media-management/media-upload', 0]"
+            routerLinkActive="active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            (click)="OnMenuClick($event)"
+            ><i class="icon-arrow-right-circle"></i> Media Upload</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/media-management/media-audit']"
+            routerLinkActive="active"
+            ><i class="icon-arrow-right-circle"></i> Media Audit</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/media-management/playlist']"
+            ><i class="icon-arrow-right-circle"></i> Playlist Creation</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/media-management/party-master']"
+            ><i class="icon-arrow-right-circle"></i> Party Master</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/media-management/tarrif-master']"
+            ><i class="icon-arrow-right-circle"></i> Tarrif Master</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/media-management/publish-dashboard']"
+            ><i class="icon-arrow-right-circle"></i> Publish Management</a
+          >
+        </li>
+      </ul>
     </li>
   </ul>
 </nav>

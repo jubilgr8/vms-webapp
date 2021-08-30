@@ -32,14 +32,14 @@ export class MediaEffects {
     )
   );
 
-//   getVmsList$ = createEffect(() =>
-//     this.actions$.pipe(
-//       ofType(adminActions.getVmsList),
-//       switchMap((item) => {
-//         return this.adminService
-//           .getVms()
-//           .pipe(map((data) => adminActions.getVmsSuccess({ vmss: data })));
-//       })
-//     )
-//   );
-  }
+  //   getVmsList$ = createEffect(() =>
+  //     this.actions$.pipe(
+  //       ofType(adminActions.getVmsList),
+  //       switchMap((item) => {
+  //         return this.adminService
+  //           .getVms()
+  //           .pipe(map((data) => adminActions.getVmsSuccess({ vmss: data })));
+  //       })
+  //     )
+  //   );
+}
