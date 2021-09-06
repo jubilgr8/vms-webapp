@@ -52,43 +52,6 @@ import { PartyMasterComponent } from './party-master/party-master.component';
 import { PublishDashboardComponent } from './publish-dashboard/publish-dashboard.component';
 import { AddNewPartyComponent } from './add-new-party/add-new-party.component';
 import { AddNewPublishComponent } from './add-new-publish/add-new-publish.component';
-<<<<<<< HEAD
-import { AddPublishTimeComponent } from './add-publish-time/add-publish-time.component';
-import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-
-@NgModule({
-  imports: [
-  AuthModule,
-  CommonModule,
-  NgrxFormsModule,ColorPickerModule,
-  MatDialogModule,
-  MatTabsModule,
-  MatIconModule,DateTimePickerModule,
-  FormsModule, ReactiveFormsModule,
-  MatInputModule,
-  RouterModule.forChild([
-    {
-      path: '',
-      pathMatch: 'full',
-      component: MediaUploadComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'media-upload/:id',
-      pathMatch: 'full',
-      component: MediaUploadComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'add-medias',
-      pathMatch: 'full',
-      component: AddNewMediaComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-=======
 import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-tarrif.component';
 
 @NgModule({
@@ -207,86 +170,11 @@ import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-ta
     TokenInterceptorService,
     EventService,
     LocalStorageJwtService,
->>>>>>> 6d97081127c45f172cb15166e5ab486c2e802325
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true,
     },
-<<<<<<< HEAD
-    {
-      path: 'playlist-create',
-      pathMatch: 'full',
-      component: CreatePlaylistComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'media-audit',
-      pathMatch: 'full',
-      component: MediaAuditComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'party-master',
-      pathMatch: 'full',
-      component: PartyMasterComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'publish-dashboard',
-      pathMatch: 'full',
-      component: PublishDashboardComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'add-publish-time',
-      pathMatch: 'full',
-      component: AddPublishTimeComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    }
-  ]),
-  StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
-    initialState: mediaInitialState,
-  }),
-  EffectsModule.forFeature([MediaEffects]),
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-],
-providers: [
-  MediaEffects,
-  MediaService,
-  MediaFacade,
-  EventService,
-  TokenInterceptorService,
-  EventService,
-  LocalStorageJwtService,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true,
-  },
-],declarations: [
-  MediaUploadComponent,
-  AddNewMediaComponent,
-  PlaylistMstComponent,
-  CreatePlaylistComponent,
-  MediaListComponent,
-  MediaAuditComponent,
-  ViewMediaComponent,
-  DeleteMediaComponent,
-  PartyMasterComponent,
-  AddNewPartyComponent,
-  PublishDashboardComponent,
-  AddNewPublishComponent,
-  AddPublishTimeComponent,
-],})
-=======
   ],
   declarations: [
     MediaUploadComponent,
@@ -309,5 +197,4 @@ providers: [
     AddNewTarrifComponent,
   ],
 })
->>>>>>> 6d97081127c45f172cb15166e5ab486c2e802325
 export class MediaManagementModule {}
