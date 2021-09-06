@@ -42,14 +42,14 @@ import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
         path: 'zone',
         pathMatch: 'full',
         component: ZoneComponent,
-        canActivate: [AuthGuardService],
+        //canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
       {
         path: 'set-zone-access',
         pathMatch: 'full',
         component: ZoneAccessComponent,
-        canActivate: [AuthGuardService],
+        //canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
       {

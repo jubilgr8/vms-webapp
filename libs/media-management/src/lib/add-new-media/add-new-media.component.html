@@ -1,3 +1,4 @@
+<vms-spinner *ngIf="isLoading"></vms-spinner>
 <div class="container-fluid">
     <div class="animated fadeIn">
         <div class="row">
@@ -58,8 +59,8 @@
                                         <th>Scrolling Direction</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr *ngFor="let md of medias">
+                                <tbody formArrayName="arr" *ngFor="let a of mediaForm.get('arr')['controls']; let i = index">
+                                    <!-- <tr [formGroupName]="i">
                                         <td>
                                             {{md.uploadSetId}}
                                         </td>
@@ -78,9 +79,9 @@
                                         <td>
                                             {{md.uploadSetId}}
                                         </td>
-
-                                    </tr>
-                                    <tr>
+                                    </tr> -->
+                                 
+                                    <tr [formGroupName]="i">
                                     <td>
                                         <select name="demo" id="#" name = "font" placeholder = "Font" formControlName="font">
                                             <option selected="selected" value="0">--Select--</option>
@@ -93,31 +94,18 @@
                                         <input type="text" placeholder="Size(Numeric only)" name = "size" formControlName="size" />
                                     </td>
                                     <td>
-                                        <select name="demo" id="#" name = "style" placeholder = "style" formControlName="style" >
-                                            <option selected="selected" value="0">--Select--</option>
-                                            <option value="1">Red</option>
-                                            <option value="2">Green</option>
-                                            <option value="3">Black</option>
-                                            <option value="4">White</option>
-                                            <option value="5">Yellow</option>
-                                        </select>
-                                        <!-- <input [value]="color" [cpOutputFormat]="'rgba'"
-                                            [(colorPicker)]="color" id="foreColor" name = "foreColor" formControlName="foreColor" /> -->
+                                        <input type="text" placeholder="Fore Color (RGB)" name = "foreColor" formControlName="foreColor" (click)="ShowClrBox(0,i)"/>
+                                        <color-sketch width="200px" (onChange)="handleChange($event,0,i)" *ngIf="a.value.isForeColor"></color-sketch>
+                                        <button type="button" class="btn btn-warning px-4" (click)="SelectColor(0,i)" *ngIf="a.value.isForeColor">Ok</button>
                                     </td>
                                     <td>
-                                        <select name="demo" id="#" name = "style" placeholder = "style" formControlName="style" >
-                                            <option selected="selected" value="0">--Select--</option>
-                                            <option value="1">Red</option>
-                                            <option value="2">Green</option>
-                                            <option value="3">Black</option>
-                                            <option value="4">White</option>
-                                            <option value="5">Yellow</option>
-                                        </select>
-                                        <!-- <input [value]="color"  [cpOutputFormat]="'rgba'"
-                                            [(colorPicker)]="color" id="backColor" name = "backColor" placeholder = "backColor" formControlName="backColor"/> -->
+                                        <input type="text" placeholder="Fore Color (RGB)" name = "backColor" formControlName="backColor" (click)="ShowClrBox(1,i)" />
+                                        <color-sketch width="200px" (onChange)="handleChange($event,1,i)" *ngIf="a.value.isBackColor">
+                                        </color-sketch>
+                                        <button type="button" class="btn btn-warning px-4" (click)="SelectColor(1,i)" *ngIf="a.value.isBackColor">Ok</button>
                                     </td>
                                     <td>
-                                        <input type="text" placeholder="Numeric only" name = "font" placeholder = "Blinks(Numeric Only)" formControlName="font" >
+                                        <input type="text" placeholder="Numeric only" name = "font" placeholder = "Blinks(Numeric Only)" formControlName="blink" >
                                     </td>
                                     <td>
                                         <input type="text" placeholder="Your Message" name = "message" formControlName="message" >
@@ -140,7 +128,7 @@
                                         <input type="text" placeholder="Numeric only" name = "direction" formControlName="direction" />
                                     </td>
                                     <td>
-                                        <button class="btn" type="submit"><i class="fa fa-plus"></i></button>
+                                        <button class="btn" type="button" (click) = "addItem()"><i class="fa fa-plus"></i></button>
                                     </td>
                                 </tr>
                                 
@@ -149,7 +137,7 @@
                             
                         </div>
                         <div class="tab-pane active">
-                            <div class="col-12 text-left"><button type="button" class="btn btn-success px-4" >Add Medias</button>
+                            <div class="col-12 text-left"><button type="button" class="btn btn-success px-4" (click)="SubmitTextData()" >Add Medias</button>
                                <!-- &nbsp;&nbsp; <button type="button" class="btn btn-danger px-4 text-right" >View</button> -->
                             </div>
                         </div>

@@ -3,7 +3,7 @@ import { AuthGuardService, AuthModule } from '@vms/auth';
 import { NgrxErrorModule } from '@vms/ngrx-error';
 import { NgrxRouterModule } from '@vms/ngrx-router';
 import { NgrxFormsModule } from '@vms/ngrx-forms';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { EffectsModule } from '@ngrx/effects';
@@ -21,13 +21,14 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
+import { ColorSketchModule } from 'ngx-color/sketch';
 @NgModule({
   imports: [
     ApiModule,DateTimePickerModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     AuthModule,
-    BrowserModule,
+    BrowserModule,ColorSketchModule,
     NgxSliderModule,
     NxModule.forRoot(),
     RouterModule.forRoot(
@@ -116,5 +117,7 @@ import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
   // exports: [NavbarComponent],
   // bootstrap: [AppComponent,NavbarComponent],
   bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA  ],
+  exports:[DateTimePickerModule]
 })
 export class AppModule {}

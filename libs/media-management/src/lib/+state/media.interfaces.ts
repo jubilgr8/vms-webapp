@@ -29,6 +29,31 @@ export interface MediaMaster {
   FileName: string;
   FileSize: number;
   UploadedBy: string;
+  UploadedDate: any;
+  AuditedBy: string;
+  AuditedDate: number;
+  AuditedStatus: number;
+  FontName: string;
+  FontSize: number;
+  FontStyle: number;
+  Blink: number;
+  ForeGroundColor: string;
+  BackGroundColor: string;
+  CharacterPitch: string;
+  ArrangementMode: string;
+  ScrollingDirection: string;
+  IsDeleted: boolean;
+  DeletedDate: number;
+  DeletedBy: string;
+  mstUser: UserMaster[];
+}
+
+export class MediaTextMaster {
+  Id: number;
+  UserMasterId: number;
+  MediaId: string;
+  uploadSetId: number;
+  UploadedBy: string;
   UploadedDate: number;
   AuditedBy: string;
   AuditedDate: number;
@@ -42,6 +67,7 @@ export interface MediaMaster {
   CharacterPitch: string;
   ArrangementMode: string;
   ScrollingDirection: string;
+  Message:string;
   IsDeleted: boolean;
   DeletedDate: number;
   DeletedBy: string;

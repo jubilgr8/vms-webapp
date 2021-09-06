@@ -51,6 +51,8 @@
     "@nrwl/nx": "^7.8.7",
     "@syncfusion/ej2-angular-calendars": "^19.2.55",
     "lodash": "^4.17.21",
+    "ng2-date-picker": "^12.0.3",
+    "ngx-color": "^7.2.0",
     "ngx-color-picker": "^11.0.0",
     "ngx-toastr": "^13.2.1",
     "ol": "^6.5.0",

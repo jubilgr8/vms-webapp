@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA  } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
@@ -52,44 +52,11 @@ import { PartyMasterComponent } from './party-master/party-master.component';
 import { PublishDashboardComponent } from './publish-dashboard/publish-dashboard.component';
 import { AddNewPartyComponent } from './add-new-party/add-new-party.component';
 import { AddNewPublishComponent } from './add-new-publish/add-new-publish.component';
-<<<<<<< HEAD
 import { AddPublishTimeComponent } from './add-publish-time/add-publish-time.component';
-import { DateTimePickerModule } from "@syncfusion/ej2-angular-calendars";
-
-@NgModule({
-  imports: [
-  AuthModule,
-  CommonModule,
-  NgrxFormsModule,ColorPickerModule,
-  MatDialogModule,
-  MatTabsModule,
-  MatIconModule,DateTimePickerModule,
-  FormsModule, ReactiveFormsModule,
-  MatInputModule,
-  RouterModule.forChild([
-    {
-      path: '',
-      pathMatch: 'full',
-      component: MediaUploadComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'media-upload/:id',
-      pathMatch: 'full',
-      component: MediaUploadComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'add-medias',
-      pathMatch: 'full',
-      component: AddNewMediaComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-=======
+import {DpDatePickerModule} from 'ng2-date-picker';
 import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-tarrif.component';
+import { ColorSketchModule } from 'ngx-color/sketch';
+import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
 @NgModule({
   imports: [
@@ -99,9 +66,9 @@ import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-ta
     ColorPickerModule,
     MatDialogModule,
     MatTabsModule,
-    MatIconModule,
+    MatIconModule,ColorSketchModule,
     FormsModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,DpDatePickerModule,
     MatInputModule,
     RouterModule.forChild([
       {
@@ -199,95 +166,6 @@ import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-ta
     MatGridListModule,
     DragDropModule,
   ],
-  providers: [
-    MediaEffects,
-    MediaService,
-    MediaFacade,
-    EventService,
-    TokenInterceptorService,
-    EventService,
-    LocalStorageJwtService,
->>>>>>> 6d97081127c45f172cb15166e5ab486c2e802325
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptorService,
-      multi: true,
-    },
-<<<<<<< HEAD
-    {
-      path: 'playlist-create',
-      pathMatch: 'full',
-      component: CreatePlaylistComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'media-audit',
-      pathMatch: 'full',
-      component: MediaAuditComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'party-master',
-      pathMatch: 'full',
-      component: PartyMasterComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'publish-dashboard',
-      pathMatch: 'full',
-      component: PublishDashboardComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    },
-    {
-      path: 'add-publish-time',
-      pathMatch: 'full',
-      component: AddPublishTimeComponent,
-      // canActivateChild: [AuthGuardService],
-      // resolve: { DashboardService },
-    }
-  ]),
-  StoreModule.forFeature(mediaFeatureKey, mediaReducer, {
-    initialState: mediaInitialState,
-  }),
-  EffectsModule.forFeature([MediaEffects]),
-  MatTableModule,
-  MatPaginatorModule,
-  MatSortModule,
-],
-providers: [
-  MediaEffects,
-  MediaService,
-  MediaFacade,
-  EventService,
-  TokenInterceptorService,
-  EventService,
-  LocalStorageJwtService,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true,
-  },
-],declarations: [
-  MediaUploadComponent,
-  AddNewMediaComponent,
-  PlaylistMstComponent,
-  CreatePlaylistComponent,
-  MediaListComponent,
-  MediaAuditComponent,
-  ViewMediaComponent,
-  DeleteMediaComponent,
-  PartyMasterComponent,
-  AddNewPartyComponent,
-  PublishDashboardComponent,
-  AddNewPublishComponent,
-  AddPublishTimeComponent,
-],})
-=======
-  ],
   declarations: [
     MediaUploadComponent,
     AddNewMediaComponent,
@@ -307,7 +185,11 @@ providers: [
     PublishDashboardComponent,
     AddNewPublishComponent,
     AddNewTarrifComponent,
+    ImageViewerComponent,
   ],
+  providers:[MediaFacade,EventService ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ],
+  exports:[DpDatePickerModule]
 })
->>>>>>> 6d97081127c45f172cb15166e5ab486c2e802325
+
 export class MediaManagementModule {}
