@@ -22,6 +22,8 @@ import { HttpClient, HttpHeaders, HttpParams, HttpParamsOptions } from '@angular
 import { ViewMediaComponent } from '../view-media/view-media.component';
 import { DeleteMediaComponent } from '../delete-media/delete-media.component';
 import {environment} from '../../../../../apps/vms-web/src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 var ddlList: KeyValue[] = [
   {
@@ -78,7 +80,7 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
   urls = [];
   api_url = environment.api_url;
   isLoading: boolean = true;
-  constructor(
+  constructor(private router:Router,
     private authFacade: AuthFacade,
     private ngrxFormsFacade: NgrxFormsFacade,
     private mediaFacade: MediaFacade,
@@ -86,19 +88,25 @@ export class MediaUploadComponent implements OnInit, OnDestroy {
     private modalService: NgbModal,
     private evtSvc: EventService,
     public dialog: MatDialog,
-    private http: HttpClient
+    private http: HttpClient,
+    private toastr:ToastrService
 
   ) {
     this.getMediaDetails();
   }
 getMediaDetails(){
+  this.isLoading = true;
   const headers = new HttpHeaders().set('Content-Type', 'application/json');
   const options = { headers: headers };
  let url = this.api_url+"Media_API/api/MediaMaster/GetMediaMaster";
+ //let url = "https://localhost:44364/api/MediaMaster/GetMediaMaster";
  this.http.get<MediaMaster[]>(url, options).subscribe(x => {
    debugger;
-   this.isLoading = false;
    this.medias = x;
+   this.medias.forEach(element => {
+     element.dateOfRequest = this.EpochToDate(element.dateOfRequest);
+  });
+  this.isLoading = false;
     this.ref.detectChanges();
  });
 }
@@ -132,27 +140,49 @@ getMediaDetails(){
   openVerticallyCentered(type, id?) {
     switch (type) {
       case 'Add':
-        this.dialog.open(AddNewMediaComponent, {
-          width: '650px',
-          data: {uploadSetId: id,type:type}
-        });
-        break;
-      case 'View':
-        this.dialog.open(ViewMediaComponent, {
+        const dialogRef =  this.dialog.open(AddNewMediaComponent, {
           width: '850px',
           data: {uploadSetId: id,type:type}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.getMediaDetails();
+        });
+       
+        break;
+      case 'View':
+        const dialogRefView =  this.dialog.open(ViewMediaComponent, {
+          width: '850px',
+          data: {uploadSetId: id,type:type}
+        });
+
+        dialogRefView.afterClosed().subscribe(result => {
+          this.getMediaDetails();
         });
         break;
       case 'Edit':
-        this.dialog.open(ViewMediaComponent, {
+        const dialogRefEdit =  this.dialog.open(ViewMediaComponent, {
           width: '850px',
           data: {uploadSetId: id,type:type}
         });
+
+        dialogRefEdit.afterClosed().subscribe(result => {
+          this.getMediaDetails();
+        });
         break;
       case 'Delete':
-        this.dialog.open(DeleteMediaComponent, {
+        const dialogRefDlt =  this.dialog.open(DeleteMediaComponent, {
           width: '650px',
           data: {uploadSetId: id,type:type}
+        });
+
+        dialogRefDlt.afterClosed().subscribe(result => {
+          if (result == 'confirm') {
+            this.getMediaDetails();
+          }
+          else {
+            this.getMediaDetails();
+          }
         });
         break;
       default:
@@ -161,6 +191,24 @@ getMediaDetails(){
     
     // this.modalService.open(content, { centered: true});
     
+  }
+  DeleteMedia(uploadSetId){
+    this.isLoading = true;
+    let url = this.api_url + "Media_API/api/MediaMaster/DeleteMediaMaster?uploadSetId="+uploadSetId;
+    const headers = new HttpHeaders()
+      // .set('Authorization', 'my-auth-token')
+      .set('Accept', '*/*');
+    this.http.post(url,{headers:headers}).subscribe(res => {
+      if(res != "0"){
+        this.toastr.success("Removed successfully","Success");
+        this.getMediaDetails();
+        this.isLoading = false;
+      }
+      else {
+        this.toastr.error("Something Went Wrong!");
+        this.isLoading = false;
+      }
+    });
   }
   openScrollableContent(longContent) {
     this.modalService.open(longContent, { centered: true, size: 'xl' });
@@ -175,7 +223,12 @@ getMediaDetails(){
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
-
+  EpochToDate(epoch) {
+    if (epoch < 10000000000)
+        epoch *= 1000; // convert to milliseconds (Epoch is usually expressed in seconds, but Javascript uses Milliseconds)
+    var epoch = epoch + (new Date().getTimezoneOffset() * -1); //for timeZone        
+    return new Date(epoch);
+  }
   onSelectFile(event) {
     if (event.target.files && event.target.files[0]) {
       var filesAmount = event.target.files.length;

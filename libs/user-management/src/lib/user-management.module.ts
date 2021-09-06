@@ -4,14 +4,6 @@ import { RouterModule } from '@angular/router';
 import { UserManagementComponent } from './user-management.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-// import {
-//   dashboardFeatureKey,
-//   dashboardInitialState,
-//   dashboardReducer,
-// } from './+state/dashboard.reducer';
-// import { DashboardEffects } from './+state/dashboard.effects';
-// import { DashboardService } from './dashboard.service';
-// import { DashboardFacade } from './+state/dashboard.facade';
 import { FormsModule } from '@angular/forms';
 import { TokenInterceptorService } from 'libs/auth/src/lib/token-interceptor.service';
 import {

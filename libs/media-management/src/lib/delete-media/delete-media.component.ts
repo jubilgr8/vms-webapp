@@ -35,17 +35,17 @@ export class DeleteMediaComponent implements OnInit {
     this.isLoading = true;
     debugger;
     //let url = this.api_url + "Media_API/api/MediaMaster/DeleteMediaMaster?uploadSetId="+this.uploadSetId;
-    let url = this.api_url + "MediaMaster/DeleteMediaMaster?uploadSetId="+this.uploadSetId;
+    let url = this.api_url + "Media_API/api/MediaMaster/DeleteMediaMaster?uploadSetId="+this.uploadSetId;
     const headers = new HttpHeaders()
       // .set('Authorization', 'my-auth-token')
       .set('Accept', '*/*');
     this.http.post(url,{headers:headers}).subscribe(res => {
-      if(res == "1"){
+      if(res != null && res != 0){
         this.toastr.success("Removed successfully","Success");
         this.router.navigateByUrl('/media-management/media-upload/0');
         this.isLoading = false;
       }
-      else {
+      else if(res == null || res == 0) {
         this.toastr.error("Something Went Wrong!");
         this.isLoading = false;
       }

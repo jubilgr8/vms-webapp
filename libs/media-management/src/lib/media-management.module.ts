@@ -1,4 +1,8 @@
-import { NgModule } from '@angular/core';
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
@@ -52,7 +56,11 @@ import { PartyMasterComponent } from './party-master/party-master.component';
 import { PublishDashboardComponent } from './publish-dashboard/publish-dashboard.component';
 import { AddNewPartyComponent } from './add-new-party/add-new-party.component';
 import { AddNewPublishComponent } from './add-new-publish/add-new-publish.component';
+import { AddPublishTimeComponent } from './add-publish-time/add-publish-time.component';
+import { DpDatePickerModule } from 'ng2-date-picker';
 import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-tarrif.component';
+import { ColorSketchModule } from 'ngx-color/sketch';
+import { ImageViewerComponent } from './image-viewer/image-viewer.component';
 
 @NgModule({
   imports: [
@@ -63,8 +71,10 @@ import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-ta
     MatDialogModule,
     MatTabsModule,
     MatIconModule,
+    ColorSketchModule,
     FormsModule,
     ReactiveFormsModule,
+    DpDatePickerModule,
     MatInputModule,
     RouterModule.forChild([
       {
@@ -195,6 +205,9 @@ import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-ta
     PublishDashboardComponent,
     AddNewPublishComponent,
     AddNewTarrifComponent,
+    ImageViewerComponent,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  exports: [DpDatePickerModule],
 })
 export class MediaManagementModule {}
