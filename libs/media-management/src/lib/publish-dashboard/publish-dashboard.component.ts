@@ -6,21 +6,20 @@ import { AddNewPublishComponent } from '../add-new-publish/add-new-publish.compo
 @Component({
   selector: 'vms-publish-dashboard',
   templateUrl: './publish-dashboard.component.html',
-  styleUrls: ['./publish-dashboard.component.css']
+  styleUrls: ['./publish-dashboard.component.css'],
 })
 export class PublishDashboardComponent implements OnInit {
-  isLoading=false;
-  constructor( public dialog: MatDialog,
-    private http: HttpClient) { }
+  isLoading = false;
+  constructor(public dialog: MatDialog, private http: HttpClient) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   openVerticallyCentered(type, id?) {
     switch (type) {
       case 'Add':
         this.dialog.open(AddNewPublishComponent, {
-          width: '1280px',
-          data: {}
+          width: '800px',
+          height: '500px',
+          data: {},
         });
         break;
       case 'View':
@@ -44,8 +43,7 @@ export class PublishDashboardComponent implements OnInit {
       default:
         break;
     }
-    
+
     // this.modalService.open(content, { centered: true});
-    
   }
 }

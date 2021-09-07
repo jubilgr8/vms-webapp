@@ -1,4 +1,8 @@
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA  } from '@angular/core';
+import {
+  NgModule,
+  CUSTOM_ELEMENTS_SCHEMA,
+  NO_ERRORS_SCHEMA,
+} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
@@ -53,7 +57,7 @@ import { PublishDashboardComponent } from './publish-dashboard/publish-dashboard
 import { AddNewPartyComponent } from './add-new-party/add-new-party.component';
 import { AddNewPublishComponent } from './add-new-publish/add-new-publish.component';
 import { AddPublishTimeComponent } from './add-publish-time/add-publish-time.component';
-import {DpDatePickerModule} from 'ng2-date-picker';
+import { DpDatePickerModule } from 'ng2-date-picker';
 import { AddNewTarrifComponent } from './tarrif-master/add-new-tarrif/add-new-tarrif.component';
 import { ColorSketchModule } from 'ngx-color/sketch';
 import { ImageViewerComponent } from './image-viewer/image-viewer.component';
@@ -66,9 +70,11 @@ import { ImageViewerComponent } from './image-viewer/image-viewer.component';
     ColorPickerModule,
     MatDialogModule,
     MatTabsModule,
-    MatIconModule,ColorSketchModule,
+    MatIconModule,
+    ColorSketchModule,
     FormsModule,
-    ReactiveFormsModule,DpDatePickerModule,
+    ReactiveFormsModule,
+    DpDatePickerModule,
     MatInputModule,
     RouterModule.forChild([
       {
@@ -166,6 +172,20 @@ import { ImageViewerComponent } from './image-viewer/image-viewer.component';
     MatGridListModule,
     DragDropModule,
   ],
+  providers: [
+    MediaEffects,
+    MediaService,
+    MediaFacade,
+    EventService,
+    TokenInterceptorService,
+    EventService,
+    LocalStorageJwtService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true,
+    },
+  ],
   declarations: [
     MediaUploadComponent,
     AddNewMediaComponent,
@@ -187,9 +207,7 @@ import { ImageViewerComponent } from './image-viewer/image-viewer.component';
     AddNewTarrifComponent,
     ImageViewerComponent,
   ],
-  providers:[MediaFacade,EventService ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA,NO_ERRORS_SCHEMA ],
-  exports:[DpDatePickerModule]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
+  exports: [DpDatePickerModule],
 })
-
 export class MediaManagementModule {}
