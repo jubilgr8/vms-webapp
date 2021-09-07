@@ -32,7 +32,9 @@
                                             <td>{{md.dateOfRequest}}</td>
                                             <td>{{md.mediaCounts}}</td>
                                             <td>{{md.user}}</td>
-                                            <td>{{md.auditedStatus}}</td>
+                                            <td *ngIf="md.auditedStatus == 0" style="color: blueviolet;">Action Pending</td>
+                                            <td *ngIf="md.auditedStatus == 1" style="color: green;">Approved</td>
+                                            <td *ngIf="md.auditedStatus == 2" style="color: red;">Rejected</td>
                                             <td>
                                                 <div class="col-md-12"><button type="button" id="add|{{md.id}}"
                                                         class="btn btn-primary" (click)="openVerticallyCentered('View', md.uploadSetId)"><i class="fa fa-eye"></i></button>&nbsp;

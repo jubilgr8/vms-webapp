@@ -25,9 +25,10 @@ export class ViewMediaComponent implements AfterViewInit {
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['id', 'name'];
   medias: any;
+  Mddata: any;
   isLoading: boolean = true;
 
-  constructor(public dialog: MatDialog, private toastr:ToastrService,
+  constructor(public dialog: MatDialog, private toastr: ToastrService,
     public dialogRef: MatDialogRef<ViewMediaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private http: HttpClient
@@ -37,12 +38,12 @@ export class ViewMediaComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    
-    const myObject: any = { id: this.data?.uploadSetId};
+
+    const myObject: any = { id: this.data?.uploadSetId };
     const httpParams: HttpParamsOptions = { fromObject: myObject } as HttpParamsOptions;
-    
+
     const options = { params: new HttpParams(httpParams), headers: headers };
-    
+
 
     let url = "https://172.19.32.193/Media_API/api/MediaMaster/GetMediaMasterById";
     //let url = "https://localhost:44364/api/MediaMaster/GetMediaMasterById"
@@ -54,23 +55,23 @@ export class ViewMediaComponent implements AfterViewInit {
     })
   }
 
-  openImage(url){
+  openImage(url) {
     window.open(url);
   }
   CloseModal() {
     this.dialog.closeAll();
   }
-  DeleteMedia(id){
+  DeleteMedia(id) {
     this.isLoading = true;
-    let url = this.api_url + "Media_API/api/MediaMaster/EditMediaMasterById?mediaId="+id;
+    let url = this.api_url + "Media_API/api/MediaMaster/EditMediaMasterById?mediaId=" + id;
     //let url = "https://localhost:44364/api/MediaMaster/EditMediaMasterById?mediaId="+id;
     const headers = new HttpHeaders()
       // .set('Authorization', 'my-auth-token')
       .set('Accept', '*/*');
-    this.http.post(url,{headers:headers}).subscribe(res => {
-      if(res != null || res != undefined){
+    this.http.post(url, { headers: headers }).subscribe(res => {
+      if (res != null || res != undefined) {
         this.medias = res;
-        this.isLoading= false;
+        this.isLoading = false;
       }
       else {
         this.toastr.error("Something Went Wrong!");
@@ -79,24 +80,35 @@ export class ViewMediaComponent implements AfterViewInit {
     });
   }
 
-  openVerticallyCentered(type, url) {
-    switch (type) {
-      case 'View':
-        const dialogRef =  this.dialog.open(ImageViewerComponent, {
-          width: '650px',
-          data: {imgUrl: url}
-        });
+  openVerticallyCentered(type, mdId) {
+    this.isLoading = true;
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const options = { headers: headers };
+    let url = this.api_url + "Media_API/api/MediaMaster/ViewMediaData?mediaId=" + mdId;
+    //let url = "https://localhost:44364/api/MediaMaster/ViewMediaData?mediaId=" + mdId;
+    this.http.get<MediaMaster[]>(url, options).subscribe(x => {
+      debugger;
+      this.Mddata = x;
+      this.isLoading = false;
 
-        dialogRef.afterClosed().subscribe(result => {
-         
-        });
-       
-        break;
-      default:
-        break;
-    }
-    
+      switch (type) {
+        case 'View':
+          const dialogRef = this.dialog.open(ImageViewerComponent, {
+            width: '850px',
+            data: { imgUrl: this.Mddata[0].filePath, fileType: this.Mddata[0].fileType,font: this.Mddata[0].fontName,fontSize: this.Mddata[0].fontSize,foreColor: this.Mddata[0].foreGroundColor,backColor: this.Mddata[0].backGroundColor,blink: this.Mddata[0].blink,pitch: this.Mddata[0].characterPitch,fontStyle: this.Mddata[0].fontStyle,message: this.Mddata[0].filePath,direction: this.Mddata[0].scrollingDirection,mode: this.Mddata[0].arrangementMode }
+          });
+  
+          dialogRef.afterClosed().subscribe(result => {
+  
+          });
+  
+          break;
+        default:
+          break;
+      }
+
+    });
     // this.modalService.open(content, { centered: true});
-    
+
   }
 }

@@ -39,7 +39,7 @@
                                             <td>{{md.uploadedBy}}</td>
                                             <td>
                                               <button type="button" id="add|{{md.id}}"
-                                                        class="btn btn-primary" (click)="openVerticallyCentered('View',md.filePath)"><i class="fa fa-eye"></i></button>&nbsp;
+                                                        class="btn btn-primary" (click)="openVerticallyCentered('View',md.id)"><i class="fa fa-eye"></i></button>&nbsp;
                                               <button *ngIf="data.type == 'Edit'" type="button" id="add|{{md.id}}"
                                                         class="btn btn-danger" (click)="DeleteMedia(md.id)"><i class="fa fa-trash-o"></i></button>
                                             </td>

@@ -175,8 +175,8 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
     debugger;
     this.isLoading = true;
     this.formData.append("uploadsetid", this.mediaForm.controls.uploadsetID.value);
-    //let url = this.api_url + "Media_API/api/MediaMaster/PostMediaMaster";
-    let url = "https://localhost:44364/api/MediaMaster/PostMediaMaster";
+    let url = this.api_url + "Media_API/api/MediaMaster/PostMediaMaster";
+    //let url = "https://localhost:44364/api/MediaMaster/PostMediaMaster";
     const headers = new HttpHeaders()
       // .set('Authorization', 'my-auth-token')
       .set('Accept', 'application/json');
@@ -257,7 +257,8 @@ export class AddNewMediaComponent implements OnInit, OnDestroy {
 
   SubmitTextData(){
     let taskListArrays = this.mediaForm.controls.arr.value;
-    let url = this.api_url + "Media_API/api/MediaMaster/PostMediaMasterText";
+    //let url = this.api_url + "Media_API/api/MediaMaster/PostMediaMasterText";
+    let url = "https://localhost:44364/api/MediaMaster/PostMediaMasterText";
     const headers = new HttpHeaders()
       // .set('Authorization', 'my-auth-token')
       .set('Accept', 'application/json');
