@@ -1,15 +1,53 @@
 <vms-spinner *ngIf="isLoading"></vms-spinner>
 <div class="container-fluid" style="max-height: 350px;">
     <div class="animated fadeIn">
-        <div class="row" >
-            <div class="col-12 text-right"><button type="button" class="btn btn-danger px-4" (click)="CloseModal()">Close</button>
+        <div class="row">
+            <div class="col-12 text-right"><button type="button" class="btn btn-danger px-4"
+                    (click)="CloseModal()">Close</button>
             </div>
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header"> <i class="icon-check"></i> <strong>Selected Image</strong>
+                    <div class="card-header"> <i class="icon-check"></i> <strong *ngIf="isImg">Selected Image</strong>
+                        <strong *ngIf="!isImg">Uploaded Message</strong>
                     </div>
                     <div class="card-body p-0" *ngIf="!isLoading">
-                        <img src='{{imgUrlD}}' height="400px" width="400px"/>
+                        <img src='{{imgUrlD.changingThisBreaksApplicationSecurity}}' height="300px" width="400px"
+                            *ngIf="isImg" />
+                            <!-- <video controls #videoPlayer>
+                                <source  src='localhost://SampleVideo.avi' type='video/mp4'/>
+                            </video> -->
+                            
+                    </div>
+
+                    <div class="card-body p-0" *ngIf="!isLoading && !isImg">
+                        <table class="table table-hover mb-0">
+                            <thead>
+                                <tr>
+                                    <th>Font</th>
+                                    <th>Font Size</th>
+                                    <th>Fore Color</th>
+                                    <th>Back Color</th>
+                                    <th>Blink Times</th>
+                                    <th>Text Content</th>
+                                    <th>Font Style</th>
+                                    <th>Character Pitch</th>
+                                    <th>Arrangement Mode</th>
+                                    <th>Scrolling Direction</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td> {{this.data.font}}</td>
+                                <td> {{this.data.fontSize}}</td>
+                                <td> {{this.data.foreColor}}</td>
+                                <td> {{this.data.backColor}}</td>
+                                <td> {{this.data.blink}}</td>
+                                <td> {{this.data.message}}</td>
+                                <td> {{this.data.fontStyle}}</td>
+                                <td> {{this.data.pitch}}</td>
+                                <td> {{this.data.mode}}</td>
+                                <td> {{this.data.direction}}</td>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
