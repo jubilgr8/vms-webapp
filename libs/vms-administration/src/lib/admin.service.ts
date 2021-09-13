@@ -8,6 +8,7 @@ import {
   RoleMenuRelation,
   ZoneMaster,
   VMSMaster,
+  UOMMaster,
 } from './+state/admin.interfaces';
 
 export interface AdminMasterModel {
@@ -44,6 +45,12 @@ export class AdminService {
     return this.apiService.post<any, ZoneMaster>(
       'Administration_API/api/ZoneMaster/PutZoneMaster',
       zoneMaster
+    );
+  }
+
+  getUomDetails(): Observable<UOMMaster[]> {
+    return this.apiService.get<UOMMaster[]>(
+      'Administration_API/api/VMSMaster/GetVmsMasterDetails'
     );
   }
 }

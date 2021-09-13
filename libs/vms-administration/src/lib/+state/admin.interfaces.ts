@@ -56,6 +56,10 @@ export interface VMSMaster {
   zoneMaster: ZoneMaster[];
 }
 
+export interface UOMMaster{
+  id?: number;
+  uOMName: string;
+}
 export interface ZoneCoords {
   id?: number;
   zoneMasterId: number;
