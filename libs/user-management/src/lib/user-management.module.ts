@@ -44,7 +44,7 @@ import { ToastrModule } from 'ngx-toastr';
         path: 'users',
         pathMatch: 'full',
         component: UserManagementComponent,
-        // canActivateChild: [AuthGuardService],
+        canActivateChild: [AuthGuardService],
         // resolve: { DashboardService },
       },
       {

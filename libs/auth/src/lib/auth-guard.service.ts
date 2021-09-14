@@ -15,6 +15,7 @@ export class AuthGuardService implements CanActivate {
   canActivate(): Observable<boolean> {
     return this.storage.getItem().pipe(
       map((token) => {
+        debugger;
         if (!token) {
           this.router.navigate(['/login']);
           return false;

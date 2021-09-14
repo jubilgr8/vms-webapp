@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LocalStorageJwtService {
   getItem(): Observable<string | null> {
-    const data = localStorage.getItem('jwtToken');
+    const data = sessionStorage.getItem('jwtToken');
     if (data) {
       return of(data);
     }
@@ -12,12 +12,12 @@ export class LocalStorageJwtService {
   }
 
   setItem(data: string): Observable<string> {
-    localStorage.setItem('jwtToken', data);
+    sessionStorage.setItem('jwtToken', data);
     return of(data);
   }
 
   removeItem(): Observable<boolean> {
-    localStorage.removeItem('jwtToken');
+    sessionStorage.removeItem('jwtToken');
     return of(true);
   }
 }
