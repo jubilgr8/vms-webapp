@@ -6,6 +6,7 @@ export class LocalStorageJwtService {
   getItem(): Observable<string | null> {
     const data = sessionStorage.getItem('jwtToken');
     if (data) {
+      debugger;
       return of(data);
     }
     return of(null);

@@ -41,8 +41,10 @@
                       <td>{{ user.usrName }}</td>
                       <td>{{ user.usrMobileNo }}</td>
                       <td>{{ user.usrEmailId }}</td>
-                      <td>{{ user.usrIsActive }}</td>
-                      <td>{{ user.usrIsDapuser }}</td>
+                      <!-- <td>{{ user.usrIsActive }}</td> -->
+                      <td><input class="form-check-input" type="checkbox" (change)="isActiveClick(user.id,$event)"></td>
+                      <!-- <td>{{ user.usrIsDapuser }}</td> -->
+                      <td><input class="form-check-input" type="checkbox" (change)="isDapClick(user.id,$event)"></td>
                       <td>
                         <div>
                           <button

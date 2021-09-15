@@ -66,7 +66,7 @@ export class AuthEffects {
         ofType(AuthActions.loginSuccess, AuthActions.registerSuccess),
         tap((action) => {
           this.localStorageJwtService.setItem(action.user.token);
-          this.router.navigateByUrl('/dashboard');
+          this.router.navigateByUrl('/dashboard').then(this.relod);
         })
       ),
     { dispatch: false }
@@ -99,6 +99,9 @@ export class AuthEffects {
     { dispatch: false }
   );
 
+  relod() {
+    window.location.reload();
+  }
   constructor(
     private actions$: Actions,
     private localStorageJwtService: LocalStorageJwtService,

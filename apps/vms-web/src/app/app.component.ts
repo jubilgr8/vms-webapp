@@ -57,9 +57,20 @@ export class AppComponent implements OnInit {
         take(1),
         filter((token) => !!token)
       )
-      .subscribe((token) => this.authFacade.auth(token));
+      .subscribe((token) => {
+        if(token == null){
+          this.callPrint(token)
+          this.router.navigate(['/login']);
+        }
+        else{
+          this.callPrint(token);
+        }
+      });
   }
-
+callPrint(token){
+  console.log(token);
+  this.authFacade.auth(token)
+}
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;
   }

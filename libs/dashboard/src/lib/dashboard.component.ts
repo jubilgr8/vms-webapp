@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { AuthFacade } from '@vms/auth';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { filter, takeUntil } from 'rxjs/operators';
 import { DashboardFacade } from './+state/dashboard.facade';
 import { Filter } from './models/filter.model';
 @Component({
@@ -15,13 +16,25 @@ export class DashboardComponent implements OnInit {
   filters: Filter;
   isMapView: boolean = true;
   isLoading: boolean = true;
+  previousUrl: string;
   constructor(
     private authFacade: AuthFacade,
     private dashboardFacade: DashboardFacade,
-    private ref: ChangeDetectorRef
+    private ref: ChangeDetectorRef,
+    private router: Router
+
   ) {}
 
   ngOnInit(): void {
+
+    let currentUrl = this.router.url;
+    this.router.events
+    .pipe(filter(event => event instanceof NavigationEnd))
+    .subscribe((event: NavigationEnd) => {
+      console.log('prev:', event.url);
+      this.previousUrl = event.url;
+    });
+    
     this.dashboardFacade.isLoading$.subscribe((res) => {
       this.isLoading = res;
       this.ref.detectChanges();
