@@ -37,13 +37,13 @@ import { ColorSketchModule } from 'ngx-color/sketch';
           path: '',
           loadChildren: () =>
             import('@vms/dashboard').then((m) => m.DashboardModule),
-          // canActivate: [AuthGuardService],
+          canActivate: [AuthGuardService],
         },
         {
           path: 'dashboard',
           loadChildren: () =>
             import('@vms/dashboard').then((m) => m.DashboardModule),
-          // canActivate: [AuthGuardService],
+          canActivate: [AuthGuardService],
         },
         {
           path: 'vms-admin',
@@ -51,13 +51,13 @@ import { ColorSketchModule } from 'ngx-color/sketch';
             import('@vms/vms-administration').then(
               (m) => m.VmsAdministrationModule
             ),
-          // canActivate: [AuthGuardService],
+          canActivate: [AuthGuardService],
         },
         {
           path: 'user-management',
           loadChildren: () =>
             import('@vms/user-management').then((m) => m.UserManagementModule),
-          // canActivate: [AuthGuardService],
+           canActivate: [AuthGuardService],
         },
         {
           path: 'media-management',
@@ -65,7 +65,7 @@ import { ColorSketchModule } from 'ngx-color/sketch';
             import('@vms/media-management').then(
               (m) => m.MediaManagementModule
             ),
-          // canActivate: [AuthGuardService],
+          canActivate: [AuthGuardService],
         },
         // {
         //   path: 'article/:slug',

@@ -25,10 +25,13 @@ import { VmsMasterComponent } from './vms-master/vms-master.component';
 import { AddNewZoneComponent } from './add-new-zone/add-new-zone.component';
 import { AddVmsComponent } from './add-vms/add-vms.component';
 import { VmsComponent } from './vms/vms.component';
+import { UommasterComponent } from './uommaster/uommaster.component';
 import { AddNewVmsComponent } from './add-new-vms/add-new-vms.component';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { ToastrModule } from 'ngx-toastr';
 import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
+import { AddUomComponent } from './add-uom/add-uom.component';
+
 
 @NgModule({
   imports: [
@@ -42,44 +45,58 @@ import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
         path: 'zone',
         pathMatch: 'full',
         component: ZoneComponent,
-        // canActivate: [AuthGuardService],
+        canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
       {
         path: 'set-zone-access',
         pathMatch: 'full',
         component: ZoneAccessComponent,
-        // canActivate: [AuthGuardService],
+        canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
       {
         path: 'vms-master',
         pathMatch: 'full',
         component: VmsMasterComponent,
-        // canActivate: [AuthGuardService],
+        canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
       {
         path: 'add-new-zone',
         pathMatch: 'full',
         component: AddNewZoneComponent,
-        // canActivate: [AuthGuardService],
+        canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
       {
         path: 'vms',
         pathMatch: 'full',
         component: VmsComponent,
-        // canActivate: [AuthGuardService],
+        canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
       {
         path: 'add-new-vms',
         pathMatch: 'full',
         component: AddNewVmsComponent,
-        // canActivate: [AuthGuardService],
+        canActivate: [AuthGuardService],
         // resolve: { HomeResolverService },
       },
+      {
+        path: 'uom-master',
+        pathMatch: 'full',
+        component: UommasterComponent,
+        canActivate: [AuthGuardService],
+        // resolve: { HomeResolverService },
+      },
+      {
+        path: 'add-new-uom',
+        pathMatch: 'full',
+        component: AddUomComponent,
+        canActivate: [AuthGuardService],
+        // resolve: { HomeResolverService },
+      }
     ]),
     StoreModule.forFeature(adminFeatureKey, adminReducer, {
       initialState: adminInitialState,
@@ -108,6 +125,8 @@ import { EventService } from 'libs/ngrx-forms/src/lib/services/event.service';
     AddVmsComponent,
     VmsComponent,
     AddNewVmsComponent,
+    UommasterComponent,
+    AddUomComponent,
   ],
 })
 export class VmsAdministrationModule {}

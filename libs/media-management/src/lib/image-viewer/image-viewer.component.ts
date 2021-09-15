@@ -51,7 +51,7 @@ imgUrlD :any;
 
   sanitizeImageUrl(imageUrl: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustResourceUrl(
-      'data:video/mp4;base64,' + imageUrl);
+      'data:image/jpeg;base64,' + imageUrl);
 }
 
 }

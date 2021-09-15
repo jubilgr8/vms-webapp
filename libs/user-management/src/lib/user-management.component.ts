@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Validators } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AuthFacade } from '@vms/auth';
 import { Field, NgrxFormsFacade } from '@vms/ngrx-forms';
 import { Observable, Subject } from 'rxjs';
@@ -9,6 +10,7 @@ import { UserFacade } from './+state/user.facade';
 import { UserMaster } from './+state/user.interfaces';
 import { SharedData, UserService } from './user.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'apps/vms-web/src/environments/environment';
 // import { DashboardFacade } from './+state/dashboard.facade';
 @Component({
   selector: 'user-management',
@@ -22,8 +24,9 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   data$: Observable<any>;
   users: UserMaster[];
   singleUser: UserMaster;
+  api_url = environment.api_url;
   isLoading: boolean;
-  constructor(
+  constructor( private http: HttpClient,
     private router: Router,
     private authFacade: AuthFacade,
     private userFacade: UserFacade,
@@ -84,5 +87,12 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  isActiveClick(id,event){
+   
+  }
+  isDapClick(id,event){
+    var isChecked  = event.target.checked;
   }
 }
